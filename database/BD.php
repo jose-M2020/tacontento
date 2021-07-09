@@ -3,7 +3,7 @@
 class DB {
     private static $hostname = 'localhost';
     private static $gestor = 'mysql';
-    private static $database = 'tacontento-oficial';
+    private static $database = 'tacontento';
     private static $db_user = 'root';
     private static $db_password = '';
     private static $db_charset = 'utf8';
