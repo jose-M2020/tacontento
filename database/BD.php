@@ -5,7 +5,7 @@ class DB {
     private static $gestor = 'mysql';
     private static $database = 'tacontento-oficial';
     private static $db_user = 'root';
-    private static $db_password = '';
+    private static $db_password = 'password';
     private static $db_charset = 'utf8';
     private  $conexion;
 
