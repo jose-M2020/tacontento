@@ -21,11 +21,20 @@ mysql -u [username] -p [database_name] < path/to/sql/file.sql
 Replace `[username]` with your MySQL username, `[database_name]` with the desired database name, and `path/to/sql/file.sql` with the actual path to the SQL file.
 
 3. Configure the database connection in `database/BD.php` by providing the appropriate credentials.
+```php
+private static $hostname = 'localhost';
+private static $gestor = 'mysql';
+private static $database = 'your_database_name';
+private static $db_user = 'your_username';
+private static $db_password = 'your_password';
+```
 
 4. Launch the project using a PHP development server:
+- If you have PHP installed globally, navigate to the project's root directory and run the following command:
 ```bash
 php -S localhost:8000
 ```
+- If you are using XAMPP or a similar local development environment, move the project folder to the appropriate web server directory (e.g., htdocs for XAMPP) and access it through the designated URL (e.g., http://localhost/tacontento).
 
 ## Usage
 Ta'contento offers a user-friendly interface that simplifies the process of ordering food and making table reservations. Customers can easily browse the menu, add items to their cart, and proceed with secure online payments. Restaurant staff can manage orders, track reservations, and ensure smooth operations.
