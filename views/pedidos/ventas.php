@@ -8,7 +8,7 @@ require_once 'views/admin/header.php';
     <div class="col-8">
     <h1>Historial de ventas</h1>
     </div>
-    <div class="ml-auto col-4 ">
+    <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">
         <label for="search">
         <label for="dateInicio"><input class="form-control" type="date" name="search" > </label>

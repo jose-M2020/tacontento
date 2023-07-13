@@ -8,7 +8,7 @@ require_once 'header.php';
     <div class="col-8">
       <a href="index.php?page=createoferta" class="btn btn-success pull-rigth ">Registrar oferta</a>
     </div>
-    <div class="ml-auto col-4 ">
+    <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">
         <label for="search">
           <input class="form-control" type="text" name="search" placeholder="Indicio de busqueda">

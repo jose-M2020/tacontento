@@ -8,7 +8,7 @@ require_once 'views/admin/header.php';
     <div class="col-8">
 
     </div>
-    <div class="ml-auto col-4 ">
+    <div class="ms-auto col-4 ">
    
     </div>
   </div>

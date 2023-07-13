@@ -58,7 +58,7 @@ require_once 'views/header.php';
               <input type="submit" class="btn btn-danger" name="cancelar" value="cancelar" />
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
-              <input type="submit" class="btn btn-warning btn-block" name="registrar" target="_blank" value="Registrar" />
+              <input type="submit" class="btn btn-warning d-block w-100" name="registrar" target="_blank" value="Registrar" />
             </div>
           </div>
 

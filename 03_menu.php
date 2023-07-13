@@ -34,7 +34,7 @@ require_once 'controller/ArticuloController.php';
               <!--s-left-->
               <div class="s-right">
                 <h5 class="mb-10"><b> <?php echo $a['nombre'] ?></b><b class="color-primary float-right">$<?php echo $a['precio'] ?></b></h5>
-                <p class="pr-70"><?php echo $a['descripcion'] ?> </p>
+                <p class="pe-70"><?php echo $a['descripcion'] ?> </p>
                 <br>
                 
                 <form style="display: inline;" method="POST" action="index.php?page=addcarrito&id=<?php echo $a['id'] ?>">

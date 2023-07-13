@@ -29,7 +29,7 @@ require_once 'controller/ReservaController.php';
             </div>
             <br>
             <input type="hidden" readonly name="id_cliente" value="<?php echo $_SESSION['cliente']['id'] ?>">
-            <button name="registrar" value="registrar" class="btn btn-success btn-block">Reservar</button>
+            <button name="registrar" value="registrar" class="btn btn-success d-block w-100">Reservar</button>
         </form>
     </div>
 </section>

@@ -44,8 +44,8 @@
                 <label for="inputPassword">Password</label>
               </div>
               <br><br>
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"> Iniciar sesion</button><br>
-              <a class="btn btn-lg btn-facebook btn-block text-uppercase" href="../registrar.php">Registrarse</a>
+              <button class="btn btn-lg btn-google d-block w-100 text-uppercase" type="submit"> Iniciar sesion</button><br>
+              <a class="btn btn-lg btn-facebook d-block w-100 text-uppercase" href="../registrar.php">Registrarse</a>
 
             </form>
 

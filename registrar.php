@@ -65,7 +65,7 @@ require_once 'views/header.php';
 
             </div>
             <br>
-            <button class="btn btn-primary  btn-block" name="cliente" value="cliente">Registrar</button>
+            <button class="btn btn-primary  d-block w-100" name="cliente" value="cliente">Registrar</button>
         </div>
        
     </form>
