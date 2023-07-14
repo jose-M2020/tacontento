@@ -1,6 +1,17 @@
 <?php
 require_once 'views/header.php';
 require_once 'controller/OfertaController.php';
+
+$galleryItems = [
+  'v1.jpg',
+  'h1.jpg',
+  'h2.jpg',
+  'h6.jpg',
+  'h4.jpg',
+  'v3.jpg',
+  'h3.jpg',
+];
+
 ?>
 
 <div id="carouselHero" class="carousel slide" data-bs-ride="carousel">
@@ -76,7 +87,76 @@ require_once 'controller/OfertaController.php';
     <?php endif; ?>
 </section>
 
+<section class="gallery story-area pos-relative">
 
+  <div class="container">
+    <div class="heading faded-text">
+      <h2>Experiencia Gastronómica Inolvidable</h2>
+    </div>
+    <!-- Gallery -->
+    <div class="gallery__content">
+      <?php foreach ($galleryItems as $key => $item) : ?>
+        <div class="gallery__item i<?php  echo ($key+1) ?>">
+          <img
+            class="gallery__img"
+            src="images/gallery/<?php  echo $item ?>"
+            alt=""
+          >
+        </div>
+      <?php endforeach; ?>
+    </div>
+<!-- Gallery -->
+</section>
+
+<section class="story-area  pos-relative">
+    <div class="pos-bottom triangle-up"></div>
+    <div class="pos-top triangle-bottom"></div>
+    <div class="container">
+        <div class="heading">
+
+            <h2>Que dicen nuestros clientes</h2>
+        </div>
+
+        <div class="swiper-container" data-slide-effect="slide" data-autoheight="false" data-swiper-speed="500" data-swiper-margin="25" data-swiper-slides-per-view="3" data-swiper-breakpoints="true" data-scrollbar="true" data-swiper-loop="true" data-swpr-responsive="[1, 2]">
+
+            <div class="swiper-wrapper pb-90 pb-sm-60 left-text center-sm-text">
+                <div class="swiper-slide">
+                    <h4>Azombroso lugar</h4>
+                    <p class="color-ash mb-50 mb-sm-30 mt-20">El mejor lugar que he visitado lo recomiendo mucho excelente. </p>
+                    <img class="circle-60 mb-20 " src="images/quoto-1-200x200.jpg" alt="">
+                    <h6><b class="color-primary">Kenia Sánchez</b>,<b class="color-ash">Cliente</b>
+                    </h6>
+                </div><!-- swiper-slide -->
+
+                <div class="swiper-slide">
+                    <h4>Los mejores tacos, el mejor servicio</h4>
+                    <p class="color-ash mb-50 mb-sm-30 mt-20"> 100% recomendado para toda la familia, lo vuelvo a repetir  100% recomendado</p>
+                    <img class="circle-60 mb-20" src="images/quoto-2-200x200.jpg" alt="">
+                    <h6><b class="color-primary">Santander Rivera</b>,<b class="color-ash">Cliente</b>
+                    </h6>
+                </div><!-- swiper-slide -->
+
+                <div class="swiper-slide">
+                    <h4>Los mejores antojitos en la ciudad</h4>
+                    <p class="color-ash mb-50 mb-sm-30 mt-20">Nunca creí decir esto, pero es lo mejor que hay en la ciudad. </p>
+                    <img class="circle-60 mb-20" src="images/quoto-3-200x200.jpg" alt="">
+                    <h6><b class="color-primary">Juan Angel</b>,<b class="color-ash">Visitante</b></h6>
+                </div><!-- swiper-slide -->
+
+                <div class="swiper-slide">
+                    <h4>Riquisimo</h4>
+                    <p class="color-ash mb-50 mb-sm-30 mt-20">Sin duda alguna mis alumnos son los mejores,
+                     felicidades por no dormir todas las vacaciones, los tkm </p>
+                    <img class="circle-60 mb-20" src="images/quoto-3-200x200.jpg" alt="">
+                    <h6><b class="color-primary">Eduardo Hernandez</b>,<b class="color-ash">Visitante</b>
+                    </h6>
+                </div><!-- swiper-slide -->
+            </div><!-- swiper-wrapper -->
+
+            <div class="swiper-pagination"></div>
+        </div><!-- swiper-container -->
+    </div><!-- container -->
+</section>
 
 
 
