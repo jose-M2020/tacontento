@@ -83,11 +83,11 @@ function enableRadialProgress(){
 
         "use strict";
 
-        // Initiate the wowjs
+        // INITIATE THE WOWJS
         new WOW().init();
 
 
-        // Sticky Navbar
+        // STICKY NAVBAR
         // $(window).scroll(function () {
         // if ($(this).scrollTop() > 45) {
         //         $('header').addClass('sticky-top shadow-sm');
@@ -95,6 +95,33 @@ function enableRadialProgress(){
         //         $('header').removeClass('sticky-top shadow-sm');
         // }
         // });
+
+        // DROPDOWN ON MOUSE HOVER
+        const $dropdown = $(".dropdown");
+        const $dropdownToggle = $(".dropdown-toggle");
+        const $dropdownMenu = $(".dropdown-menu");
+        const showClass = "show";
+        
+        $(window).on("load resize", function() {
+          if (this.matchMedia("(min-width: 992px)").matches) {
+            $dropdown.hover(
+              function() {
+                const $this = $(this);
+                $this.addClass(showClass);
+                $this.find($dropdownToggle).attr("aria-expanded", "true");
+                $this.find($dropdownMenu).addClass(showClass);
+              },
+              function() {
+                const $this = $(this);
+                $this.removeClass(showClass);
+                $this.find($dropdownToggle).attr("aria-expanded", "false");
+                $this.find($dropdownMenu).removeClass(showClass);
+              }
+            );
+          } else {
+            $dropdown.off("mouseenter mouseleave");
+          }
+        });
 
         // ACCORDIAN
 

@@ -1,0 +1,8 @@
+:root{
+  --color-primary: rgb(10, 26, 41);
+  --color-primary-opacity: rgba(10, 26, 41, .6);
+  --color-secondary: rgb(237, 164, 59);
+  --color-secondary-opacity: rgba(10, 26, 41, 0.3);
+  --color-secondary-light: rgb(255, 199, 164);
+  --color-base: rgb(241, 236, 230);
+}
