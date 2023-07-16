@@ -1,15 +1,14 @@
 <?php
-require_once 'views/header.php';
+require_once 'views/components/header.php';
 ?>
-<br>
-<br>
+
+<?php 
+    include "./views/components/hero.php";
+    echo createHero('Mis compras', 'menu.jpg');
+?>
+
 <section class="story-area left-text center-sm-text">
   <div class="container">
-    <div class="heading">
-      <br><br>
-      <h2>Mis compras</h2>
-    </div>
-
     <?php if (!empty($compras)) : ?>
     <div class="table-responsive">
       <table class="table table-bordered table-responsive">
@@ -43,5 +42,5 @@ require_once 'views/header.php';
 
 
 <?php
-require_once 'views/footer.php';
+require_once 'views/components/footer.php';
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once 'views/header.php';
+require_once 'views/components/header.php';
 require_once 'controller/PedidoController.php';
 
 if(!isset($_SESSION)){ 
@@ -11,17 +11,12 @@ if (isset($_SESSION['add_carro'])) {
 } else { }
 ?>
 
-<br><br>
-<br>
-<section class="counter-section section center-text" id="counter">
-    <div class="container">
-        <div class="heading">
+<?php 
+    include "./views/components/hero.php";
+    echo createHero('Carrito de compras', 'menu.jpg');
+?>
 
-            <h2>Carrito de compras</h2>
-        </div>
-    </div><!-- container-->
-</section><!-- counter-section-->
-<div class="container">
+<section class="container" style="min-height: 60vh">
     <div class="table-responsive">
         <table class="table table-bordered">
             <tr>
@@ -91,11 +86,11 @@ if (isset($_SESSION['add_carro'])) {
 
 
     </div>
-</div>
+</section>
 
 
 
 
 <?php
-require_once 'views/footer.php';
+require_once 'views/components/footer.php';
 ?>

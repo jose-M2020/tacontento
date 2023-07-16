@@ -1,14 +1,15 @@
 <?php
-require_once 'views/header.php';
+require_once 'views/components/header.php';
 ?>
 
-<br>
-<br>
+<?php 
+    include "./views/components/hero.php";
+    echo createHero('Acerca de Nosotros', 'about.jpg');
+?>
+
 <section class="story-area left-text center-sm-text">
     <div class="container">
         <div class="heading">
-            <br><br>
-            <h2>Acerca de Nosotros</h2>
             <h5 class="mt-10 mb-30">Conoce más de nosotros</h5>
             <p class="mx-w-700x mlr-auto">Proin dictum viverra varius. Etiam vulputate libero dui, at pretium
                 elit elementum quis. Enean porttitor eros non ultrices convallis.
@@ -36,5 +37,5 @@ require_once 'views/header.php';
 <div class="col-md-12"><img class="mb-30" src="images/mapa.png" alt=""></div>
 </section>
 <?php
-require_once 'views/footer.php';
+require_once 'views/components/footer.php';
 ?>
