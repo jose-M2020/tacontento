@@ -1,3 +1,4 @@
+@import url('variables.css');
 
 /*ejemplo de menu con fixed */
 
@@ -37,17 +38,20 @@ body {
     display: block;
     text-decoration: none;
     line-height: 1em;
-    color: #2c3e5b;
+    color: var(--color-base);
     text-align: left;
     font-size: 1.2em;
     margin-bottom: 1.5em;
-   
-    
+   transition: color .3s;
+}
+
+.a:hover {
+  color: var(--color-secondary);
 }
 
 .nav {
     position: fixed;
-    background: #ECF0F1;
+    background: var(--color-primary);
 
 }
 /* /////////////////////*/

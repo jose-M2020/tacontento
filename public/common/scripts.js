@@ -79,6 +79,50 @@ function enableRadialProgress(){
         });
 }
 
+function clickOutside(element, callback) {
+  $(document).on("click", function(event){
+    const existElement = $(element).length;
+  
+    if(existElement && !$(event.target).closest(element).length){
+       callback()
+    }
+  });
+}
+
+$(function() {
+  // POPOVER
+
+  const togglePopover = $('[data-bs-toggle="popover"]');
+  let currentMenuItem;
+
+  togglePopover.popover({
+    html: true,
+    sanitize: false,
+    trigger: 'click',
+    content: function () { return $('#popover_content_wrapper').html(); }
+  });
+        
+  $(document).on('click', '.popover #close', function() {
+    togglePopover.popover("hide");
+    $('body').removeClass('overlay');
+    currentMenuItem.removeClass('menu__item--active')
+  });
+
+  $(document).on('click', '.menu__item', function() {
+    currentMenuItem = $(this);
+        
+    $('form#addCart').attr('action', `index.php?page=addcarrito&id=${currentMenuItem.data('itemid')}`)
+    $('body').addClass('overlay');
+    $(this).addClass('menu__item--active')
+  });
+
+  clickOutside('.popover', () => {
+    $('body').removeClass('overlay');
+    togglePopover.popover("hide");
+    currentMenuItem.removeClass('menu__item--active')
+  })
+});
+
 (function ($) {
 
         "use strict";
@@ -87,14 +131,14 @@ function enableRadialProgress(){
         new WOW().init();
 
 
-        // STICKY NAVBAR
-        // $(window).scroll(function () {
-        // if ($(this).scrollTop() > 45) {
-        //         $('header').addClass('sticky-top shadow-sm');
-        // } else {
-        //         $('header').removeClass('sticky-top shadow-sm');
-        // }
-        // });
+        // sticky NAVBAR
+        $(window).scroll(function () {
+        if ($(this).scrollTop() > 45) {
+                $('header[data-scroll-effect="true"]').addClass('fixed-top shadow-sm');
+        } else {
+                $('header[data-scroll-effect="true"]').removeClass('fixed-top shadow-sm');
+        }
+        });
 
         // DROPDOWN ON MOUSE HOVER
         const $dropdown = $(".dropdown");
