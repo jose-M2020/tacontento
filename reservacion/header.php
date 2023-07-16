@@ -18,7 +18,7 @@ if (!isset($_SESSION)) {
     <link href="public/plugin-frameworks/bootstrap.min.css" rel="stylesheet">
     <link href="public/plugin-frameworks/swiper.css" rel="stylesheet">
     <link href="public/fonts/ionicons.css" rel="stylesheet">
-    <link href="public/common/styles.css" rel="stylesheet">
+    <link href="public/common/css/styles.css" rel="stylesheet">
     <link href="public/fonts/all.min.css" rel="stylesheet">
 
     <script src="public/common/all.min.js"></script>
@@ -42,7 +42,7 @@ if (!isset($_SESSION)) {
                     <li><a href="index.php?page=compras">COMPRAS</a></li>
                     <li><a href="index.php?page=logout">LOGOUT</a></li>
                 <?php else : ?>
-                    <li><a href="views/login.php">LOGIN</a></li>
+                    <li><a href="views/auth/login.php">LOGIN</a></li>
                 <?php endif; ?>
             </ul>
 

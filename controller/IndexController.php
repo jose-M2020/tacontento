@@ -12,9 +12,9 @@ class IndexController
     public function index()
     {
 
-        require_once('./views/header.php');
+        require_once('./views/components/header.php');
         require_once('home.php');
-        require_once('./views/footer.php');
+        require_once('./views/components/footer.php');
     }
 
     public function dashboard()

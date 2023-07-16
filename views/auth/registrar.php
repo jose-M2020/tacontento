@@ -1,11 +1,10 @@
 <?php
-require_once 'views/header.php';
-
+require_once '../components/header.php';
 ?>
 <body>
     <header>
         <div class="container">
-            <a class="logo" href="index.php"><img src="images/taco.png" alt="Logo"></a>
+            <a class="logo" href="index.php"><img src="../../images/taco.png" alt="Logo"></a>
         </div>
     </header>
     <br><br>
@@ -72,5 +71,5 @@ require_once 'views/header.php';
 </section>  
 </body>
 <?php
-require_once 'views/footer.php';
+require_once '../components/footer.php';
 ?>

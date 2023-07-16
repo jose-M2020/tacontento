@@ -2,6 +2,11 @@
 require_once 'views/admin/header.php';
 ?>
 
+<?php 
+    include "./views/components/hero.php";
+    echo createHero('Reservas', 'menu.jpg');
+?>
+
 <div class="container">
   <h1>Reservas</h1>
   <div class="row">

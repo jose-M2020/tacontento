@@ -4,7 +4,7 @@ class LoginController
 {
     public function login()
     {
-        require_once('./views/login.php');
+        require_once('./views/auth/login.php');
     }
 
     public function loginAcceso()

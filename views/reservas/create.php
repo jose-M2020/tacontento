@@ -1,5 +1,5 @@
 <?php
-require_once 'views/header.php';
+require_once 'views/components/header.php';
 require_once 'controller/ReservaController.php';
 
 ?>
@@ -79,5 +79,5 @@ $reservas = $reservas->obtener2();
     </div>
 </section>
 <?php
-require_once 'views/footer.php';
+require_once 'views/components/footer.php';
 ?>

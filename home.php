@@ -1,15 +1,43 @@
 <?php
-require_once 'views/header.php';
+require_once 'views/components/header.php';
 require_once 'controller/OfertaController.php';
 
 $galleryItems = [
-  'v1.jpg',
-  'h1.jpg',
-  'h2.jpg',
-  'h6.jpg',
-  'h4.jpg',
-  'v3.jpg',
-  'h3.jpg',
+  1 => [
+    'img' => 'v1.jpg',
+    'text' => 'El auténtico sabor del trompo de pastor, ¡una experiencia irresistible!',
+  ],
+  2 => [
+    'img' => 'h1.jpg',
+    'text' => 'La comida que une a tu familia.',
+  ],
+  3 => [
+    'img' => 'h2.jpg',
+    'text' => 'Alimenta tu alma al aire libre.',
+  ],
+  4 => [
+    'img' => 'h6.jpg',
+    'text' => 'Mariachis en vivo. ¡Deleita tus oídos!',
+  ],
+  5 => [
+    'img' => 'h4.jpg',
+    'text' => 'Reserva tu mesa. ¡Saborea la experiencia!',
+  ],
+  6 => [
+    'img' => 'v3.jpg',
+    'text' => 'Encuentra tu lugar en nuestra mesa.',
+  ],
+  7 => [
+    'img' => 'h3.jpg',
+    'text' => '¡Sabores explosivos en cada bocado!',
+  ],
+  // 'v1.jpg',
+  // 'h1.jpg',
+  // 'h2.jpg',
+  // 'h6.jpg',
+  // 'h4.jpg',
+  // 'v3.jpg',
+  // 'h3.jpg',
 ];
 
 ?>
@@ -73,13 +101,15 @@ $galleryItems = [
     ?>
     <?php if (isset($articulos)) : ?>
 
-      <div class="card-group ">
+      <div class="row justify-content-center g-3">
         <?php foreach ($articulos as $a) : ?>
-          <div class="card  col-lg-4 col-md-3 col-sm-12 col-xs-12">
-            <img class="card-img-top " src="storage/<?php echo $a['img'] ?>" alt="Card image cap">
-            <div class="card-footer">
-              <h5 class="card-title"><?php echo $a['titulo'] ?></h5>
-              <p class="card-text"><?php echo $a['descripcion'] ?></p>
+          <div class="col-12 col-md-4 col-lg-3 flex-grow-1 position-relative">
+            <div class="card">
+              <img class="card-img-top " src="storage/<?php echo $a['img'] ?>" alt="Card image cap">
+              <div class="card-footer">
+                <h5 class="card-title"><?php echo $a['titulo'] ?></h5>
+                <p class="card-text"><?php echo $a['descripcion'] ?></p>
+              </div>
             </div>
           </div>
         <?php endforeach; ?>
@@ -96,12 +126,15 @@ $galleryItems = [
     <!-- Gallery -->
     <div class="gallery__content">
       <?php foreach ($galleryItems as $key => $item) : ?>
-        <div class="gallery__item i<?php  echo ($key+1) ?>">
+        <div class="gallery__item i<?php  echo ($key) ?>">
           <img
             class="gallery__img"
-            src="images/gallery/<?php  echo $item ?>"
+            src="images/gallery/<?php  echo $item['img'] ?>"
             alt=""
           >
+          <div class="gallery__info">
+            <span><?php  echo $item['text'] ?></span>
+          </div>
         </div>
       <?php endforeach; ?>
     </div>
@@ -161,5 +194,5 @@ $galleryItems = [
 
 
 <?php
-require_once 'views/footer.php';
+require_once 'views/components/footer.php';
 ?>

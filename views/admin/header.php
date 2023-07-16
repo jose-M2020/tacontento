@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="images/taco.png">
-    <link href="public/plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+    <link href="public/plugin-frameworks/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="public/plugin-frameworks/swiper.css" rel="stylesheet">
     <link href="public/fonts/ionicons.css" rel="stylesheet">
-    <link href="public/common/admin.css" rel="stylesheet">
+    <link href="public/common/css/admin.css" rel="stylesheet">
     <link href="public/fonts/all.min.css" rel="stylesheet">
    <script src="public/common/all.min.js"></script>
 
