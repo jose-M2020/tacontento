@@ -97,30 +97,34 @@ $navItems = [
                 <h1 class="logo-name">Ta'contento</h1>
               </a>
             </div>
-            <ul class="main-menu d-flex align-items-center gap-3" id="main-menu">
+            <button class="faded-text menu-nav-icon" data-menu="#main-menu">
+              <i class="ion-navicon"></i>
+            </button>
+            
+
+            <ul class="main-menu" id="main-menu">
               <li><a class="faded-text" href="index.php?page=homes">INICIO</a></li>
               <li><a class="faded-text" href="03_menu.php">MENU</a></li>
               <li><a class="faded-text" href="index.php?page=services">SERVICIOS</a></li>
               <li><a class="faded-text" href="index.php?page=about">ACERCA</a></li>
               <?php if (isset($_SESSION['cliente'])) : ?>
-                  <li><a class="faded-text" href="index.php?page=carrito"><i class="fa-solid fa-cart-shopping"></i></a></li>                  
-                      <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle faded-text" data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-circle-user"></i>
-                            Cuenta
-                        </a>
-                        <div class="dropdown-menu account dropdown-menu-end m-0">
-                            <a class="dropdown-item faded-text" href="index.php?page=createreserva"><i class="me-3 fa-solid fa-table-list"></i>RESERVAS</a>
-                            <a class="dropdown-item faded-text" href="index.php?page=compras"><i class="me-3 fa-solid fa-utensils"></i>COMPRAS</a>
-                            <li><hr class="dropdown-divider"></li>
-                            <a class="dropdown-item faded-text" href="index.php?page=logout"><i class="me-3 fa-solid fa-right-from-bracket"></i>Cerrar sesión</a>
-                        </div>
-                      </div>
+                <li><a class="faded-text" href="index.php?page=carrito"><i class="fa-solid fa-cart-shopping"></i></a></li>                  
+                <div class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle faded-text" data-bs-toggle="dropdown">
+                      <i class="fa-solid fa-circle-user"></i>
+                      Cuenta
+                  </a>
+                  <div class="dropdown-menu account dropdown-menu-end m-0">
+                      <a class="dropdown-item faded-text" href="index.php?page=createreserva"><i class="me-3 fa-solid fa-table-list"></i>RESERVAS</a>
+                      <a class="dropdown-item faded-text" href="index.php?page=compras"><i class="me-3 fa-solid fa-utensils"></i>COMPRAS</a>
+                      <hr class="dropdown-divider">
+                      <a class="dropdown-item faded-text" href="index.php?page=logout"><i class="me-3 fa-solid fa-right-from-bracket"></i>Cerrar sesión</a>
+                  </div>
+                </div>
               <?php else : ?>
                   <li><a class="faded-text" href="views/auth/login.php">LOGIN</a></li>
               <?php endif; ?>
               <!-- <button class="btn btn-sm btn-primary" type="button">Ordenar</button> -->
             </ul>
-            <a class="faded-text menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
         </div><!-- container -->
     </header>

@@ -65,6 +65,45 @@ $carouselItems = [
       'link' => ''
     ]
   ],
+];
+
+$testimonios = [
+  1 => [
+    'title' => 'Increíble comida y ambiente acogedor.',
+    'comment' => 'Probé el platillo recomendado por el chef y superó todas mis expectativas. Sin duda, uno de los mejores restaurantes de la ciudad.',
+    'user' => [
+      'name'=> 'Kenia Sánchez',
+      'avatar' => 'quoto-1-200x200.jpg',
+      'role' => 'Ingeniera',
+    ],
+  ],
+  2 => [
+    'title' => 'El servicio fue excepcional.',
+    'comment' => 'Los sabores auténticos, la atención amigable y el ambiente acogedor hicieron de nuestra visita a este restaurante una experiencia memorable. ¡Altamente recomendado!',
+    'user' => [
+      'name'=> 'Santander Rivera',
+      'avatar' => 'quoto-2-200x200.jpg',
+      'role' => 'Maestro',
+    ],
+  ],
+  3 => [
+    'title' => 'Fui a celebrar mi aniversario y quedé encantado.',
+    'comment' => ' El ambiente romántico, la atención personalizada y los platos delicadamente preparados hicieron de esta noche una ocasión especial e inolvidable.',
+    'user' => [
+      'name'=> 'Juan Angel',
+      'avatar' => 'quoto-3-200x200.jpg',
+      'role' => 'Manager',
+    ],
+  ],
+  4 => [
+    'title' => 'Tacos deliciosos y auténticos.',
+    'comment' => 'Los tacos que probamos en este restaurante eran simplemente increíbles. La carne estaba perfectamente sazonada, las tortillas eran frescas y blanditas, y los ingredientes complementarios agregaban un sabor espectacular.',
+    'user' => [
+      'name'=> 'Eduardo Hernandez',
+      'avatar' => 'quoto-3-200x200.jpg',
+      'role' => 'Arquitecto',
+    ],
+  ],
 ]
 
 ?>
@@ -164,40 +203,34 @@ $carouselItems = [
             <h2>Que dicen nuestros clientes</h2>
         </div>
 
-        <div class="swiper-container" data-slide-effect="slide" data-autoheight="false" data-swiper-speed="500" data-swiper-margin="25" data-swiper-slides-per-view="3" data-swiper-breakpoints="true" data-scrollbar="true" data-swiper-loop="true" data-swpr-responsive="[1, 2]">
-
+        <div 
+          class="swiper-container"
+          data-slide-effect="slide"
+          data-autoheight="false"
+          data-swiper-speed="500"
+          data-swiper-margin="25"
+          data-swiper-slides-per-view="3"
+          data-swiper-breakpoints="true"
+          data-scrollbar="true"
+          data-swiper-loop="true"
+          data-swpr-responsive="[1, 2]"
+        >
             <div class="swiper-wrapper pb-90 pb-sm-60 left-text center-sm-text">
-                <div class="swiper-slide">
-                    <h4>Azombroso lugar</h4>
-                    <p class="color-ash mb-50 mb-sm-30 mt-20">El mejor lugar que he visitado lo recomiendo mucho excelente. </p>
-                    <img class="circle-60 mb-20 " src="images/quoto-1-200x200.jpg" alt="">
-                    <h6><b class="color-primary">Kenia Sánchez</b>,<b class="color-ash">Cliente</b>
-                    </h6>
-                </div><!-- swiper-slide -->
+                <?php  foreach($testimonios as $item): ?>
+                  <div class="swiper-slide">
+                    <h4><?php echo $item['title'] ?></h4>
+                    <p class="color-ash mb-50 mb-sm-30 mt-20"><?php echo $item['comment'] ?></p>
+                    <div class="d-flex align-items-center gap-2">
+                      <img class="circle-60" src="images/<?php echo $item['user']['avatar'] ?>" alt="">
+                      <div>
+                        <h6 class="color-primary font-13"><?php echo $item['user']['name'] ?></h6>
+                        <span class="color-ash"><?php echo $item['user']['role'] ?></span>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
 
-                <div class="swiper-slide">
-                    <h4>Los mejores tacos, el mejor servicio</h4>
-                    <p class="color-ash mb-50 mb-sm-30 mt-20"> 100% recomendado para toda la familia, lo vuelvo a repetir  100% recomendado</p>
-                    <img class="circle-60 mb-20" src="images/quoto-2-200x200.jpg" alt="">
-                    <h6><b class="color-primary">Santander Rivera</b>,<b class="color-ash">Cliente</b>
-                    </h6>
-                </div><!-- swiper-slide -->
-
-                <div class="swiper-slide">
-                    <h4>Los mejores antojitos en la ciudad</h4>
-                    <p class="color-ash mb-50 mb-sm-30 mt-20">Nunca creí decir esto, pero es lo mejor que hay en la ciudad. </p>
-                    <img class="circle-60 mb-20" src="images/quoto-3-200x200.jpg" alt="">
-                    <h6><b class="color-primary">Juan Angel</b>,<b class="color-ash">Visitante</b></h6>
-                </div><!-- swiper-slide -->
-
-                <div class="swiper-slide">
-                    <h4>Riquisimo</h4>
-                    <p class="color-ash mb-50 mb-sm-30 mt-20">Sin duda alguna mis alumnos son los mejores,
-                     felicidades por no dormir todas las vacaciones, los tkm </p>
-                    <img class="circle-60 mb-20" src="images/quoto-3-200x200.jpg" alt="">
-                    <h6><b class="color-primary">Eduardo Hernandez</b>,<b class="color-ash">Visitante</b>
-                    </h6>
-                </div><!-- swiper-slide -->
+                
             </div><!-- swiper-wrapper -->
 
             <div class="swiper-pagination"></div>
@@ -205,7 +238,47 @@ $carouselItems = [
     </div><!-- container -->
 </section>
 
+<section class="container story-area left-text center-sm-text">
+    <div class="heading">
+      <h2>Contáctanos</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <form>
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" id="form3Example1" class="form-control" placeholder="Nombre" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" id="form3Example2" class="form-control" placeholder="Email" />
+              </div>
+            </div>
+          </div>
 
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="form3Example3" class="form-control" placeholder="Asunto"/>
+          </div>
+
+          <!-- Message input -->
+          <div class="form-outline mb-4">
+            <textarea class="form-control" id="form4Example3" rows="7" placeholder="Mensaje"></textarea>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-lg btn-primary btn-block w-100">Enviar</button>
+        </form>
+      </div>
+      <div class="col-md-7">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3051.4524715572857!2d-99.13267580787318!3d19.446620520294974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f93a51307a9d%3A0xa6428535c81db6d3!2sMorelos%2C%20Mexico%20City%2C%20CDMX!5e0!3m2!1sen!2smx!4v1689563946495!5m2!1sen!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+    </div>
+  </section>
 
 <?php
 require_once 'views/components/footer.php';

@@ -295,7 +295,7 @@ function enableSwiper() {
                                 effect: (swiperSlideEffect ? swiperSlideEffect : 'coverflow'),
                                 fade: {crossFade: swiperCrossFade ? swiperCrossFade : false},
                                 breakpoints: {
-                                        1200: {slidesPerView: swprResponsive[3] ? swprResponsive[3] : 1,},
+                                        1200: {slidesPerView: swprResponsive[3] ? swprResponsive[3] : 2,},
                                         992: {slidesPerView: swprResponsive[2] ? swprResponsive[2] : 1,},
                                         768: {slidesPerView: swprResponsive[1] ? swprResponsive[1] : 1,},
                                         576: {slidesPerView: swprResponsive[0] ? swprResponsive[0] : 1,}

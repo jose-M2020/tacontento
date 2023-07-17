@@ -257,7 +257,10 @@ header .menu-nav-icon {
 /* DROPDOWN MENU STYLING */
 
 header .main-menu {
-        font-size: 1.1em;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 header .main-menu li.drop-down {
@@ -322,9 +325,10 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu {
                 height: 60px;
         }
 
-        header ul.main-menu > li > a {
+        header ul.main-menu > li > a,
+        header ul.main-menu .dropdown > a  {
                 padding: 0 5px;
-                line-height: 60px;
+                line-height: 40px;
         }
 
         /* SEARCH AREA */
@@ -336,13 +340,28 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu {
 
 @media only screen and (max-width: 767px) {
 
-        header { color: #111; }
+        header {
+          color: #111;
+          padding: 15px 0 25px;
+        }
 
         header .right-area { color: #fff; }
 
         /* MAIN MENU */
 
-        header .main-menu { display: none; position: absolute; top: 110px; left: 0; right: 0; float: none; opacity: 0; z-index: 1; height: auto; text-align: left; background: #fff; }
+        header .main-menu { display: none;
+          position: absolute;
+          /* top: 110px; */
+          top: 90px;
+          left: 0;
+          right: 0;
+          float: none;
+          opacity: 0;
+          z-index: 1;
+          height: auto;
+          text-align: left;
+          background: var(--color-primary);
+        }
 
         header .main-menu.visible-menu { display: block; box-shadow: 0 4px 20px -10px rgba(0, 0, 0, .4); animation: full-opacity-anim .2s forwards ease; }
 
@@ -350,7 +369,19 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu {
 
         header .main-menu > li { display: block; }
 
-        header ul.main-menu > li > a { display: block; height: auto; line-height: 1; padding: 15px; border-top: 1px solid #eee; }
+        header ul.main-menu a {
+          display: block;
+          height: auto;
+          line-height: 1;
+          padding: 15px;
+          border-top: 1px solid #162e44;
+          text-align: center;
+        }
+
+        header ul.main-menu .dropdown-menu  {
+          position: relative !important;
+          transform: none !important;
+        }
 
         /* HAMBURGER ICON */
 
@@ -373,13 +404,15 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu {
 
 @media only screen and (max-width: 575px) {
 
-        header { padding: 15px 0 25px; }
-
         header .right-area { width: 100%; float: none; clear: both; border-top: 1px solid rgba(255, 255, 255, .2); border-left: 0; }
 
-        header ul.main-menu > li > a { padding: 15px; }
-
-        header .logo { margin-bottom: 15px; }
+        header ul.main-menu > li > a,
+        header ul.main-menu .dropdown > a 
+        { 
+          padding: 15px;
+        }
+        
+        /* header .logo { margin-bottom: 15px; } */
 
         /* HAMBURGER ICON */
 

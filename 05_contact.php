@@ -33,9 +33,6 @@ require_once 'views/components/header.php';
         </div>
     </div><!-- container -->
 </section>
-<section class="story-area left-text container center-sm-text">
-<div class="col-md-12"><img class="mb-30" src="images/mapa.png" alt=""></div>
-</section>
 <?php
 require_once 'views/components/footer.php';
 ?>
