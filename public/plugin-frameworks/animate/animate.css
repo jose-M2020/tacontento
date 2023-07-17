@@ -11,6 +11,11 @@
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;
+  animation-delay: 1000ms;
+}
+
+.animated.data-delay-100ms {
+  animation-delay: 100ms;
 }
 
 .animated.infinite {

@@ -312,7 +312,7 @@
 
 .ribbon { position: absolute;top: 0;left: 0;right: 0;bottom: 0; z-index: -1; border: 15px solid #F1002A; border-left:  0; border-right: 15px solid transparent;  width:   100%; }
 .ribbon.primary{ border-color: #F1002A; border-right-color:  transparent; }
-.ribbon.secondary{ border-color: #1F8330; border-right-color:  transparent;  }
+.ribbon.secondary{ border-color: var(--color-secondary-light); border-right-color:  transparent;  }
 .ribbon.white{ border-color: #ffffff; border-right-color:  transparent;  }
 
 
@@ -427,7 +427,7 @@
 .brdr-primary-3{ border: 3px solid var(--color-secondary); }
 
 .brdr-style-1{  position: absolute;left: 0; right: 0; bottom: 0; ; z-index: 1; height: 8px; }
-.brdr-style-1:after{ content:''; display: block; height: 60%; background: #1F8330;  z-index: 1; }
+.brdr-style-1:after{ content:''; display: block; height: 60%; background: var(--color-secondary-light);  z-index: 1; }
 .brdr-style-1:before{content:'';  height: 40%; display: block; background: #FFFFFF;  z-index: 1; }
 
 
@@ -466,25 +466,72 @@
 
 /* BUTTON STYLING */
 
-.btn-brdr-primary { text-align: center; height: 45px; line-height: 43px; border: 1px solid var(--color-secondary); color: var(--color-secondary); border-radius: 2px; }
+.btn-brdr-primary { 
+  text-align: center; 
+  height: 45px;
+  line-height: 43px;
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+  border-radius: 2px;
+}
 
-.btn-brdr-primary:hover { background: var(--color-secondary); color: #FFFFFF; }
+.btn-brdr-primary:hover {
+  background: var(--color-secondary);
+  color: #FFFFFF !important;
+}
 
-.btn-primaryc { position: relative; text-align: center; height: 55px; line-height: 50px; background: var(--color-secondary); color: #fff; border-radius: 3px; z-index: 1; }
+.btn-primaryc {
+  position: relative;
+  text-align: center;
+  height: 55px;
+  line-height: 50px;
+  background: var(--color-secondary);
+  color: #fff;
+  border-radius: 3px;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 992px) {
+  .btn-primaryc {
+    height: 40px;
+    line-height: 35px;
+    font-size: .85em;
+  }
+}
 
 .btn-primaryc.secondary{ background: #118522; }
 
-.btn-primaryc:after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: #1F8330; z-index: -2; -webkit-transition: all .1s ease-in;
-        transition: all .1s .1s ease-in; }
+.btn-primaryc:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-secondary-light);
+  z-index: -2;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s .1s ease-in;
+}
 
-.btn-primaryc:before { content: ''; position: absolute; bottom: 3px; left: 0; right: 0; height: 2px; background: #FFFFFF; z-index: -1;
-        -webkit-transition: all .1s  .2s ease-in; transition: all .1s  ease-in; }
+.btn-primaryc:before {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary);
+  z-index: -1;
+  -webkit-transition: all .1s  .2s ease-in;
+  transition: all .1s  ease-in;
+}
 
 .btn-primaryc:hover { color: #111 }
 
 .btn-primaryc:hover:after { height: 100%; }
 
-.btn-primaryc:hover:before { height: 100%;  border: 1px solid #1F8330; }
+.btn-primaryc:hover:before { height: 100%;  border: 1px solid var(--color-secondary-light); }
 
 .btn-brdr-grey { text-align: center; height: 45px; line-height: 43px; border: 1px solid #ccc; border-radius: 2px; }
 
@@ -492,10 +539,10 @@
 
 .btn-fill-primary { text-align: center; height: 55px; line-height: 53px; border: 1px solid var(--color-secondary); background: var(--color-secondary); border-radius: 2px; color: #FFFFFF; }
 
-.btn-fill-primary.secondary {  height: 55px; line-height: 53px; border: 1px solid #1F8330; background: #1F8330; }
+.btn-fill-primary.secondary {  height: 55px; line-height: 53px; border: 1px solid var(--color-secondary-light); background: var(--color-secondary-light); }
 
 .btn-fill-primary:hover { background: none; color: var(--color-secondary); }
-.btn-fill-primary.secondary:hover { background: none; color: #1F8330; }
+.btn-fill-primary.secondary:hover { background: none; color: var(--color-secondary-light); }
 
 .btn-fill-grey { text-align: center; height: 45px; line-height: 43px; border: 1px solid #ccc; background: #ccc; border-radius: 2px; color: #111; }
 

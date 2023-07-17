@@ -40,52 +40,67 @@ $galleryItems = [
   // 'h3.jpg',
 ];
 
+$carouselItems = [
+  1 => [
+    'title' => '¡Eventos y Música en Vivo para Disfrutar!',
+    'bgImage' => 'slider1.jpg',
+    'button' => [
+      'text' => 'RESERVAR MESA',
+      'link' => '#ofertas'
+    ]
+  ],
+  2 => [
+    'title' => 'Sabores Auténticos, Preparados con Pasión',
+    'bgImage' => 'slider2.jpg',
+    'button' => [
+      'text' => 'VER MENÚ Y ORDENAR',
+      'link' => ''
+    ]
+  ],
+  3 => [
+    'title' => 'Descubre nuestra amplia variedad de opciones en el menú',
+    'bgImage' => 'slider3.jpg',
+    'button' => [
+      'text' => 'VER MENÚ Y ORDENAR',
+      'link' => ''
+    ]
+  ],
+]
+
 ?>
 
 <div id="carouselHero" class="carousel slide" data-bs-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-bs-target="#carouselHero" data-bs-slide-to="0" class="active"></li>
-    <li data-bs-target="#carouselHero" data-bs-slide-to="1"></li>
-    <li data-bs-target="#carouselHero" data-bs-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="images/slider1.jpg" alt="First slide">
-      <div class="carousel-caption d-none h-30 align-items-center justify-content-center d-none d-lg-block">
-        <h3 class="p-slider">TACO: EL ARTE DE COMER CON TORTILLA</h3>
-        <div class="pos-bottom triangle-up"></div>
-        <div class="pos-top triangle-bottom"></div>
-        <h5><a href="#ofertas" class="btn-primaryc plr-25"><b>VER OFERTAS</b></a></h5>
+  <div class="carousel-inner shadow-4-strong">
+    <?php foreach ($carouselItems as $key => $item) : ?>
+      <div class="carousel-item <?php if($key === 1) echo 'active' ?>">
+        <img class="d-block w-100" src="images/carousel/<?php echo $item['bgImage'] ?>" alt="First slide">
+        <div class="carousel-caption d-none align-items-center justify-content-center d-none d-lg-block">
+          <div class="container position-relative">
+            <div class="main mb-50">
+              <h3 class="p-slider animated fadeInRight mb-15"><?php echo $item['title'] ?></h3>
+              <h5 class="animated fadeInRight data-delay-100ms" data-delay="100ms">
+                <a href="<?php echo $item['button']['link'] ?>" class="btn-primaryc plr-25 plr-md-10"><b><?php echo $item['button']['text'] ?></b></a>
+              </h5>
+            </div>
+            <div class="carousel-controls d-flex align-items-center animated fadeIn">
+              <span class="me-25">
+                <b class="font-20 color-primary">0<?php echo $key ?></b>
+                /0<?php echo(count($carouselItems)) ?>
+              </span>
+              <button class="font-16 me-15" type="button" data-bs-target="#carouselHero" data-bs-slide="prev">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="font-16" type="button" data-bs-target="#carouselHero" data-bs-slide="next">
+                <i class="fa-solid fa-arrow-right-long"></i>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="images/slider2.jpg" alt="Second slide">
-      <div class="carousel-caption d-none h-30 align-items-center justify-content-center   d-none d-md-block">
-        <h3 class="p-slider">¡EL TACO, TA´ CONTENTO! </h3>
-
-        <div class="pos-bottom triangle-up"></div>
-        <div class="pos-top triangle-bottom"></div>
-        <h5><a href="#ofertas" class="btn-primaryc plr-25"><b>VER OFERTAS</b></a></h5>
-      </div>
-    </div>
-    <div class="carousel-item ">
-      <img class="d-block w-100" src="images/slider3.jpg" alt="Third slide">
-      <div class="carousel-caption d-none h-30 align-items-center justify-content-center   d-none d-lg-block">
-        <h3 class="p-slider">¿Y TÚ ERES O NO ERES TACO FAN?</h3>
-        <div class="pos-bottom triangle-up"></div>
-        <div class="pos-top triangle-bottom"></div>
-        <h5><a href="#ofertas" class="btn-primaryc plr-25"><b>VER OFERTAS</b></a></h5>
-      </div>
-    </div>
+    <?php endforeach; ?>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHero" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselHero" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
 
 
@@ -103,7 +118,7 @@ $galleryItems = [
 
       <div class="row justify-content-center g-3">
         <?php foreach ($articulos as $a) : ?>
-          <div class="col-12 col-md-4 col-lg-3 flex-grow-1 position-relative">
+          <div class="col-12 col-md-4 col-lg-3 flex-grow-1 position-relative wow fadeIn">
             <div class="card">
               <img class="card-img-top " src="storage/<?php echo $a['img'] ?>" alt="Card image cap">
               <div class="card-footer">
@@ -117,16 +132,15 @@ $galleryItems = [
     <?php endif; ?>
 </section>
 
+<!-- Gallery -->
 <section class="gallery story-area pos-relative">
-
   <div class="container">
     <div class="heading faded-text">
       <h2>Experiencia Gastronómica Inolvidable</h2>
     </div>
-    <!-- Gallery -->
     <div class="gallery__content">
       <?php foreach ($galleryItems as $key => $item) : ?>
-        <div class="gallery__item i<?php  echo ($key) ?>">
+        <div class="gallery__item i<?php  echo ($key) ?> wow fadeInUp" data-wow-delay="<?php echo $key*100 ?>ms">
           <img
             class="gallery__img"
             src="images/gallery/<?php  echo $item['img'] ?>"
