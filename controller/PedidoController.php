@@ -202,7 +202,7 @@ class PedidoController
     public function addcarrito()
     {
         if (!isset($_SESSION['cliente'])) {
-            header('Location: views/auth/login.php');
+            header('Location: views/auth/');
         } else {
             $id = $_GET['id'];
             $cantidad = $_POST['cant'];

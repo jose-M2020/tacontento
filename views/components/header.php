@@ -122,7 +122,7 @@ $navItems = [
                   </div>
                 </div>
               <?php else : ?>
-                  <li><a class="faded-text" href="views/auth/login.php">LOGIN</a></li>
+                  <li><a class="faded-text" href="views/auth">LOGIN</a></li>
               <?php endif; ?>
               <!-- <button class="btn btn-sm btn-primary" type="button">Ordenar</button> -->
             </ul>

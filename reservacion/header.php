@@ -42,7 +42,7 @@ if (!isset($_SESSION)) {
                     <li><a href="index.php?page=compras">COMPRAS</a></li>
                     <li><a href="index.php?page=logout">LOGOUT</a></li>
                 <?php else : ?>
-                    <li><a href="views/auth/login.php">LOGIN</a></li>
+                    <li><a href="views/auth">LOGIN</a></li>
                 <?php endif; ?>
             </ul>
 
