@@ -44,7 +44,7 @@ $error = function ($field) {
 
             </div>
             <div class="col-3">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                     Cambiar imagen de perfil
                 </button>
                 
@@ -52,7 +52,7 @@ $error = function ($field) {
         <?php else : ?>
 
             <div class="col-4">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                     Elegir foto de perfil
                 </button>
             </div>
@@ -65,12 +65,12 @@ $error = function ($field) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Imagen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <input type="file" name="img" class="form-control-file" id="exampleFormControlFile1">
             </div>
         </div>

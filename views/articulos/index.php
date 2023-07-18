@@ -40,7 +40,7 @@ require_once 'views/admin/header.php';
             <td>
               <a href="index.php?page=editarticulo&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Editar</a>
 
-              <button type="button" class=" btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#modal<?php echo $u['id'] ?>">
+              <button type="button" class=" btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal<?php echo $u['id'] ?>">
                 Eliminar
               </button>
             </td>
@@ -75,12 +75,12 @@ require_once 'views/admin/header.php';
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">¿Desea eliminar?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
           <form style="display: inline;" method="POST" action="index.php?page=destroyarticulo&id=<?php echo $u['id'] ?>">
             <button type="submit" id="delete" class=" btn btn-danger" name="eliminar">Eliminar</button>

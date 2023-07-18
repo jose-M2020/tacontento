@@ -226,7 +226,7 @@ header .logo img {
         width: auto;
 }
 
-header ul.main-menu > li > a {
+header ul.main-menu > li {
         height: 100%;
         line-height: 70px;
         /* padding: 0px 10px; */

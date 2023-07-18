@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="images/taco.png">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Dosis:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="public/plugin-frameworks/animate/animate.min.css" rel="stylesheet">
+    
     <link href="public/plugin-frameworks/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="public/plugin-frameworks/swiper.css" rel="stylesheet">
     <link href="public/fonts/ionicons.css" rel="stylesheet">
@@ -13,7 +20,7 @@
     <link href="public/fonts/all.min.css" rel="stylesheet">
    <script src="public/common/all.min.js"></script>
 
-    <title>TACONTENTO</title>
+    <title>ADMIN - TACONTENTO</title>
 </head>
 <body>
     <nav class="nav">

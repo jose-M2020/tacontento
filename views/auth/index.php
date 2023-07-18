@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-  <title>TACONTENTO</title>
+  <title>Ingresar  - TACONTENTO</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
+  <link rel="shortcut icon" href="../../images/taco.png">
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,79 +34,79 @@
       </div>    
     </div>
   </header>
-  <div class="container form form--login d-flex justify-content-center align-items-center mt-25">
-    <div class="w-100">
-      <div class="row w-100 justify-content-center">
-        <div class="form__content col-md-12 col-lg-10 d-flex p-0">
-          <div class="w-md-50 form__register">
-            <div class="form__info">
-              <h2 class="mb-20 ">Crear una cuenta</h2>
-              <button class="btn btn-lg btn-primary" data-toggle="true">Registrarme</button>
-              
-            </div>
-            <?php require_once './registrar.php' ?>
-          </div>
-          <div class="w-md-50 form__login form--active">
-            <div class="form__info">
-              <button class="btn btn-lg btn-primary" data-toggle="true">Iniciar Sesión</button>
-              
-            </div>
-            <?php require_once './login.php' ?>
-          </div>
+  <div class="container form form--login d-flex justify-content-center align-items-center mtb-25">
+    <div class="row w-100 justify-content-center">
+      <div class="form__content col-12 col-xl-10 d-block d-md-flex p-0">
+        <div class="w-sm-100 w-50 form__register">
+          <div class="form__info p-10">
+            <div class="w-md-100 w-70">
+              <p>¡Bienvenido de vuelta a tu experiencia culinaria personalizada!</p>
 
-        
-          <!-- <div class="form__overlay w-50">
-            <div class="form__overlay-content form__overlay-login">
-              <button class="btn btn-lg btn-primary" data-toggle="true">Iniciar Sesión</button>
-              
-            </div>
-            <div class="form__overlay-content form__overlay-register">
-              <button class="btn btn-lg btn-primary" data-toggle="true">Registrarme</button>
-              
             </div>
           </div>
-          <div class="form__card w-50">
-            <div class="card form__login">
-              <div class="card-body">
-                <h5 class="card-title text-center">Iniciar Sesión</h5>
-                <form action="../../index.php?page=accseso" method="POST" class="form-signin">
-                  <div class="form-label-group">
-                    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
-                    <label for="inputEmail">Email address</label>
-                  </div>
-                  <br>
-                  <div class="form-label-group">
-                    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-                    <label for="inputPassword">Password</label>
-                  </div>
-                  <br><br>
-                  <button class="btn btn-lg btn-primary d-block w-100 text-uppercase" type="submit"> Iniciar sesion</button><br>    
-                </form>
-              </div>
-            </div>
-            <div class="card form__register">
-              <div class="card-body">
-                <h5 class="card-title text-center">Registro</h5>
-                <form action="../../index.php?page=accseso" method="POST" class="form-signin">
-                  <div class="form-label-group">
-                    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
-                    <label for="inputEmail">Email address</label>
-                  </div>
-                  <br>
-                  <div class="form-label-group">
-                    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-                    <label for="inputPassword">Password</label>
-                  </div>
-                  <br><br>
-                  <button class="btn btn-lg btn-primary d-block w-100 text-uppercase" type="submit">Registrarme</button><br>    
-                </form>
-              </div>
-            </div>
-          </div> -->
-        
+          <?php require_once './registrar.php' ?>
         </div>
-      </div>
+        <div class="w-sm-100 w-50 form__login form--active">
+          <div class="form__info p-10">
+            <div class="w-md-100 w-70">
+              <p>Únete a nosotros y descubre una nueva forma de disfrutar la comida: fácil, rápida y a tu gusto.</p>
 
+            </div>
+          </div>
+          <?php require_once './login.php' ?>
+        </div>
+
+      
+        <!-- <div class="form__overlay w-50">
+          <div class="form__overlay-content form__overlay-login">
+            <button class="btn btn-lg btn-primary" data-toggle="true">Iniciar Sesión</button>
+            
+          </div>
+          <div class="form__overlay-content form__overlay-register">
+            <button class="btn btn-lg btn-primary" data-toggle="true">Registrarme</button>
+            
+          </div>
+        </div>
+        <div class="form__card w-50">
+          <div class="card form__login">
+            <div class="card-body">
+              <h5 class="card-title text-center">Iniciar Sesión</h5>
+              <form action="../../index.php?page=accseso" method="POST" class="form-signin">
+                <div class="form-label-group">
+                  <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
+                  <label for="inputEmail">Email address</label>
+                </div>
+                <br>
+                <div class="form-label-group">
+                  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                  <label for="inputPassword">Password</label>
+                </div>
+                <br><br>
+                <button class="btn btn-lg btn-primary d-block w-100 text-uppercase" type="submit"> Iniciar sesion</button><br>    
+              </form>
+            </div>
+          </div>
+          <div class="card form__register">
+            <div class="card-body">
+              <h5 class="card-title text-center">Registro</h5>
+              <form action="../../index.php?page=accseso" method="POST" class="form-signin">
+                <div class="form-label-group">
+                  <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
+                  <label for="inputEmail">Email address</label>
+                </div>
+                <br>
+                <div class="form-label-group">
+                  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                  <label for="inputPassword">Password</label>
+                </div>
+                <br><br>
+                <button class="btn btn-lg btn-primary d-block w-100 text-uppercase" type="submit">Registrarme</button><br>    
+              </form>
+            </div>
+          </div>
+        </div> -->
+      
+      </div>
     </div>
   </div>
 

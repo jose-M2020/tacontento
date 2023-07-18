@@ -4,6 +4,15 @@
   background-color: var(--color-secondary) !important;
   color: var(--color-base) !important;
   border: none;
+  transition: .3s;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  color: var(--color-base) !important;
+  background-color: var(--color-primary-light) !important;
+  box-shadow: 0 0 5px var(--color-primary) !important;
+  transform: scalex(1.02);
 }
 
 .faded-text, .faded-text p, .faded-text a{
@@ -1165,6 +1174,7 @@
 
 }
 
+@media only screen and (max-width: 992px) {
   .w-md-auto {
           width: auto !important;
   }
@@ -1373,6 +1383,7 @@
   .mx-w-md-400x {
           max-width: 400px !important;
   }
+}
 
 @media only screen and (max-width: 767px) {
 

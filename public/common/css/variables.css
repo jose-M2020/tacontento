@@ -1,7 +1,8 @@
 :root{
   --color-primary: rgb(10, 26, 41);
+  --color-primary-light: rgb(32, 63, 90);
   --color-primary-opacity: rgba(10, 26, 41, .8);
-  --color-primary-opacity-high: rgba(24, 49, 72, 0.3);
+  --color-primary-opacity-high: rgba(51, 81, 109, 0.3);
   --color-primary-opacity-low: rgba(10, 26, 41, .93);
   --color-secondary: rgb(237, 164, 59);
   --color-secondary-opacity: rgba(237, 164, 59, 0.7);
