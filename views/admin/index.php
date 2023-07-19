@@ -6,14 +6,14 @@ require_once 'header.php';
   <h1>Oferta</h1>
   <div class="row">
     <div class="col-8">
-      <a href="index.php?page=createoferta" class="btn btn-success pull-rigth ">Registrar oferta</a>
+      <a href="index.php?page=createoferta" class="btn btn-primary pull-rigth ">Registrar oferta</a>
     </div>
     <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">
         <label for="search">
           <input class="form-control" type="text" name="search" placeholder="Indicio de busqueda">
         </label>
-        <button  class="btn btn-primary" type="submit" name="page" value="dashboard" >Buscar </button>
+        <button  class="btn btn-secondary" type="submit" name="page" value="dashboard" >Buscar </button>
       </form>
     </div>
   </div>

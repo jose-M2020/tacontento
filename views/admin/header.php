@@ -1,3 +1,40 @@
+
+<?php 
+
+$navItems = [
+    0 => [
+        'name' => 'Ofertas',
+        'icon' => 'fas fa-gifts',
+        'page' => 'dashboard',
+    ],
+    1 => [
+        'name' => 'Pedidos',
+        'icon' => 'fas fa-clipboard-list',
+        'page' => 'pedido',
+    ],
+    2 => [
+        'name' => 'Reservas',
+        'icon' => 'fas fa-concierge-bell',
+        'page' => 'reservas',
+    ],
+    3 => [
+        'name' => 'Menú',
+        'icon' => 'fas fa-clipboard',
+        'page' => 'articulo',
+    ],
+    4 => [
+        'name' => 'Ventas',
+        'icon' => 'far fa-credit-card',
+        'page' => 'venta',
+    ],
+    5 => [
+        'name' => 'Clientes',
+        'icon' => 'fas fa-address-card',
+        'page' => 'usuario',
+    ]
+];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,20 +62,31 @@
 <body>
     <nav class="nav">
        
-        <ul class="menu-fixed">
-        <div class=" ">
-            <img style="width:80px"  src="images/taco.png" alt="">
-            <span>TACONTENTO</span>
+      <div class="d-flex flex-column menu-fixed">
+        <div class="logo d-flex align-items-center mb-30">
+            <img style="width:50px"  src="images/taco.png" alt="">
+            <span class="logo-name">TA'CONTENTO</span>
         </div>
-        <br>
-            <li class="li"><a class="a" href="index.php?page=dashboard"><i class="  fas fa-gifts"></i> Ofertas</a></li>
-            <li class="li"><a class="a" href="index.php?page=pedido"><i class=" fas fa-clipboard-list"></i> Pedidos</a></li>
-            <li class="li"><a class="a" href="index.php?page=reservas"><i class="fas fa-concierge-bell"></i></i> Reservas</a></li>
-            <li class="li"><a class="a" href="index.php?page=articulo"><i class=" fas fa-clipboard"></i> Menú</a></li>
-            <li class="li"><a class="a" href="index.php?page=venta"><i class="  far fa-credit-card"></i> Ventas</a></li>
-            <li class="li"><a class="a" href="index.php?page=usuario"> <i class=" fas fa-address-card"></i> Clientes</a></li>
-            <li class="li"><a class="a" href="index.php?page=logout"> <i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <ul class="ps-0 mb-auto">
+            <?php foreach($navItems as $item) : ?>
+              <li class="li">
+                <a class="nav__a <?php if($_GET['page'] === $item['page']) echo 'active'; ?>" href="index.php?page=<?php echo $item['page'] ?>">
+                  <span class="icon"><i class="<?php echo $item['icon'] ?>"></i></span>
+                  <?php echo $item['name'] ?>
+                </a>
+              </li>
+            <?php endforeach ; ?>
         </ul>
+        <div class="li">
+          <a class="nav__a" href="index.php?page=logout">
+            <span><i class="fas fa-sign-out-alt"></i></span>
+            Logout
+          </a>
+        </div>
+      </div>
     </nav>
 
+    <!-- <span style="color: #fff">
+      <i class="fas fa-bars"></i>
+    </span> -->
     <main class="contenedor">
