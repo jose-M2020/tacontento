@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 
 $page = $_GET['page'];
 
@@ -89,3 +89,5 @@ if (!empty($page)) {
 } else {
   header('Location: home.php');
 }
+
+ob_end_flush();
