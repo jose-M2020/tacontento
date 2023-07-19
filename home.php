@@ -104,6 +104,27 @@ $testimonios = [
       'role' => 'Arquitecto',
     ],
   ],
+];
+
+$meals = [
+  0 => [
+    'name' => 'Desayunos',
+    'description' => 'Disfruta de una variedad de opciones deliciosas para comenzar tu día con energía. Desde platos clásicos hasta creaciones únicas, tenemos algo para todos los paladares.',
+    'schedule' => '8:00 am - 11:00 pm',
+    'icon' => 'fa-solid fa-mug-saucer'
+  ],
+  1 => [
+    'name' => 'Comidas',
+    'description' => 'Nuestra selección de comidas ofrece una amplia gama de platillos sabrosos y nutritivos. Donde encontrarás el equilibrio perfecto para una comida satisfactoria.',
+    'schedule' => '12:00 pm - 5:00 pm',
+    'icon' => 'fa-solid fa-bowl-food'
+  ],
+  2 => [
+    'name' => 'Cenas',
+    'description' => 'Sumérgete en una experiencia culinaria excepcional con nuestras opciones de cena. Desde platos sofisticados hasta sabores reconfortantes, te invitamos a disfrutar de una cena inolvidable con nosotros.',
+    'schedule' => '5:00 pm - 9:00 pm',
+    'icon' => 'fa-solid fa-burger'
+  ],
 ]
 
 ?>
@@ -142,6 +163,32 @@ $testimonios = [
   </div>
 </div>
 
+<section class="container">
+  <div class="heading">
+    <h2>Principales Comidas</h2>
+  </div>
+  <div class="row justify-content-center">
+    <?php foreach($meals as $item) : ?>
+      <div class="col-md-4 col-xl-3 mb-sm-60 mb-md-0 wow fadeIn">
+        <div class="position-relative h-100">
+          <div class="position-absolute top-0 start-50 translate-middle bg-secondary text-white p-15 rounded-circle">
+            <i class="<?php echo $item['icon'] ?> font-23"></i>
+          </div>
+          <div class="card text-center shadow h-100">
+            <div class="card-body d-flex flex-column mt-25">
+              <h5 class="card-title"><?php echo $item['name'] ?></h5>
+              <p class="card-text mb-15 flex-grow-1"><?php echo $item['description'] ?></p>
+              <a href="03_menu.php" class="btn btn-primary">Ver menú</a>
+            </div>
+            <div class="card-footer text-muted">
+              <?php echo $item['schedule'] ?>
+            </div>
+          </div>  
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</section>
 
 <section class="story-area  pos-relative" id="ofertas">
 
@@ -175,7 +222,7 @@ $testimonios = [
 <section class="gallery story-area pos-relative">
   <div class="container">
     <div class="heading faded-text">
-      <h2>Experiencia Gastronómica Inolvidable</h2>
+      <h2>Nuestro restaurante</h2>
     </div>
     <div class="gallery__content">
       <?php foreach ($galleryItems as $key => $item) : ?>
@@ -217,7 +264,7 @@ $testimonios = [
         >
             <div class="swiper-wrapper pb-90 pb-sm-60 left-text center-sm-text">
                 <?php  foreach($testimonios as $item): ?>
-                  <div class="swiper-slide">
+                  <div class="swiper-slide wow fadeIn">
                     <h4><?php echo $item['title'] ?></h4>
                     <p class="color-ash mb-50 mb-sm-30 mt-20"><?php echo $item['comment'] ?></p>
                     <div class="d-flex align-items-center gap-2">

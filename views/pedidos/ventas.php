@@ -13,7 +13,7 @@ require_once 'views/admin/header.php';
         <label for="search">
         <label for="dateInicio"><input class="form-control" type="date" name="search" > </label>
         </label>
-        <button  class="btn btn-primary" type="submit" name="page" value="venta" >Buscar </button>
+        <button  class="btn btn-secondary" type="submit" name="page" value="venta" >Buscar </button>
       
       </form>
     </div>

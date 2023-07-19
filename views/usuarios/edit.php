@@ -5,7 +5,7 @@ require_once 'views/admin/header.php';
 
     <?php include_once "form.php" ?>
     
-    <button type="submit" class="btn btn-primary d-block w-100" name="editar">Actualizar</button>
+    <button type="submit" class="btn btn-primary" name="editar">Actualizar</button>
 
     <?php if (isset($_SESSION['mensaje'])) : ?>
         <div class="alert alert-success" role="alert">

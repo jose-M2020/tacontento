@@ -4,9 +4,10 @@ class LoginController
 {
     public function login()
     {
-        require_once('./views/auth/index.php');
+        // require_once('./views/auth/index.php');
+        header('Location: views/auth/');
     }
-
+    
     public function loginAcceso()
     {
 

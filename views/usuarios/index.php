@@ -6,14 +6,14 @@ require_once 'views/admin/header.php';
   <h1>Clientes</h1>
   <div class="row">
     <div class="col-8">
-      <a href="index.php?page=createusuario" class="btn btn-success pull-rigth ">Registrar cliente</a>
+      <a href="index.php?page=createusuario" class="btn btn-primary pull-rigth ">Registrar cliente</a>
     </div>
     <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">
         <label for="search">
           <input class="form-control" type="text" name="search" placeholder="Indicio de busqueda">
         </label>
-        <input class="btn btn-primary" type="submit" name="page" value="usuario">
+        <input class="btn btn-secondary" type="submit" name="page" value="usuario">
       </form>
     </div>
   </div>

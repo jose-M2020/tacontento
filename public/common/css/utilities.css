@@ -298,6 +298,7 @@
 .bg-191 { background: #191919; }
 
 .bg-primary { background: var(--color-secondary) !important; }
+.bg-secondary { background: var(--color-primary) !important; }
 
 .bg-2-white { background: #F2F2F2; }
 
@@ -4059,6 +4060,10 @@
   .mb-md-50 {
           margin-bottom: 50px !important;
   }
+  
+  .mb-md-60 {
+          margin-bottom: 60px !important;
+  }
 
   .mt-md-0 {
           margin-top: 0px !important;
@@ -4398,6 +4403,10 @@
 
   .mb-sm-50 {
           margin-bottom: 50px !important;
+  }
+  
+  .mb-sm-60 {
+          margin-bottom: 60px !important;
   }
 
   .mt-sm-0 {

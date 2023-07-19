@@ -7,7 +7,7 @@ require_once 'views/admin/header.php';
     
     <?php include_once "form.php" ?>
 
-    <button class="btn btn-primary d-block w-100" name="registrar">Registrar</button>
+    <button class="btn btn-primary" name="registrar">Registrar</button>
 
     <?php if (isset($_SESSION['mensaje-articulo'])): ?>
       <div class="alert alert-success" role="alert">

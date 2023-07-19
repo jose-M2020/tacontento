@@ -1,21 +1,52 @@
 @import url('variables.css');
+@import url('utilities.css');
+
+
+:root {
+  --width-sidebar: 250px;
+}
 
 /*ejemplo de menu con fixed */
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-family: var(--primary-font-family);
+    font-family: var(--secondary-font-family);
+    font-weight: 600;
     background: #fafafa;
 
 }
+
+h1, h2, h3, h4, h5, h6 { 
+  line-height: 1.2;
+  font-weight: inherit; 
+  font-family: var(--primary-font-family);
+  font-weight: normal;
+}
+
 .nav {
     position: fixed;
-    width: 14%;
+    /* width: 14%; */
+    width: var(--width-sidebar);
     height: 100%;
     top: 0;
     left: 0;
     overflow: auto;
     
 }
+
+.nav .logo-name{
+    font-size: 1.5rem;
+    margin-left: 8px;
+    color: var(--color-secondary-light);
+    font-family: var(--primary-font-family);
+}
+
+.nav .icon {
+    display: inline-block;
+    width: 30px;
+}
+
 .header{
     font-size: 1.3em;
     padding: 1em;
@@ -32,21 +63,36 @@ body {
   
 }
 .menu-fixed{
-    padding: 2em;
+    padding: 1.4em;
 }
-.a {
-    display: block;
-    text-decoration: none;
-    line-height: 1em;
-    color: var(--color-base);
-    text-align: left;
-    font-size: 1.2em;
-    margin-bottom: 1.5em;
-   transition: color .3s;
+.nav .nav__a{
+  display: block;
+  position: relative;
+  text-decoration: none;
+  line-height: 1em;
+  color: var(--color-base);
+  text-align: left;
+  font-size: 1.2em;
+  padding: 15px;
+  transition: color .3s;
 }
 
-.a:hover {
+.nav .nav__a.active::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 8px;
+  background-color: var(--color-secondary);
+}
+
+.nav .nav__a.active  {
   color: var(--color-secondary);
+}
+.nav .nav__a:hover {
+  color: var(--color-secondary-light);
 }
 
 .nav {
@@ -86,7 +132,7 @@ body {
 
 /*contenido principal*/
 .contenedor{
-    margin-left: 16%;
+    margin-left: var(--width-sidebar);
     padding-top: 3em;
 }
 
@@ -97,8 +143,7 @@ body {
     color: red;
 }
 .photo-perfil-edit{
-    width: 180px;
-    height: 230px;
+    width: 100%;
 }
 .fecha{
     font-size: 1.5em;

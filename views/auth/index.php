@@ -44,7 +44,7 @@
 
             </div>
           </div>
-          <?php require_once './registrar.php' ?>
+          <?php require_once 'registrar.php' ?>
         </div>
         <div class="w-sm-100 w-50 form__login form--active">
           <div class="form__info p-10">
@@ -53,7 +53,7 @@
 
             </div>
           </div>
-          <?php require_once './login.php' ?>
+          <?php require_once 'login.php' ?>
         </div>
 
       

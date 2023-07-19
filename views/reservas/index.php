@@ -2,11 +2,6 @@
 require_once 'views/admin/header.php';
 ?>
 
-<?php 
-    include "./views/components/hero.php";
-    echo createHero('Reservas', 'menu.jpg');
-?>
-
 <div class="container">
   <h1>Reservas</h1>
   <div class="row">
@@ -18,7 +13,7 @@ require_once 'views/admin/header.php';
         <label for="search">
         <label for="dateInicio"><input class="form-control" type="date" name="search" > </label>
         </label>
-        <button  class="btn btn-primary" type="submit" name="page" value="reservas" >Buscar </button>
+        <button  class="btn btn-secondary" type="submit" name="page" value="reservas" >Buscar </button>
       
       </form>
     </div>
