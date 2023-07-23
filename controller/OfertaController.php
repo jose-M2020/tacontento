@@ -44,13 +44,16 @@ class OfertaController
     }
 
     public function store()
-    {  session_start();
+    {  
+        session_start();
+
+        if(empty($_POST) && $_SERVER['REQUEST_METHOD'] !== 'POST') exit;
         if(!isset($_SESSION['usuario'])){
             header('Location: home.php');
         }
+
         $file = new Utilidades();
         if (isset($_POST['registrar'])) {
-    
             $img = $file->uploadFile('storage','img');
             $datos = array(
                 'titulo' => $_POST['titulo'],
@@ -61,7 +64,6 @@ class OfertaController
             $createarticulo = new Oferta();
             $createarticulo->storeoferta($datos);
             require_once('./views/admin/create.php');
-            unset ($_SESSION['mensaje-oferta']);
         } else {
             require_once('./views/admin/create.php');
         }
@@ -80,7 +82,8 @@ class OfertaController
     }
 
     public function update()
-    {  session_start();
+    {  
+        session_start();
         if(!isset($_SESSION['usuario'])){
             header('Location: home.php');
         }
@@ -103,7 +106,6 @@ class OfertaController
         $oferta = $oferta-> updateoferta($datos);
 
         if ($oferta) {
-            unset ($_SESSION['mensaje']);
             header('Location: index.php?page=dashboard');
         } else {
             echo $oferta;

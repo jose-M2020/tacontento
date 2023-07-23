@@ -20,7 +20,7 @@ $error = function ($field) {
           </div>
           <div class="">
             <label for="descripcion">Descripción</label>
-              <textarea class="form-control" name="descripcion" value="" placeholder="Ingrese la descripcion " rows="6" required><?php if (isset($oferta['descripcion'])) echo $oferta['descripcion']; ?></textarea>
+              <textarea class="form-control" name="descripcion" value="" placeholder="Ingrese la descripcion " rows="6" maxlength="200" required><?php if (isset($oferta['descripcion'])) echo $oferta['descripcion']; ?></textarea>
           </div>
         </div>
         <div class="col-md-6">

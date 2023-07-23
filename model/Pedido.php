@@ -1,5 +1,6 @@
 <?php
 require_once 'ModeloBase.php';
+require_once 'utilidades/Utilidades.php';
 
 class Pedido extends ModeloBase
 {
@@ -21,10 +22,12 @@ class Pedido extends ModeloBase
     }
     public function storepedido($datos)
     {
-
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $insert = $db->store('pedidos', $datos);
-        if ($insert) $_SESSION['mensaje'] = 'Registro exitoso';
+
+        $utilities->handleMessage($insert, 'Producto agregado!');
+        return $insert;
     }
     public function editarpedido($id)
     {
@@ -54,14 +57,21 @@ class Pedido extends ModeloBase
     public function destroypedido($id)
     {
         $db = new ModeloBase();
-        return $db->destroy('pedidos', $id);
+        $utilities = new Utilidades();
+        $deleted = $db->destroy('pedidos', $id);
+
+        $utilities->handleMessage($deleted, 'Pedido eliminado!');
+        return  $deleted;
     }
     public function updatepedido($datos)
     {
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $sql = "UPDATE pedidos SET status=:status  WHERE id=:id;";
+        $updated = $db->update($sql, $datos);
 
-        return $db->update($sql, $datos);
+        $utilities->handleMessage($updated, 'Producto actualizado!');
+        return $updated;
     }
     public function paginationpedido($search)
     {

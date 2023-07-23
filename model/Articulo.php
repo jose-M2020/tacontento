@@ -1,5 +1,6 @@
 <?php
 require_once 'ModeloBase.php';
+require_once 'utilidades/Utilidades.php';
 
 class Articulo extends ModeloBase {
 
@@ -20,9 +21,11 @@ class Articulo extends ModeloBase {
     public function storearticulo($datos){
 
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $insert = $db->store('articulos', $datos);
-        if ($insert) $_SESSION['mensaje-articulo'] = 'Registro exitoso';
-        
+
+        $utilities->handleMessage($insert, 'Registro exitoso');
+        return $insert;
     }
     public function show($id){
         $db = new ModeloBase();
@@ -36,18 +39,21 @@ class Articulo extends ModeloBase {
       
     }
     public function destroyarticulo($id){
-        $db = new ModeloBase();
+      $db = new ModeloBase();
+      $utilities = new Utilidades();
+      $deleted = $db->destroy('articulos', $id);
         
-       return $db->destroy('articulos', $id);
-      
+      $utilities->handleMessage($deleted, 'Articulo eliminado');
+      return $deleted;
     }
     public function updatearticulo($datos){
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $sql = "UPDATE articulos SET nombre=:nombre, descripcion=:descripcion, precio=:precio, tipo=:tipo,img=:img WHERE id=:id;";
-
-        return $db->update($sql,$datos);
+        $updated = $db->update($sql,$datos);
         
-        
+        $utilities->handleMessage($updated, 'Articulo actualizado con exito.');
+        return $updated;
     }
     public function paginationarticulo($search){
 

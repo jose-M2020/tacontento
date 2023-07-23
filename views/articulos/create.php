@@ -9,12 +9,6 @@ require_once 'views/admin/header.php';
 
     <button class="btn btn-primary" name="registrar">Registrar</button>
 
-    <?php if (isset($_SESSION['mensaje-articulo'])): ?>
-      <div class="alert alert-success" role="alert">
-        <?php echo $_SESSION['mensaje-articulo']?>
-      </div>
-    <?php endif; ?>
-
   </form>
 
 

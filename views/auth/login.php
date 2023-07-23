@@ -1,7 +1,7 @@
 <div class="card card-signin">
   <div class="card-body">
     <h5 class="card-title">Iniciar Sesión</h5>
-    <form action="../../index.php?page=accseso" method="POST" class="form-signin">
+    <form action="index.php?page=access" method="POST" class="form-signin">
       <div class="form-floating mb-3">
         <input type="email" class="form-control" id="inputEmail" name="email" placeholder="name@example.com" required autofocus>
         <label for="floatingInput">Email</label>

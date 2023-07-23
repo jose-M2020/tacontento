@@ -44,6 +44,17 @@ class UsuariosController
 
     public function store()
     {
+        $userModel = new Usuario();
+        $utilities = new Utilidades();
+        $emailExist = $userModel->checkEmailExists($_POST['email']);
+
+        if ($emailExist) {
+            $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
+            // require_once('./views/auth/index.php');
+            header('Location: index.php?page=login');
+            // exit();
+            return;
+        }
 
         if (isset($_POST['registrar'])) {
             $datos = array(
@@ -57,8 +68,8 @@ class UsuariosController
                 'admin' => "2",
             );
 
-            $createuser = new Usuario();
-            $createuser->storeuser($datos);
+            
+            $userModel->storeuser($datos);
             require_once('./views/usuarios/create.php');
         } else if (isset($_POST['cliente'])) {
             $datos = array(
@@ -72,12 +83,9 @@ class UsuariosController
                 'admin' => "2",
             );
 
-            $createuser = new Usuario();
-            $createuser->storeuser($datos);
-            unset($_SESSION['mensaje-usuario']);
-            header('Location: home.php');
+            $userModel->storeuser($datos);
+            require_once('./views/auth/index.php');
         }
-        
         else{
             require_once('./views/usuarios/create.php');
         }
@@ -114,15 +122,15 @@ class UsuariosController
         $user = new Usuario();
         $user = $user->edituser($id);
 
-
+        
         require_once('./views/usuarios/edit.php');
     }
 
     public function update()
     {
         if (!isset($_SESSION['usuario'])) {
-        header('Location: home.php');
-    }
+            header('Location: home.php');
+        }
 
         if (isset($_POST['editar'])) {
 

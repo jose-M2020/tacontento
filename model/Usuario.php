@@ -1,5 +1,6 @@
 <?php
 require_once 'ModeloBase.php';
+require_once 'utilidades/Utilidades.php';
 
 class Usuario extends ModeloBase {
 
@@ -16,9 +17,11 @@ class Usuario extends ModeloBase {
     public function storeuser($datos){
 
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $insert = $db->store('usuarios', $datos);
-        if ($insert) $_SESSION['mensaje-usuario'] = 'Registro exitoso';
-        
+                
+        $utilities->handleMessage($insert, 'Registro exitoso!');
+        return $insert;
     }
 
 
@@ -35,21 +38,26 @@ class Usuario extends ModeloBase {
 
     public function edituser($id){
         $db = new ModeloBase();
+
        return $db->edit('usuarios', $id);
       
     }
     public function destroyuser($id){
-        $db = new ModeloBase();
-       return $db->destroy('usuarios', $id);
-      
+      $db = new ModeloBase();
+      $utilities = new Utilidades();
+      $deleted = $db->destroy('usuarios', $id);
+       
+      $utilities->handleMessage($deleted, 'Usuario eliminado!');
+      return $deleted;
     }
     public function updateuser($datos){
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $sql = "UPDATE usuarios SET nombre=:nombre, apellidos=:apellidos, direccion=:direccion, email=:email,edad=:edad,telefono=:telefono, password=:password WHERE id=:id;";
-
-        return $db->update($sql,$datos);
+        $updated = $db->update($sql,$datos);
         
-        
+        $utilities->handleMessage($updated, 'Usuario actualizado!');
+        return $updated;
     }
     public function paginationuser($search){
 
@@ -65,7 +73,14 @@ class Usuario extends ModeloBase {
         return $section;
          
     }
- 
+    public function checkEmailExists($email)
+    {
+        $db = new ModeloBase();
+        $result = $db->recordExists('usuarios', ['email', '=', $email]);
+
+        return $result;
+
+    }
 }
 
 ?>

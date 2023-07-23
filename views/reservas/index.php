@@ -60,12 +60,6 @@ require_once 'views/admin/header.php';
       <?php endfor;  ?>
     </ul>
   </nav>
-  <!-- Session message -->
-  <?php if (isset($_SESSION['mensaje-reserva'])) : ?>
-    <div class="alert alert-success" role="alert">
-      <?php echo $_SESSION['mensaje-reserva'] ?>
-    </div>
-  <?php endif; ?>
 </div>
 
 

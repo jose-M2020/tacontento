@@ -1,5 +1,6 @@
 <?php
 require_once 'ModeloBase.php';
+require_once 'utilidades/Utilidades.php';
 
 class Oferta extends ModeloBase {
 
@@ -20,9 +21,12 @@ class Oferta extends ModeloBase {
     public function storeoferta($datos){
 
         $db = new ModeloBase();
+        $utilities = new Utilidades();
+
         $insert = $db->store('ofertas', $datos);
-        if ($insert) $_SESSION['mensaje-oferta'] = 'Registro exitoso';
-        
+            
+        $utilities->handleMessage($insert, 'Registro exitoso.');
+        return $insert;
     }
     public function show($id){
         $db = new ModeloBase();
@@ -36,18 +40,21 @@ class Oferta extends ModeloBase {
       
     }
     public function destroyoferta($id){
-        $db = new ModeloBase();
-        
-       return $db->destroy('ofertas', $id);
-      
+      $db = new ModeloBase();
+      $utilities = new Utilidades();
+      $deleted = $db->destroy('ofertas', $id);
+
+      $utilities->handleMessage($deleted, 'Oferta eliminado con exito');
+      return $deleted;
     }
     public function updateoferta($datos){
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $sql = "UPDATE ofertas SET titulo=:titulo, descripcion=:descripcion, img=:img WHERE id=:id;";
+        $updated = $db->update($sql,$datos);
 
-        return $db->update($sql,$datos);
-        
-        
+        $utilities->handleMessage($updated, 'Oferta actualizado con exito');
+        return $updated;
     }
     public function paginationoferta($search){
 
@@ -71,7 +78,6 @@ class Oferta extends ModeloBase {
         return  $db->index($sql);
      
     }
- 
 }
 
 ?>

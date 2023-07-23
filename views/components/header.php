@@ -123,10 +123,11 @@ $navItems = [
                 </div>
               <?php else : ?>
                   <li>
-                    <a class="btn btn-primary faded-text" href="views/auth">Entrar</a>
+                    <a class="btn btn-primary faded-text" href="index.php?page=login">Entrar</a>
                   </li>
               <?php endif; ?>
               <!-- <button class="btn btn-sm btn-primary" type="button">Ordenar</button> -->
             </ul>
         </div><!-- container -->
     </header>
+    <?php require_once('views/components/message.php') ?>

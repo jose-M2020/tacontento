@@ -61,12 +61,6 @@ require_once 'views/admin/header.php';
       <?php endfor;  ?>
     </ul>
   </nav>
-  <!-- Session message -->
-  <?php if (isset($_SESSION['mensaje'])) : ?>
-    <div class="alert alert-success" role="alert">
-      <?php echo $_SESSION['mensaje'] ?>
-    </div>
-  <?php endif; ?>
 </div>
 <!-- Modal -->
 <?php foreach ($articulo as $u) : ?>

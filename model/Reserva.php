@@ -1,5 +1,6 @@
 <?php
 require_once 'ModeloBase.php';
+require_once 'utilidades/Utilidades.php';
 
 class Reserva extends ModeloBase {
 
@@ -20,9 +21,11 @@ class Reserva extends ModeloBase {
     public function storereserva($datos){
 
         $db = new ModeloBase();
+        $utilities = new Utilidades();
         $insert = $db->store('reservas', $datos);
-        if ($insert) $_SESSION['mensaje-oferta'] = 'Registro exitoso';
-        
+
+        $utilities->handleMessage($insert, 'Reserva realizado con exito!');
+        return $insert;
     }
     public function show($id){
         $db = new ModeloBase();
@@ -41,10 +44,12 @@ class Reserva extends ModeloBase {
       
     }
     public function destroyreserva($id){
-        $db = new ModeloBase();
-        
-       return $db->destroy('ofertas', $id);
-      
+      $db = new ModeloBase();
+      $utilities = new Utilidades();
+      $deleted = $db->destroy('ofertas', $id);
+
+      $utilities->handleMessage($deleted, 'Reserva eliminado!');
+      return $deleted;
     }
    
     public function paginationreserva($search){

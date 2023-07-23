@@ -32,5 +32,22 @@ class Utilidades {
         }
         //Si llegamos hasta aquí es que algo ha fallado
         return "";
+    }
+
+    function handleMessage($querySuccess, $message) {
+        if($querySuccess) {
+          $this->setMessage('success', $message);
         }
+    }
+    
+    function setMessage($type, $message){
+        if (!isset($_SESSION['messages'])) {
+            $_SESSION['messages'] = array();
+        }
+
+        $_SESSION['messages'][] = array(
+            'type' => $type, // It can be 'success', 'error' o 'warning'
+            'message' => $message
+        );
+    }
 }

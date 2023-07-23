@@ -41,6 +41,17 @@
         min-width: 350px;
 }
 
+/* ALERT */
+
+.alert {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  max-width: 500px;
+  min-width: 320px;
+  z-index: 2000;
+}
+
 /*SWIPER*/
 
 .swiper-pagination-bullet{ background: #FFFFFF; opacity: 1;  }
