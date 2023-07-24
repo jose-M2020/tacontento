@@ -1,4 +1,4 @@
 <?php
-	require('routes/web.php');
+	require('app/routes/web.php');
 ?>
 
