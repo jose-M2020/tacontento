@@ -50,45 +50,24 @@ class UsuariosController
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-            // require_once('./views/auth/index.php');
-            header('Location: index.php?page=login');
-            // exit();
+            header('Location: index.php?page=createusuario');
             return;
         }
 
-        if (isset($_POST['registrar'])) {
-            $datos = array(
-                'nombre' => $_POST['nombre'],
-                'apellidos' => $_POST['apellidos'],
-                'direccion' => $_POST['direccion'],
-                'email' => $_POST['email'],
-                'edad' => $_POST['edad'],
-                'telefono' => $_POST['telefono'],
-                'password' => $_POST['password'],
-                'admin' => "2",
-            );
+        $datos = array(
+            'nombre' => $_POST['nombre'],
+            'apellidos' => $_POST['apellidos'],
+            'direccion' => $_POST['direccion'],
+            'email' => $_POST['email'],
+            'edad' => $_POST['edad'],
+            'telefono' => $_POST['telefono'],
+            'password' => $_POST['password'],
+            'admin' => "2",
+        );
 
-            
-            $userModel->storeuser($datos);
-            require_once('./views/usuarios/create.php');
-        } else if (isset($_POST['cliente'])) {
-            $datos = array(
-                'nombre' => $_POST['nombre'],
-                'apellidos' => $_POST['apellidos'],
-                'direccion' => $_POST['direccion'],
-                'email' => $_POST['email'],
-                'edad' => $_POST['edad'],
-                'telefono' => $_POST['telefono'],
-                'password' => $_POST['password'],
-                'admin' => "2",
-            );
-
-            $userModel->storeuser($datos);
-            require_once('./views/auth/index.php');
-        }
-        else{
-            require_once('./views/usuarios/create.php');
-        }
+        
+        $userModel->storeuser($datos);
+        header('Location: index.php?page=createusuario');
 
 
 

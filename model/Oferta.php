@@ -25,7 +25,7 @@ class Oferta extends ModeloBase {
 
         $insert = $db->store('ofertas', $datos);
             
-        $utilities->handleMessage($insert, 'Registro exitoso.');
+        $utilities->handleMessage($insert, 'Oferta creado con éxito!');
         return $insert;
     }
     public function show($id){
@@ -44,7 +44,7 @@ class Oferta extends ModeloBase {
       $utilities = new Utilidades();
       $deleted = $db->destroy('ofertas', $id);
 
-      $utilities->handleMessage($deleted, 'Oferta eliminado con exito');
+      $utilities->handleMessage($deleted, 'Oferta eliminado exitosamente!');
       return $deleted;
     }
     public function updateoferta($datos){
@@ -53,7 +53,7 @@ class Oferta extends ModeloBase {
         $sql = "UPDATE ofertas SET titulo=:titulo, descripcion=:descripcion, img=:img WHERE id=:id;";
         $updated = $db->update($sql,$datos);
 
-        $utilities->handleMessage($updated, 'Oferta actualizado con exito');
+        $utilities->handleMessage($updated, 'Oferta actualizado exitosamente!');
         return $updated;
     }
     public function paginationoferta($search){

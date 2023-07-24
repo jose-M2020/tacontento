@@ -1,3 +1,9 @@
+<?php
+  $isLogin = isset($_GET['section']) 
+    ? ($_GET['section'] === 'login' ? true : false) 
+    : true;
+?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -35,10 +41,10 @@
     </div>
   </header>
   <?php require_once('views/components/message.php') ?>
-  <div class="container form form--login d-flex justify-content-center align-items-center mtb-25">
+  <div class="container form <?php echo($isLogin ? 'form--login' :'form--register') ?> d-flex justify-content-center align-items-center mtb-25">
     <div class="row w-100 justify-content-center">
       <div class="form__content col-12 col-xl-10 d-block d-md-flex p-0">
-        <div class="w-sm-100 w-50 form__register">
+        <div class="w-sm-100 w-50 form__register <?php if(!$isLogin) echo 'form--active'?>">
           <div class="form__info p-10">
             <div class="w-md-100 w-70">
               <p>¡Bienvenid@ de vuelta a tu experiencia culinaria personalizada!</p>
@@ -46,7 +52,7 @@
           </div>
           <?php require_once 'registrar.php' ?>
         </div>
-        <div class="w-sm-100 w-50 form__login form--active">
+        <div class="w-sm-100 w-50 form__login <?php if($isLogin) echo 'form--active'?>">
           <div class="form__info p-10">
             <div class="w-md-100 w-70">
               <p>Únete a nosotros y descubre una nueva forma de disfrutar la comida: fácil, rápida y a tu gusto.</p>

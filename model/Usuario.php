@@ -20,7 +20,7 @@ class Usuario extends ModeloBase {
         $utilities = new Utilidades();
         $insert = $db->store('usuarios', $datos);
                 
-        $utilities->handleMessage($insert, 'Registro exitoso!');
+        $utilities->handleMessage($insert, 'Usuario creado con éxito!');
         return $insert;
     }
 
@@ -47,7 +47,7 @@ class Usuario extends ModeloBase {
       $utilities = new Utilidades();
       $deleted = $db->destroy('usuarios', $id);
        
-      $utilities->handleMessage($deleted, 'Usuario eliminado!');
+      $utilities->handleMessage($deleted, 'Usuario eliminado exitosamente!');
       return $deleted;
     }
     public function updateuser($datos){
@@ -56,7 +56,7 @@ class Usuario extends ModeloBase {
         $sql = "UPDATE usuarios SET nombre=:nombre, apellidos=:apellidos, direccion=:direccion, email=:email,edad=:edad,telefono=:telefono, password=:password WHERE id=:id;";
         $updated = $db->update($sql,$datos);
         
-        $utilities->handleMessage($updated, 'Usuario actualizado!');
+        $utilities->handleMessage($updated, 'Usuario actualizado exitosamente!');
         return $updated;
     }
     public function paginationuser($search){

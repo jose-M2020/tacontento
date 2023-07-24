@@ -48,7 +48,7 @@ class Reserva extends ModeloBase {
       $utilities = new Utilidades();
       $deleted = $db->destroy('ofertas', $id);
 
-      $utilities->handleMessage($deleted, 'Reserva eliminado!');
+      $utilities->handleMessage($deleted, 'Reserva eliminado exitosamente!');
       return $deleted;
     }
    

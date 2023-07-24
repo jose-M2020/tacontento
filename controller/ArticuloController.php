@@ -65,7 +65,7 @@ class ArticuloController
             #var_dump($datos);
             $createarticulo = new Articulo();
             $createarticulo->storearticulo($datos);
-            require_once('./views/articulos/create.php');
+            header('Location: index.php?page=createarticulo');
         } else {
             require_once('./views/usuarios/create.php');
         }

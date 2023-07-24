@@ -26,7 +26,7 @@ class Pedido extends ModeloBase
         $utilities = new Utilidades();
         $insert = $db->store('pedidos', $datos);
 
-        $utilities->handleMessage($insert, 'Producto agregado!');
+        $utilities->handleMessage($insert, 'Producto creado con éxito!');
         return $insert;
     }
     public function editarpedido($id)
@@ -60,7 +60,7 @@ class Pedido extends ModeloBase
         $utilities = new Utilidades();
         $deleted = $db->destroy('pedidos', $id);
 
-        $utilities->handleMessage($deleted, 'Pedido eliminado!');
+        $utilities->handleMessage($deleted, 'Pedido eliminado exitosamente!');
         return  $deleted;
     }
     public function updatepedido($datos)
@@ -70,7 +70,7 @@ class Pedido extends ModeloBase
         $sql = "UPDATE pedidos SET status=:status  WHERE id=:id;";
         $updated = $db->update($sql, $datos);
 
-        $utilities->handleMessage($updated, 'Producto actualizado!');
+        $utilities->handleMessage($updated, 'Producto actualizado exitosamente!');
         return $updated;
     }
     public function paginationpedido($search)

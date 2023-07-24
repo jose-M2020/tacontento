@@ -6,9 +6,10 @@ $page = $_GET['page'];
 if (!empty($page)) {
 
   $router = array(
-    #login
-    'login' => array('model' => 'Usuario', 'view' => 'login', 'controller' => 'LoginController'),
-    'access' => array('model' => 'Usuario', 'view' => 'loginAcceso', 'controller' => 'LoginController'),
+    #Auth
+    'auth' => array('model' => 'Usuario', 'view' => 'auth', 'controller' => 'AuthController'),
+    'login' => array('model' => 'Usuario', 'view' => 'login', 'controller' => 'AuthController'),
+    'register' => array('model' => 'Usuario', 'view' => 'register', 'controller' => 'AuthController'),
     #index de la pagina
     'index' => array('model' => 'Index', 'view' => 'index', 'controller' => 'IndexController'),
     'pay' => array('model' => 'Index', 'view' => 'pay', 'controller' => 'PedidoController'),

@@ -63,9 +63,9 @@ class OfertaController
             #var_dump($datos);
             $createarticulo = new Oferta();
             $createarticulo->storeoferta($datos);
-            require_once('./views/admin/create.php');
+            header('Location: index.php?page=createoferta');
         } else {
-            require_once('./views/admin/create.php');
+            header('Location: index.php?page=createoferta');
         }
     }
 

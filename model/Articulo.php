@@ -24,7 +24,7 @@ class Articulo extends ModeloBase {
         $utilities = new Utilidades();
         $insert = $db->store('articulos', $datos);
 
-        $utilities->handleMessage($insert, 'Registro exitoso');
+        $utilities->handleMessage($insert, 'Platillo creado con éxito!');
         return $insert;
     }
     public function show($id){
@@ -43,7 +43,7 @@ class Articulo extends ModeloBase {
       $utilities = new Utilidades();
       $deleted = $db->destroy('articulos', $id);
         
-      $utilities->handleMessage($deleted, 'Articulo eliminado');
+      $utilities->handleMessage($deleted, 'Platillo eliminado exitosamente!');
       return $deleted;
     }
     public function updatearticulo($datos){
@@ -52,7 +52,7 @@ class Articulo extends ModeloBase {
         $sql = "UPDATE articulos SET nombre=:nombre, descripcion=:descripcion, precio=:precio, tipo=:tipo,img=:img WHERE id=:id;";
         $updated = $db->update($sql,$datos);
         
-        $utilities->handleMessage($updated, 'Articulo actualizado con exito.');
+        $utilities->handleMessage($updated, 'Platillo actualizado exitosamente!');
         return $updated;
     }
     public function paginationarticulo($search){

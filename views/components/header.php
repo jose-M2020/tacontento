@@ -123,7 +123,7 @@ $navItems = [
                 </div>
               <?php else : ?>
                   <li>
-                    <a class="btn btn-primary faded-text" href="index.php?page=login">Entrar</a>
+                    <a class="btn btn-primary faded-text" href="index.php?page=auth">Entrar</a>
                   </li>
               <?php endif; ?>
               <!-- <button class="btn btn-sm btn-primary" type="button">Ordenar</button> -->

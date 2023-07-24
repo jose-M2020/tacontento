@@ -1,8 +1,7 @@
 <div class="card card-signup">
     <div class="card-body">
     <h5 class="card-title">Crea tu cuenta</h5>
-    <form method="POST" action="index.php?page=storeusuario" class="form-signup">
-      <input type="hidden" name="cliente" value="cliente">     
+    <form method="POST" action="index.php?page=register" class="form-signup">
         <div class="row">
           <div class="col-6">
             <div class="form-floating mb-3">
