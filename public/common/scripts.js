@@ -121,6 +121,14 @@ $(function() {
     togglePopover.popover("hide");
     currentMenuItem.removeClass('menu__item--active')
   })
+
+  // ALERT POSITIONS
+
+  $('.alert:nth-child(n+3)').each(function(index) {
+    const topValue = (index + 1) * 105;
+    $(this).css('top', `${topValue}px`);
+  });
+
 });
 
 (function ($) {

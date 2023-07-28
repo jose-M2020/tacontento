@@ -137,6 +137,13 @@
         // currentForm = currentForm === 'login' ? 'register' : 'login';
         // $(`.form`).addClass(`form--${currentForm}`);
       });
+
+      // ALERT POSITIONS
+
+      $('.alert:nth-child(n+3)').each(function(index) {
+        const topValue = (index + 1) * 105;
+        $(this).css('top', `${topValue}px`);
+      });
     });
   </script>
 </body>

@@ -11,9 +11,8 @@
   ];
 
   if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])):
-    foreach ($_SESSION['messages'] as $message):
+    foreach ($_SESSION['messages'] as $key => $message):
 ?>
-
   <div class="alert alert-<?php echo $alertType[$message['type']]['class'] ?> d-flex align-items-center alert-dismissible fade show" role="alert">
     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi flex-shrink-0 me-2" width="24" height="24" viewBox="0 0 16 16" role="img" aria-label="Success:" >
       <path d="<?php echo $alertType[$message['type']]['iconPath'] ?>"/>
