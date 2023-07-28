@@ -1,15 +1,17 @@
 <?php
 require_once 'app/model/Oferta.php';
 require_once 'app/utilidades/Utilidades.php';
+require_once 'app/utilidades/InputSanitizer.php';
 
 class OfertaController
 {
     function __construct(){
-       
+        if(!isset($_SESSION)){ 
+            session_start(); 
+        }
     }
     public function index()
     {
-        session_start();
         if(!isset($_SESSION['usuario'])){
           
             header('Location: index.php?page=home');
@@ -34,7 +36,7 @@ class OfertaController
     public function show()
     { }
     public function create()
-    {  session_start();
+    {
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
@@ -44,15 +46,16 @@ class OfertaController
     }
 
     public function store()
-    {  
-        session_start();
-
+    {        
         if(empty($_POST) && $_SERVER['REQUEST_METHOD'] !== 'POST') exit;
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
-
+        
+        $inputSanitizer = new InputSanitizer();
         $file = new Utilidades();
+        $_POST = $inputSanitizer->sanitize($_POST);
+        
         if (isset($_POST['registrar'])) {
             $img = $file->uploadFile('storage','img');
             $datos = array(
@@ -71,7 +74,7 @@ class OfertaController
 
 
     public function edit()
-    {  session_start();
+    {
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
@@ -82,8 +85,7 @@ class OfertaController
     }
 
     public function update()
-    {  
-        session_start();
+    {
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
@@ -113,7 +115,7 @@ class OfertaController
     }
 
     public function destroy()
-    {  session_start();
+    {
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
@@ -130,8 +132,8 @@ class OfertaController
         }
     }
 
-    public function obtener(){
-      
+    public function obtener()
+    {  
         $oferta = new Oferta;
         return $oferta = $oferta->obtener();
     }
