@@ -1,7 +1,7 @@
 <?php
 require_once 'app/model/Usuario.php';
+require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
-
 
 class UsuariosController
 {
@@ -44,9 +44,10 @@ class UsuariosController
 
     public function store()
     {
+        $request = new Request();
         $userModel = new Usuario();
         $utilities = new Utilidades();
-        $emailExist = $userModel->checkEmailExists($_POST['email']);
+        $emailExist = $userModel->checkEmailExists($request->input('email'));
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
@@ -55,13 +56,13 @@ class UsuariosController
         }
 
         $datos = array(
-            'nombre' => $_POST['nombre'],
-            'apellidos' => $_POST['apellidos'],
-            'direccion' => $_POST['direccion'],
-            'email' => $_POST['email'],
-            'edad' => $_POST['edad'],
-            'telefono' => $_POST['telefono'],
-            'password' => $_POST['password'],
+            'nombre' => $request->input('nombre'),
+            'apellidos' => $request->input('apellidos'),
+            'direccion' => $request->input('direccion'),
+            'email' => $request->input('email'),
+            'edad' => $request->input('edad'),
+            'telefono' => $request->input('telefono'),
+            'password' => $request->input('password'),
             'admin' => "2",
         );
 
@@ -111,21 +112,32 @@ class UsuariosController
             header('Location: index.php?page=home');
         }
 
-        if (isset($_POST['editar'])) {
-
-            $datos = array(
-                'id'   =>  $_GET['id'],
-                'nombre' => $_POST['nombre'],
-                'apellidos' => $_POST['apellidos'],
-                'direccion' => $_POST['direccion'],
-                'email' => $_POST['email'],
-                'edad' => $_POST['edad'],
-                'telefono' => $_POST['telefono'],
-                'password' => $_POST['password'],
-
-            );
-        }
+        $request = new Request();
         $user = new Usuario;
+        $utilities = new Utilidades();
+
+        // TODO: Validate email in update request
+        // $emailExist = $user->checkEmailExists($request->input('email'));
+
+        // if ($emailExist) {
+        //     $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
+        //     header('Location: index.php?page=createusuario');
+        //     return;
+        // }
+
+        $datos = array(
+            'id'   =>  $request->input('id'),
+            'nombre' => $request->input('nombre'),
+            'apellidos' => $request->input('apellidos'),
+            'direccion' => $request->input('direccion'),
+            'email' => $request->input('email'),
+            'edad' => $request->input('edad'),
+            'telefono' => $request->input('telefono'),
+            'password' => $request->input('password'),
+
+        );
+
+        
         $user = $user->updateuser($datos);
 
         if ($user) {

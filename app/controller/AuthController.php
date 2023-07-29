@@ -1,5 +1,6 @@
 <?php
 require_once 'app/model/Usuario.php';
+require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
 
 class AuthController
@@ -17,9 +18,14 @@ class AuthController
     
     public function login()
     {
+        $request = new Request();
         $user = new Usuario();
-        $respuesta = $user->login($_POST['email'], $_POST['password']);
         $utilities = new Utilidades();
+
+        $respuesta = $user->login(
+          $request->input('email'),
+          $request->input('password')
+        );
 
         if ($respuesta) {
             if ($respuesta['admin'] == 1) {
@@ -41,9 +47,11 @@ class AuthController
 
     public function register()
     {
+        $request = new Request();
         $userModel = new Usuario();
         $utilities = new Utilidades();
-        $emailExist = $userModel->checkEmailExists($_POST['email']);
+        
+        $emailExist = $userModel->checkEmailExists($request->input('email'));
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
@@ -52,13 +60,13 @@ class AuthController
         }
 
         $datos = array(
-            'nombre' => $_POST['nombre'],
-            'apellidos' => $_POST['apellidos'],
-            'direccion' => $_POST['direccion'],
-            'email' => $_POST['email'],
-            'edad' => $_POST['edad'],
-            'telefono' => $_POST['telefono'],
-            'password' => $_POST['password'],
+            'nombre' => $request->input('nombre'),
+            'apellidos' => $request->input('apellidos'),
+            'direccion' => $request->input('direccion'),
+            'email' => $request->input('email'),
+            'edad' => $request->input('edad'),
+            'telefono' => $request->input('telefono'),
+            'password' => $request->input('password'),
             'admin' => "2",
         );
 

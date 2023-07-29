@@ -6,7 +6,7 @@ enctype="multipart/form-data">
 
     <?php include_once "form.php" ?>
     
-    <button type="submit" class="btn btn-primary" name="editar">Actualizar</button>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
 
     <?php if (isset($_SESSION['mensaje'])) : ?>
         <div class="alert alert-success" role="alert">

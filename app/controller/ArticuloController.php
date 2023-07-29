@@ -1,7 +1,7 @@
 <?php
 require_once 'app/model/Articulo.php';
+require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
-
 
 class ArticuloController
 {
@@ -50,27 +50,25 @@ class ArticuloController
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
+
+        $request = new Request();
         $file = new Utilidades();
-        if (isset($_POST['registrar'])) {
+
     
-            $img = $file->uploadFile('storage','img');
+        $img = $file->uploadFile('storage','img');
 
-            $datos = array(
-                'nombre' => $_POST['nombre'],
-                'descripcion' => $_POST['descripcion'],
-                'precio' => $_POST['precio'],
-                'tipo' => $_POST['tipo'],
-                'img' => $img,
-            );
-            #var_dump($datos);
-            $createarticulo = new Articulo();
-            $createarticulo->storearticulo($datos);
-            header('Location: index.php?page=createarticulo');
-        } else {
-            require_once('./app/views/usuarios/create.php');
-        }
+        $datos = array(
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion'),
+            'precio' => $request->input('precio'),
+            'tipo' => $request->input('tipo'),
+            'img' => $img,
+        );
+
+        $createarticulo = new Articulo();
+        $createarticulo->storearticulo($datos);
+        header('Location: index.php?page=createarticulo');
     }
-
 
     public function edit()
     {
@@ -84,29 +82,30 @@ class ArticuloController
 
         require_once('./app/views/articulos/edit.php');
     }
-
     public function update()
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
-        $id = $_GET['id'];
-        $art = new Articulo();
-        $art = $art->editarticulo($id);
 
-        if (isset($_POST['editar'])) {
-            $file = new Utilidades();
-            $img = $file->uploadFile('storage','img');
-            if(empty($img)) $img = $art['img'];
-            $datos = array(
-                'id' => $_GET['id'],
-                'nombre' => $_POST['nombre'],
-                'descripcion' => $_POST['descripcion'],
-                'precio' => $_POST['precio'],
-                'tipo' => $_POST['tipo'],
-                'img' => $img,
-            );
-        }
+        $request = new Request();
+        $art = new Articulo();
+        $file = new Utilidades();
+        
+        $art = $art->editarticulo($request->input('id'));
+        $img = $file->uploadFile('storage','img');
+
+        if(empty($img)) $img = $art['img'];
+        
+        $datos = array(
+            'id' => $request->input('id'),
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion'),
+            'precio' => $request->input('precio'),
+            'tipo' => $request->input('tipo'),
+            'img' => $img,
+        );
+
         $articulo = new Articulo;
         $articulo = $articulo-> updatearticulo($datos);
 
@@ -115,7 +114,6 @@ class ArticuloController
         } else {
             echo $articulo;
         }
-
     }
 
     public function destroy()

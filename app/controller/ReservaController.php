@@ -1,5 +1,6 @@
 <?php
 require_once 'app/model/Reserva.php';
+require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
 
 class ReservaController
@@ -49,31 +50,30 @@ class ReservaController
     }
 
     public function store()
-    {  session_start();
+    {  
+        session_start();
         if(!isset($_SESSION['cliente'])){
             header('Location: index.php?page=home');
         }
-        $fecha = new  DateTime($_POST['fecha']);
-        $hora = new  DateTime($_POST['hora']);
-        if (isset($_POST['registrar'])) {
-            $datos = array(
-                'id_cliente' => $_POST['id_cliente'],
-                'personas' => $_POST['personas'],
-                'fecha' => $fecha->format('Y-m-d'),
-                'hora' =>$hora->format('H:m:s'),
-            );
+        
+        $request = new Request();
+        $fecha = new  DateTime($request->input('fecha'));
+        $hora = new  DateTime($request->input('hora'));
 
-            $create = new Reserva();
-            $create->storereserva($datos);
+        $datos = array(
+            'id_cliente' => $request->input('id_cliente'),
+            'personas' => $request->input('personas'),
+            'fecha' => $fecha->format('Y-m-d'),
+            'hora' =>$hora->format('H:m:s'),
+        );
 
-            $lastid = $create->obtenerid();
-            require_once 'app/views/pages/message_reserva.php';
-           
-        } else {
-           
-        }
+        $create = new Reserva();
+        $create->storereserva($datos);
+
+        $lastid = $create->obtenerid();
+        require_once 'app/views/pages/message_reserva.php';           
     }
- public function imprimir()
+    public function imprimir()
     {
         $id = $_GET['id'];
 
@@ -95,25 +95,27 @@ class ReservaController
     }
 
     public function update()
-    {  session_start();
+    {  
+        session_start();
         if(!isset($_SESSION['usuario'])){
             header('Location: index.php?page=home');
         }
-        $id = $_GET['id'];
-        $art = new Oferta();
-        $art = $art->editoferta($id);
 
-        if (isset($_POST['editar'])) {
-            $file = new Utilidades();
-            $img = $file->uploadFile('storage','img');
-            if(empty($img)) $img = $art['img'];
-            $datos = array(
-                'id' => $_GET['id'],
-                'titulo' => $_POST['titulo'],
-                'descripcion' => $_POST['descripcion'],
-                'img' => $img,
-            );
-        }
+        $request = new Request();
+        $art = new Oferta();
+        $file = new Utilidades();
+        
+        $art = $art->editoferta($request->input('id'));
+        $img = $file->uploadFile('storage','img');
+        if(empty($img)) $img = $art['img'];
+        
+        $datos = array(
+            'id' => $request->input('id'),
+            'titulo' => $request->input('titulo'),
+            'descripcion' => $request->input('descripcion'),
+            'img' => $img,
+        );
+
         $oferta = new Oferta;
         $oferta = $oferta-> updateoferta($datos);
 

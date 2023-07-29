@@ -1,6 +1,7 @@
 <?php
 require_once 'app/model/Pedido.php';
 require_once 'app/model/Articulo.php';
+require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
 
 
@@ -69,11 +70,13 @@ class PedidoController
     }
     public function pay()
     {
+        $request = new Request();
+
         $datos = array(
-            'descripcion' => $_POST['descripcion'],
-            'cantidad' => $_POST['cantidad'],
-            'total' => $_POST['total'],
-            'id_cliente' => $_POST['id_cliente'],
+            'descripcion' => $request->input('descripcion'),
+            'cantidad' => $request->input('cantidad'),
+            'total' => $request->input('total'),
+            'id_cliente' => $request->input('id_cliente'),
         );
 
         require_once('./app/views/pedidos/pay.php');
@@ -81,27 +84,25 @@ class PedidoController
 
     public function store()
     {
-        if (isset($_POST['registrar'])) {
-            $fecha = new  DateTime('now');
-            $quitarespacio = str_replace(",", " ", $_POST['descripcion']);
-            $datos = array(
-                'descripcion' =>  $_POST['descripcion'],
-                'fecha' => $fecha->format('Y-m-d'),
-                'total' => $_POST['total'],
-                'cantidad' => $_POST['cantidad'],
-                'id_cliente' => $_POST['id_cliente'],
-                'status' => 1,
-            );
+        $request = new Request();
+        
+        $fecha = new  DateTime('now');
+        // $quitarespacio = str_replace(",", " ", $_POST['descripcion']);
 
-            $create = new Pedido();
-            $create->storepedido($datos);
-            unset($_SESSION['add_carro']);
-            $lastid = $create->obtenerid();
-            require_once 'app/views/pages/message.php';
-           
-        } else  if (isset($_POST['cancelar'])) {
-            header('Location: index.php?page=carrito');
-        }
+        $datos = array(
+            'descripcion' =>  $request->input('descripcion'),
+            'fecha' => $fecha->format('Y-m-d'),
+            'total' => $request->input('total'),
+            'cantidad' => $request->input('cantidad'),
+            'id_cliente' => $request->input('id_cliente'),
+            'status' => 1,
+        );
+
+        $create = new Pedido();
+        $create->storepedido($datos);
+        unset($_SESSION['add_carro']);
+        $lastid = $create->obtenerid();
+        require_once 'app/views/pages/message.php';
     }
 
 
@@ -112,8 +113,7 @@ class PedidoController
         }
         $id = $_GET['id'];
         $articulo = new Articulo();
-        $articulo = $articulo->editarpedido($id);
-
+        $articulo = $articulo->editarticulo($id);
 
         require_once('./app/views/articulos/edit.php');
     }
@@ -123,9 +123,10 @@ class PedidoController
         if (!isset($_SESSION['usuario'])) {
             header('Location: index.php?page=home');
         }
-        $id = $_GET['id'];
+
+        $request = new Request();
         $datos = [
-            'id' => $id,
+            'id' => $request->input('id'),
             'status' => 2
         ];
         $pedido = new Pedido;
