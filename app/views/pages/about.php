@@ -1,10 +1,9 @@
 <?php
-require_once 'app/views/components/header.php';
-?>
 
-<?php 
-    include "./app/views/components/hero.php";
-    echo createHero('Acerca de Nosotros', 'about.jpg');
+require_once 'app/views/components/header.php';
+include "./app/views/components/hero.php";
+echo createHero('Acerca de Nosotros', 'about.jpg');
+
 ?>
 
 <section class="story-area left-text center-sm-text">

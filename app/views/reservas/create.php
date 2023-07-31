@@ -1,6 +1,8 @@
 <?php
 require_once 'app/views/components/header.php';
 require_once 'app/controller/ReservaController.php';
+include "./app/views/components/hero.php";
+echo createHero('Mis reservas', 'about.jpg');
 
 ?>
 <br>

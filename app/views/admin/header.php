@@ -57,12 +57,14 @@ $navItems = [
   <link href="public/common/css/admin.css" rel="stylesheet">
   <link href="public/fonts/all.min.css" rel="stylesheet">
   <script src="public/common/all.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav d-flex flex-row offcanvas offcanvas-start offcanvas-mobile" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
       
     <div class="d-flex flex-column menu-fixed">
-      <div class="logo d-flex align-items-center mb-30">
+      <div class="logo align-items-center mb-30 d-none d-md-flex">
           <img style="width:50px"  src="images/taco.png" alt="">
           <span class="logo-name">TA'CONTENTO</span>
       </div>
@@ -78,7 +80,7 @@ $navItems = [
       </ul>
       <div class="li">
         <a class="nav__a" href="index.php?page=logout">
-          <span><i class="fas fa-sign-out-alt"></i></span>
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
           Logout
         </a>
       </div>
@@ -89,4 +91,7 @@ $navItems = [
       <i class="fas fa-bars"></i>
     </span> -->
   <main class="contenedor">
+    <?php require_once('./app/views/admin/components/navbar.php') ?>
     <?php require_once('./app/views/components/message.php') ?>
+    <div class="plr-sm-0 plr-20">
+    

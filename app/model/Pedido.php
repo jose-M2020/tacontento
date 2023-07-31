@@ -38,7 +38,7 @@ class Pedido extends ModeloBase
     {
         $db = new ModeloBase();
 
-        $sql = "SELECT pedidos.id,pedidos.descripcion,pedidos.fecha,pedidos.total, usuarios.nombre,usuarios.apellidos,usuarios.email,usuarios.id as id_cliente,pedidos.cantidad
+        $sql = "SELECT pedidos.id,pedidos.descripcion,pedidos.fecha,pedidos.total, usuarios.nombre,usuarios.apellidos,usuarios.email,usuarios.telefono,usuarios.id as id_cliente,pedidos.cantidad
         FROM pedidos
         left JOIN usuarios
         ON pedidos.id_cliente = usuarios.id  Where pedidos.id = $id ";

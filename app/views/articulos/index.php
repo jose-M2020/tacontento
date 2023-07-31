@@ -6,7 +6,7 @@ require_once 'app/views/admin/header.php';
   <h1>Articulos del menu</h1>
   <div class="row">
     <div class="col-8">
-      <a href="index.php?page=createarticulo" class="btn btn-primary pull-rigth ">Registrar articulo</a>
+      <a href="index.php?page=createarticulo" class="btn btn-primary pull-rigth ">Registrar platillo</a>
     </div>
     <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">

@@ -1,3 +1,4 @@
+</div>
 </main>
 
 <script src="public/plugin-frameworks/jquery-3.2.1.min.js"></script>
