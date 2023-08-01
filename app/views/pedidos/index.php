@@ -32,13 +32,22 @@ require_once 'app/views/admin/header.php';
             <td> <?php echo $u['fecha'] ?> </td>
             <td> $<?php echo $u['total'] ?> </td>
             <td> <?php echo $u['id_cliente'] ?> </td>
-            <td>
-              <a href="index.php?page=showpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm'>Ver pedido</a>
-
-              <form style="display: inline;" method="POST" action="index.php?page=updatepedido&id=<?php echo $u['id'] ?>">
-
-                <button type="submit" class=" btn btn-outline-danger" name="editar"> Finalizar</button>
-              </form>
+            <td class="d-flex gap-2 align-items-center">
+              <a
+                href="index.php?page=showpedido&id=<?php echo $u['id'] ?>"
+                class='btn btn-outline-primary btn-sm'
+                data-bs-toggle="tooltip"
+                data-bs-title="Ver detalles"
+              >
+                <span class="icon"><i class="fas fa-eye"></i></span>
+              </a>
+              <div data-bs-toggle="tooltip" data-bs-title="Finalizar">
+                <form style="display: inline;" method="POST" action="index.php?page=updatepedido&id=<?php echo $u['id'] ?>">
+                  <button type="submit" class=" btn btn-outline-danger" name="editar">
+                    <span class="icon"><i class="fas fa-check"></i></span>
+                  </button>
+                </form>
+              </div>
             </td>
           </tr>
         <?php endforeach; ?>

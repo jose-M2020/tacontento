@@ -90,6 +90,8 @@ function clickOutside(element, callback) {
 }
 
 $(function() {
+  $('[data-bs-toggle="tooltip"]').tooltip();
+
   // POPOVER
 
   const togglePopover = $('[data-bs-toggle="popover"]');

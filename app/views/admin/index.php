@@ -21,10 +21,10 @@ require_once 'header.php';
   <table class="table table-bordered" >
     <thead>
       <tr>
-        <th  width="15%" >ID</th>
-        <th  width="20%">Titulo</th>
-        <th  width="40%" >Descripcion</th>
-        <th  width="15%">Acciones</th>
+        <th  width="5%" >ID</th>
+        <th  width="30%">Titulo</th>
+        <th  width="50%" >Descripcion</th>
+        <th  width="10%">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -34,12 +34,25 @@ require_once 'header.php';
           <td><?php echo $u['id'] ?></td>
             <td><?php echo $u['titulo'] ?></td>
             <td><?php echo $u['descripcion'] ?></td>
-            <td>
-              <a href="index.php?page=editoferta&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Editar</a>
-
-              <button type="button" class=" btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal<?php echo $u['id'] ?>">
-                Eliminar
-              </button>
+            <td class="d-flex gap-2 align-items-center">
+              <a 
+                href="index.php?page=editoferta&id=<?php echo $u['id'] ?>"
+                class='btn btn-outline-primary btn-sm'
+                data-bs-toggle="tooltip"
+                data-bs-title="Editar"
+              >
+                <span class="icon"><i class="fas fa-edit"></i></span>
+              </a>
+              <div data-bs-toggle="tooltip" data-bs-title="Eliminar">
+                <button
+                  type="button"
+                  class=" btn btn-outline-danger btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal<?php echo $u['id'] ?>"
+                >
+                  <span class="icon"><i class="fas fa-trash"></i></span>
+                </button>
+              </div>
             </td>
           </tr>
         <?php endforeach; ?>

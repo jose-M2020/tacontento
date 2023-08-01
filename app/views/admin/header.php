@@ -93,5 +93,5 @@ $navItems = [
   <main class="contenedor">
     <?php require_once('./app/views/admin/components/navbar.php') ?>
     <?php require_once('./app/views/components/message.php') ?>
-    <div class="plr-sm-0 plr-20">
+    <div class="plr-sm-0 p-30">
     
