@@ -19,8 +19,47 @@
       </div>
     </form> -->
     <?php if (isset($_SESSION['usuario'])) : ?>
-      <div class="ms-auto">
-        <?php print_r($_SESSION['usuario']['nombre']) ?>
+      <div class="ms-auto me-3">
+        <span>Bienvenido!</span>
+        <b class="font-11 d-block">
+          <?php print_r($_SESSION['usuario']['nombre']) ?>
+        </b>
+      </div>
+      <!-- Avatar -->
+      <div class="dropdown">
+        <!-- 
+          data-mdb-toggle="dropdown"
+          dropdown-toggle
+        -->
+        <a
+          class="d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          aria-expanded="false"
+          >
+          <img
+            src="images/profile.png"
+            class="rounded-circle"
+            height="43"
+            alt="User Portrait"
+            loading="lazy"
+          />
+        </a>
+        <!-- <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar"
+        >
+          <li>
+            <a class="dropdown-item" href="#">My profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Settings</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Logout</a>
+          </li>
+        </ul> -->
       </div>
     <?php endif; ?>
   </div>

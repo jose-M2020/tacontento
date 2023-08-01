@@ -1,5 +1,6 @@
 <?php
-require_once 'app/views/components/header.php';
+  require_once 'app/views/components/header.php';
+  require_once 'app/config.php';
 ?>
 
 <br><br>
@@ -8,10 +9,17 @@ require_once 'app/views/components/header.php';
   <div class="container">
     <div class="heading">
 
-      <h2>Ingrese su tarjeta de crédito para el pago</h2>
+      <h2>Checkout</h2>
     </div>
-  </div><!-- container-->
-  <form action="index.php?page=storepedido" method="POST" class="credit-card-div">
+  </div>
+
+  <!-- Payment button -->
+  <button class="stripe-button" id="payButton">
+      <div class="spinner hidden" id="spinner"></div>
+      <span id="buttonText">Pay Now</span>
+  </button>
+
+  <!-- <form action="index.php?page=storepedido" method="POST" class="credit-card-div">
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -64,9 +72,87 @@ require_once 'app/views/components/header.php';
 
         </div>
       </div>
-  </form>
+  </form> -->
   </div>
 </section>
+
 <?php
-require_once 'app/views/components/footer.php';
+  require_once 'app/views/components/footer.php';
 ?>
+
+<!-- Stripe JavaScript library -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  // Set Stripe publishable key to initialize Stripe.js
+  const stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY; ?>');
+
+  // Select payment button
+  const payBtn = document.querySelector("#payButton");
+
+  // Payment request handler
+  payBtn.addEventListener("click", function (evt) {
+      setLoading(true);
+
+      createCheckoutSession().then(function (data) {
+          if(data.sessionId){
+              stripe.redirectToCheckout({
+                  sessionId: data.sessionId,
+              }).then(handleResult);
+          }else{
+              handleResult(data);
+          }
+      });
+  });
+      
+  // Create a Checkout Session with the selected product
+  const createCheckoutSession = function (stripe) {
+      return fetch("index.php?page=payment-init", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              createCheckoutSession: 1,
+          }),
+      }).then(function (result) {
+          return result.json();
+      });
+  };
+
+  // Handle any errors returned from Checkout
+  const handleResult = function (result) {
+      if (result.error) {
+          showMessage(result.error.message);
+      }
+      
+      setLoading(false);
+  };
+
+  // Show a spinner on payment processing
+  function setLoading(isLoading) {
+      if (isLoading) {
+          // Disable the button and show a spinner
+          payBtn.disabled = true;
+          document.querySelector("#spinner").classList.remove("hidden");
+          document.querySelector("#buttonText").classList.add("hidden");
+      } else {
+          // Enable the button and hide spinner
+          payBtn.disabled = false;
+          document.querySelector("#spinner").classList.add("hidden");
+          document.querySelector("#buttonText").classList.remove("hidden");
+      }
+  }
+
+  // Display message
+  function showMessage(messageText) {
+      const messageContainer = document.querySelector("#paymentResponse");
+    
+      messageContainer.classList.remove("hidden");
+      messageContainer.textContent = messageText;
+    
+      setTimeout(function () {
+          messageContainer.classList.add("hidden");
+          messageText.textContent = "";
+      }, 5000);
+  }
+</script>
