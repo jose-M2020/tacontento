@@ -13,7 +13,7 @@ if (!empty($page)) {
     #index de la pagina
     // 'index' => array('model' => 'Index', 'view' => 'index', 'controller' => 'IndexController'),
     'pay' => array('model' => 'Index', 'view' => 'pay', 'controller' => 'PedidoController'),
-    'carrito' => array('model' => 'Index', 'view' => 'carrito', 'controller' => 'IndexController'),
+    'carrito' => array('model' => 'Carrito', 'view' => 'index', 'controller' => 'CarritoController'),
     'home' => array('model' => 'Index', 'view' => 'home', 'controller' => 'IndexController'),
     'menu' => array('model' => 'Index', 'view' => 'menu', 'controller' => 'IndexController'),
     'compras' => array('model' => 'Pedido', 'view' => 'compras', 'controller' => 'PedidoController'),
@@ -54,8 +54,8 @@ if (!empty($page)) {
     'editarticulo' => array('model' => 'Articulo', 'view' => 'edit', 'controller' => 'ArticuloController'),
     'destroyarticulo' => array('model' => 'Articulo', 'view' => 'destroy', 'controller' => 'ArticuloController'),
     /////////////////////////carrito de compras
-    'addcarrito' => array('model' => 'Pedido', 'view' => 'addcarrito', 'controller' => 'PedidoController'),
-    'deletecarrito' => array('model' => 'Pedido', 'view' => 'deletecarrito', 'controller' => 'PedidoController'),
+    'addcarrito' => array('model' => 'Carrito', 'view' => 'store', 'controller' => 'CarritoController'),
+    'deletecarrito' => array('model' => 'Carrito', 'view' => 'delete', 'controller' => 'CarritoController'),
     ////////////////////////////////////
     'dashboard' => array('model' => 'Index', 'view' => 'index', 'controller' => 'OfertaController'),
     'createoferta' => array('model' => 'Oferta', 'view' => 'create', 'controller' => 'OfertaController'),

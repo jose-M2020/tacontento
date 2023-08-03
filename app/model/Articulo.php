@@ -36,7 +36,6 @@ class Articulo extends ModeloBase {
     public function editarticulo($id){
         $db = new ModeloBase();
        return $db->edit('articulos', $id);
-      
     }
     public function destroyarticulo($id){
       $db = new ModeloBase();

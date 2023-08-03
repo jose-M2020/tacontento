@@ -16,76 +16,79 @@ if (isset($_SESSION['add_carro'])) {
     echo createHero('Carrito de compras', 'menu.jpg');
 ?>
 
+
 <section class="container" style="min-height: 60vh">
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <tr>
-                <th width="10%">id producto</th>
-                <th width="40%">Descripción</th>
-                <th width="20%">precio</th>
-                <th width="15%">cantidad</th>
-                <th width="15%">total</th>
-                <th width="10%">id_cliente</th>
-                <th width="10%">Action</th>
-              
-            </tr>
-            <?php
-            if (!empty($_SESSION["add_carro"])) {
-                $total = 0;
-                $des = "";
-                $cantidad = "";
-                foreach ($_SESSION["add_carro"] as $keys => $values) {
-                    ?>
+  <?php if (!empty($carrito)) : ?>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <table class="table table-bordered">
                     <tr>
-                        <td><?php echo $values["id"]; ?></td>
-                        <td><?php echo $values["descripcion"]; ?></td>
-                        <td>$ <?php echo $values["precio"]; ?></td>
-                        <td> <?php echo $values["cantidad"]; ?></td>
-                        <td>$ <?php echo $values["total"]; ?></td>
-                        <td> <?php echo $values["id_cliente"]; ?></td>
-                        <td>
-                            <form style="display: inline;" method="POST" action="index.php?page=deletecarrito&id=<?php echo $values["id"] ?>">
-                                <button type="submit" class=" btn btn-outline-danger btn-sm" value="delete" name="delete">Remover</button>
-                                <button>
-                                </button>
-                            </form>
-                        </td>
+                        <th width="40%">Platillo</th>
+                        <th width="15%">Cantidad</th>
+                        <th width="15%">Total</th>
+                        <th width="10%">Action</th>
                     </tr>
                     <?php
-                    $total = $total + $values["total"];
-                    $des.= $values["id"].",";
-                    $cantidad.= $values["cantidad"].",";
-                }
-                ?>
-                <tr>
-                    <td colspan="4 align="right">Total</td>
-                    <td colspan="2" align="right">$<?php echo number_format($total, 2); ?></td>
-                    <td>
-                   
-                        <form method="POST" action="index.php?page=pay">
-                            <input type="hidden" name="descripcion" readonly value="<?php echo $des?>">
-                            <input type="hidden" name="total" readonly value="<?php echo number_format($total, 2);?>">
-                            <input type="hidden" name="id_cliente" readonly value="<?php echo $values["id_cliente"];?>">
-                            <input type="hidden" name="cantidad" readonly value="<?php echo $cantidad?>">
-                         
-                             <button name="registrar" value="registrar" class="btn btn-primary">Pagar</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php
-
-            } else {
-                ?>
-                <tr>
-                    <td colspan="7" style="color: red" align="center"><strong>No hay Producto Agregado!</strong></td>
-                </tr>
-            <?php
-            }
-            ?>
-        </table>
-
-
+                        $total = 0;
+                        $des = "";
+                        $cantidad = "";
+                        foreach ($carrito as $item) {
+                            ?>
+                            <tr>
+                                <td colspan="1">
+                                  <span class="fw-bold font-12 d-block mb-2">
+                                    <?php echo $item['item']['nombre'] ?> - 
+                                    $<?php echo $item['item']['precio'] ?>
+                                  </span>
+                                  <?php echo $item['detalles'] ?>
+                                </td>
+                                <td><?php echo $item['cantidad'] ?></td>
+                                <td>$<?php echo ($item['item']['precio'] * $item['cantidad']) ?></td>
+        
+                                <td>
+                                    <form style="display: inline;" method="POST" action="index.php?page=deletecarrito&id=<?php echo $values["id"] ?>">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" value="delete" name="delete">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                        <button>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                            // $total = $total + $values["total"];
+                            // $des.= $values["id"].",";
+                            // $cantidad.= $values["cantidad"].",";
+                        }
+                    ?>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <p>Total</p>
+                <p>$<?php echo number_format($total, 2); ?></p>
+                <div>
+                
+                    <form method="POST" action="index.php?page=pay">
+                        <input type="hidden" name="descripcion" readonly value="<?php echo $des?>">
+                        <input type="hidden" name="total" readonly value="<?php echo number_format($total, 2);?>">
+                        <input type="hidden" name="id_cliente" readonly value="<?php echo $values["id_cliente"];?>">
+                        <input type="hidden" name="cantidad" readonly value="<?php echo $cantidad?>">
+                        <button name="registrar" value="registrar" class="btn btn-primary">Pagar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+  <?php else: ?>
+    <div class="text-center">
+      <i class="fa-solid fa-cart-shopping font-40 mb-20"></i>
+      <p class="mb-20 font-20"><strong>¡Tu carrito esta vació!</strong></p>
+      <a class="btn btn-primary" href="index.php?page=menu">Agregar platillos</a>
+    </div>
+  <?php endif; ?>
 </section>
 
 

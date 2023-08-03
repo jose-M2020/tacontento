@@ -85,11 +85,11 @@ require_once 'app/controller/ArticuloController.php';
     <form method="POST" id="addCart" action="index.php?page=addcarrito&id=null">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Cantidad (obligatorio)</label>
-        <input type="number" class="form-control" min="1" pattern="^[0-9]+" name="cant" required placeholder="1">
+        <input type="number" class="form-control" min="1" pattern="^[0-9]+" name="cantidad" required placeholder="1">
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Comentarios adicionales</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Agrega aquí tus instrucciones especiales"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detalles" placeholder="Agrega aquí tus instrucciones especiales"></textarea>
       </div>
       <button type="submit" class="btn btn-primary btn-md w-100" name="agregar">Agregar al carrito</button>
     </form>

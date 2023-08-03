@@ -25,10 +25,7 @@ class IndexController
             header('Location: index.php?page=home');
         }
     }
-    public function carrito()
-    {
-         require_once('./app/views/pages/carrito.php');
-    }
+    
     public function home()
     {
         require_once('./app/views/pages/home.php');
