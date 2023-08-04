@@ -1,17 +1,15 @@
 <?php
   require_once 'app/views/components/header.php';
   require_once 'app/config.php';
+
+  include "./app/views/components/hero.php";
+  echo createHero('Detalles de la orden', 'menu.jpg');
 ?>
 
 <br><br>
 <br>
 <section class="counter-section section center-text" id="counter">
-  <div class="container">
-    <div class="heading">
-
-      <h2>Checkout</h2>
-    </div>
-  </div>
+  
 
   <!-- Payment button -->
   <button class="stripe-button" id="payButton">

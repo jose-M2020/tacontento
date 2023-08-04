@@ -1,5 +1,6 @@
 <?php
 require_once 'app/model/Usuario.php';
+require_once 'app/model/Carrito.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
 
@@ -33,6 +34,8 @@ class AuthController
                 header('Location: index.php?page=dashboard');
                 die();
             } else if($respuesta['admin'] == 2){
+                $cart = new Carrito();
+                $respuesta['cartNum'] = $cart->count($respuesta['id']) ?? 0;
                 $_SESSION['cliente'] = $respuesta;
                 header('Location: index.php?page=home');
             }else {

@@ -55,6 +55,9 @@ class CarritoController
         );
         
         $cartModel->storeItem($datos);
+
+        $_SESSION['cliente']['cartNum'] += 1;
+
         header('Location: index.php?page=menu');
     }
 
@@ -101,18 +104,14 @@ class CarritoController
 
     public function destroy()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
-        }
-        if (isset($_POST['eliminar'])) {
-            $id = $_GET['id'];
+        $id = $_GET['id'];
 
-            $user = new Usuario();
-            if ($user->destroyuser($id)) {
-                header('Location: index.php?page=usuario');
-            } else {
-             echo "error";
-            }
+        $cart = new Carrito();
+        if ($cart->destroyItem($id)) {
+            $_SESSION['cliente']['cartNum'] -= 1;
+            header('Location: index.php?page=carrito&idUsuario='.$_SESSION['cliente']['id']);
+        } else {
+            // echo "error";
         }
     }
 }

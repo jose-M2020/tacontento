@@ -55,7 +55,7 @@ if (!empty($page)) {
     'destroyarticulo' => array('model' => 'Articulo', 'view' => 'destroy', 'controller' => 'ArticuloController'),
     /////////////////////////carrito de compras
     'addcarrito' => array('model' => 'Carrito', 'view' => 'store', 'controller' => 'CarritoController'),
-    'deletecarrito' => array('model' => 'Carrito', 'view' => 'delete', 'controller' => 'CarritoController'),
+    'deletecarrito' => array('model' => 'Carrito', 'view' => 'destroy', 'controller' => 'CarritoController'),
     ////////////////////////////////////
     'dashboard' => array('model' => 'Index', 'view' => 'index', 'controller' => 'OfertaController'),
     'createoferta' => array('model' => 'Oferta', 'view' => 'create', 'controller' => 'OfertaController'),

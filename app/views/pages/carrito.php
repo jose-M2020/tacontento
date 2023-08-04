@@ -6,9 +6,8 @@ if(!isset($_SESSION)){
     session_start(); 
 }  
 
-if (isset($_SESSION['add_carro'])) {
-    $d = $_SESSION['add_carro'];
-} else { }
+$total = 0;
+
 ?>
 
 <?php 
@@ -19,35 +18,41 @@ if (isset($_SESSION['add_carro'])) {
 
 <section class="container" style="min-height: 60vh">
   <?php if (!empty($carrito)) : ?>
-    <div class="row">
-        <div class="col-md-8">
+    <div class="row g-5">
+        <div class="col-md-8 cart">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <th width="40%">Platillo</th>
+                        <th width="70%">Platillo</th>
                         <th width="15%">Cantidad</th>
                         <th width="15%">Total</th>
-                        <th width="10%">Action</th>
+                        <!-- <th width="10%">Action</th> -->
                     </tr>
                     <?php
-                        $total = 0;
-                        $des = "";
-                        $cantidad = "";
                         foreach ($carrito as $item) {
-                            ?>
+                          $totalPerItem = $item['item']['precio'] * $item['cantidad'];
+                    ?>
                             <tr>
-                                <td colspan="1">
-                                  <span class="fw-bold font-12 d-block mb-2">
-                                    <?php echo $item['item']['nombre'] ?> - 
-                                    $<?php echo $item['item']['precio'] ?>
-                                  </span>
-                                  <?php echo $item['detalles'] ?>
+                                <td class="d-flex flex-column gap-3 position-relative" colspan="1">
+                                  <div class="d-flex gap-2">
+                                    <img src="storage/<?php echo $item['item']['img'] ?>" alt="Platillo" style="width: 70px; height: 70px; object-fit: cover;">
+                                    <span class="fw-bold font-12 d-block mb-2">
+                                      <?php echo $item['item']['nombre'] ?> - 
+                                      $<?php echo $item['item']['precio'] ?>
+                                    </span>
+                                  </div>
+                                  <?php if(!empty($item['detalles'])) : ?>
+                                    <div class="shadow-sm p-10 mb-2 cart__item-detail">
+                                      <p class="mb-1"><i class="fa-regular fa-clipboard font-12 me-1"></i> Indicaciones</p>
+                                      <span><?php echo $item['detalles'] ?></span>
+                                    </div>
+                                  <?php endif; ?>
                                 </td>
                                 <td><?php echo $item['cantidad'] ?></td>
-                                <td>$<?php echo ($item['item']['precio'] * $item['cantidad']) ?></td>
+                                <td>$<?php echo $totalPerItem ?></td>
         
                                 <td>
-                                    <form style="display: inline;" method="POST" action="index.php?page=deletecarrito&id=<?php echo $values["id"] ?>">
+                                    <form style="display: inline;" method="POST" action="index.php?page=deletecarrito&id=<?php echo $item["id"] ?>">
                                         <button type="submit" class="btn btn-outline-danger btn-sm" value="delete" name="delete">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
@@ -57,27 +62,26 @@ if (isset($_SESSION['add_carro'])) {
                                 </td>
                             </tr>
                             <?php
-                            // $total = $total + $values["total"];
-                            // $des.= $values["id"].",";
-                            // $cantidad.= $values["cantidad"].",";
-                        }
-                    ?>
+                        $total+=$totalPerItem;
+                    } ?>
                 </table>
             </div>
         </div>
-        <div class="col-md-4">
-            <div>
-                <p>Total</p>
-                <p>$<?php echo number_format($total, 2); ?></p>
+        <div class="col-md-4 sticky-md-top">
+            <div class="card shadow">
+                <h4 class="card-header ptb-20">Resumen Del Pedido</h4>
+                <div class="card-body">
+                <div class="mb-15 d-flex justify-content-between">
+                    <span>No. Platillos</span>
+                    <span><?php echo count($carrito) ?></span>
+                </div>
+                <div class="mb-15 d-flex justify-content-between font-13 fw-bold">
+                    <span>Total</span>
+                    <span>$<?php echo number_format($total, 2); ?></span>
+                </div>
                 <div>
-                
-                    <form method="POST" action="index.php?page=pay">
-                        <input type="hidden" name="descripcion" readonly value="<?php echo $des?>">
-                        <input type="hidden" name="total" readonly value="<?php echo number_format($total, 2);?>">
-                        <input type="hidden" name="id_cliente" readonly value="<?php echo $values["id_cliente"];?>">
-                        <input type="hidden" name="cantidad" readonly value="<?php echo $cantidad?>">
-                        <button name="registrar" value="registrar" class="btn btn-primary">Pagar</button>
-                    </form>
+                    <a href="index.php?page=pay" value="registrar" class="btn btn-lg btn-primary w-100">Continuar compra</a>                
+                </div>
                 </div>
             </div>
         </div>

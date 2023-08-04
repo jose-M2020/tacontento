@@ -35,14 +35,14 @@ class Carrito extends ModeloBase {
     //     return $updated;
     // }
 
-    // public function destroy($id){
-    //     $db = new ModeloBase();
-    //     $utilities = new Utilidades();
-    //     $deleted = $db->destroy('usuarios', $id);
+    public function destroyItem($id){
+        $db = new ModeloBase();
+        $utilities = new Utilidades();
+        $deleted = $db->destroy('carrito', $id);
             
-    //     $utilities->handleMessage($deleted, 'Usuario eliminado exitosamente!');
-    //     return $deleted;
-    // }
+        $utilities->handleMessage($deleted, 'Platillo eliminado del carrito!');
+        return $deleted;
+    }
 
     public function pagination($idUsuario){
 
@@ -52,6 +52,15 @@ class Carrito extends ModeloBase {
         $section = ceil($number_of_rows / 8);
         
         return $section;
+         
+    }
+
+    public function count($idUsuario){
+
+        $db = new ModeloBase();
+        $sql = "SELECT COUNT(id) FROM carrito  WHERE id_usuario = $idUsuario ";
+        $number_of_rows = $db->pagination($sql);        
+        return $number_of_rows;
          
     }
 }
