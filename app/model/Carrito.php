@@ -8,11 +8,13 @@ class Carrito extends ModeloBase {
         parent::__construct();
     }
 
-    public function indexCarrito($idUsuario,$startOfPaging,$amountOfThePaging) {
+    public function indexCarrito($idUsuario, $startOfPaging = null, $amountOfThePaging = null) {
         $db = new ModeloBase();
-        $sql = "SELECT * FROM carrito WHERE id_usuario = $idUsuario LIMIT $startOfPaging,$amountOfThePaging";
+        $sql = "SELECT * FROM carrito WHERE id_usuario = $idUsuario";
+
+        $sql = $startOfPaging && $amountOfThePaging ? $sql." LIMIT $startOfPaging,$amountOfThePaging" : $sql;
         return  $db->index($sql);
-     
+        
     }
     
     public function storeItem($datos){

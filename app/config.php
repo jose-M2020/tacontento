@@ -5,7 +5,7 @@
 $productName = "Codex Demo Product";  
 $productID = "DP12345";  
 $productPrice = 55; 
-$currency = "usd"; 
+$currency = "MXN"; 
   
 /* 
  * Stripe API configuration 

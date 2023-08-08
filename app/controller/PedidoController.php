@@ -1,6 +1,7 @@
 <?php
 require_once 'app/model/Pedido.php';
 require_once 'app/model/Articulo.php';
+require_once 'app/model/Carrito.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
 
@@ -276,6 +277,7 @@ class PedidoController
     }
 
     public function payment_init() {
+        require_once 'app/model/Articulo.php'; 
         // Include the configuration file 
         require_once 'app/config.php'; 
         
@@ -300,15 +302,31 @@ class PedidoController
         if (json_last_error() !== JSON_ERROR_NONE) { 
             http_response_code(400); 
             echo json_encode($response); 
-            exit; 
+            exit;  
         } 
         
         if(!empty($request->createCheckoutSession)){ 
             // Convert product price to cent 
             $stripeAmount = round($productPrice*100, 2); 
-        
+            
+            $userId = $_SESSION['cliente']['id'];
+            $carritoModel = new Carrito;
+            $articuloModel = new Articulo;
+            $userCart = $carritoModel->indexCarrito($userId, null, null);
+
+            $amount = 0;
+
+            foreach ($userCart as $key => $item) {
+              $infoItem = $articuloModel->editarticulo($item['id_articulo']);
+              $userCart[$key]['item'] = $infoItem;
+                
+              $totalPerItem = $infoItem['precio'] * $userCart[$key]['cantidad'];
+
+              $amount += $totalPerItem;
+            }
+
             // Create new Checkout Session for the order 
-            try { 
+            try {
                 $checkout_session = $stripe->checkout->sessions->create([ 
                     'line_items' => [[ 
                         'price_data' => [ 
@@ -316,9 +334,9 @@ class PedidoController
                                 'name' => $productName, 
                                 'metadata' => [ 
                                     'pro_id' => $productID 
-                                ] 
-                            ], 
-                            'unit_amount' => $stripeAmount, 
+                                ]
+                            ],
+                            'unit_amount' => $amount, 
                             'currency' => $currency, 
                         ], 
                         'quantity' => 1 
