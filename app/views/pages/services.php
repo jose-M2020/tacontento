@@ -1,10 +1,9 @@
 <?php
 require_once 'app/views/components/header.php';
-?>
+require_once "./app/views/components/hero.php";
 
-<?php 
-    include "./app/views/components/hero.php";
-    echo createHero('Nuestros Servicios', 'services.jpg');
+echo createNavbar();
+echo createHero('Nuestros Servicios', 'services.jpg');
 ?>
 
 <section class="counter-section section center-text" id="counter">

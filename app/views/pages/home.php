@@ -125,7 +125,9 @@ $meals = [
     'schedule' => '5:00 pm - 9:00 pm',
     'icon' => 'fa-solid fa-burger'
   ],
-]
+];
+
+echo createNavbar();
 
 ?>
 

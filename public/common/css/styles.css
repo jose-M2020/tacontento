@@ -176,7 +176,7 @@ header:after {
 }
 
 @media (min-width: 768px) {
-  header {
+  header[data-scroll-effect='true'] {
     position: fixed;
     background: transparent !important;
   }

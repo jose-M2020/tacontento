@@ -1,5 +1,6 @@
 <?php
 require_once 'app/views/components/header.php';
+echo createNavbar();
 ?>
 <br>
 <br>

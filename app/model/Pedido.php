@@ -23,10 +23,8 @@ class Pedido extends ModeloBase
     public function storepedido($datos)
     {
         $db = new ModeloBase();
-        $utilities = new Utilidades();
         $insert = $db->store('pedidos', $datos);
-
-        $utilities->handleMessage($insert, 'Producto creado con éxito!');
+        
         return $insert;
     }
     public function editarpedido($id)
@@ -34,6 +32,7 @@ class Pedido extends ModeloBase
         $db = new ModeloBase();
         return $db->edit('pedidos', $id);
     }
+
     public function ticket($id)
     {
         $db = new ModeloBase();
@@ -45,6 +44,7 @@ class Pedido extends ModeloBase
 
         return $db->show($sql);
     }
+
     public function getarticulos($id)
     {
         $db = new ModeloBase();
@@ -122,5 +122,12 @@ class Pedido extends ModeloBase
         $sql = "SELECT * FROM pedidos where id_cliente = $id";
 
         return  $db->index($sql);
+    }
+    
+    public function checkByStripeSession($session_id)
+    {
+        $db = new ModeloBase();
+        $res = $db->recordExists('pedidos', ['session_id', '=', $session_id]);
+        return  $res;
     }
 }

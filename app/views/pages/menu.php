@@ -1,11 +1,13 @@
 <?php
 require_once 'app/views/components/header.php';
+require_once "app/views/components/hero.php";
 require_once 'app/controller/ArticuloController.php';
+
+echo createNavbar();
+echo createHero('Menú', 'menu.jpg');
 ?>
 
 <?php 
-    include "./app/views/components/hero.php";
-    echo createHero('Menú', 'menu.jpg');
 ?>
 <section>
   <div class="container menu">

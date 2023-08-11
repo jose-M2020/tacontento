@@ -1,7 +1,8 @@
 <?php
 
-require_once 'app/views/components/header.php';
+include_once 'app/views/components/header.php';
 include "./app/views/components/hero.php";
+echo createNavbar();
 echo createHero('Acerca de Nosotros', 'about.jpg');
 
 ?>

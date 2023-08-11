@@ -1,10 +1,9 @@
 <?php
 require_once 'app/views/components/header.php';
-?>
+require_once "./app/views/components/hero.php";
 
-<?php 
-    include "./app/views/components/hero.php";
-    echo createHero('Mis compras', 'menu.jpg');
+echo createNavbar();
+echo createHero('Mis compras', 'menu.jpg');
 ?>
 
 <section class="story-area left-text center-sm-text">

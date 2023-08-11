@@ -19,7 +19,11 @@ class ModeloBase extends DB {
           $sql .= "VALUES ( :".implode(", :",$keys).")";
 
           $insert = $conexion->prepare($sql)->execute($datos);
-          return $insert;
+          $lastInsertId = $conexion->lastInsertId();
+
+          return !$insert ? false : [
+            'id' =>  $lastInsertId
+          ];
         
         } catch (PDOException $e) {
           $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
@@ -79,12 +83,12 @@ class ModeloBase extends DB {
             $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
         }
     }
-    public function destroy($table,$id){
+    public function destroy($table, $id, $field = 'id'){
         $conexion = parent::conexion();
         $utilities = new Utilidades();
 
         try {
-            $query = " DELETE  FROM  $table WHERE id = $id  ";
+            $query = "DELETE  FROM  $table WHERE $field = $id  ";
             return  $conexion->query($query)->execute();
         
         } catch (PDOException $e){

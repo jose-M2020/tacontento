@@ -45,6 +45,13 @@ class Carrito extends ModeloBase {
         $utilities->handleMessage($deleted, 'Platillo eliminado del carrito!');
         return $deleted;
     }
+    
+    public function destroyByUser($idUsuario){
+        $db = new ModeloBase();
+        $deleted = $db->destroy('carrito', $idUsuario, 'id_usuario');
+        
+        return $deleted;
+    }
 
     public function pagination($idUsuario){
 

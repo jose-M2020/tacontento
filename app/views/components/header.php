@@ -92,5 +92,4 @@ $navItems = [
   <?php 
     include "./app/views/components/Navbar.php";
     require_once('./app/views/components/message.php');
-    echo createNavbar();
   ?>

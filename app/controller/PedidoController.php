@@ -82,27 +82,23 @@ class PedidoController
         require_once('./app/views/pedidos/pay.php');
     }
 
-    public function store()
-    {
-        $request = new Request();
-        
+    public function store($data)
+    {        
         $fecha = new  DateTime('now');
         // $quitarespacio = str_replace(",", " ", $_POST['descripcion']);
 
-        $datos = array(
-            'descripcion' =>  $request->input('descripcion'),
-            'fecha' => $fecha->format('Y-m-d'),
-            'total' => $request->input('total'),
-            'cantidad' => $request->input('cantidad'),
-            'id_cliente' => $request->input('id_cliente'),
-            'status' => 1,
-        );
+        
+        
+        $data['fecha'] = $fecha->format('Y-m-d');
 
         $create = new Pedido();
-        $create->storepedido($datos);
-        unset($_SESSION['add_carro']);
-        $lastid = $create->obtenerid();
-        require_once 'app/views/pages/message.php';
+        $pedidoStored = $create->storepedido($data);
+        // unset($_SESSION['add_carro']);
+
+        echo($pedidoStored['id']);
+
+        // $lastid = $create->obtenerid();
+        // require_once 'app/views/pages/message.php';
     }
 
 
@@ -305,44 +301,54 @@ class PedidoController
             exit;  
         } 
         
-        if(!empty($request->createCheckoutSession)){ 
-            // Convert product price to cent 
-            $stripeAmount = round($productPrice*100, 2); 
-            
+        if(!empty($request->createCheckoutSession)){
             $userId = $_SESSION['cliente']['id'];
             $carritoModel = new Carrito;
             $articuloModel = new Articulo;
             $userCart = $carritoModel->indexCarrito($userId, null, null);
 
-            $amount = 0;
+            $stripe_items = [];
 
             foreach ($userCart as $key => $item) {
               $infoItem = $articuloModel->editarticulo($item['id_articulo']);
-              $userCart[$key]['item'] = $infoItem;
-                
-              $totalPerItem = $infoItem['precio'] * $userCart[$key]['cantidad'];
 
-              $amount += $totalPerItem;
+              $stripeAmount = round($infoItem['precio']*100, 2); 
+
+              array_push($stripe_items, [
+                'price_data' => [ 
+                    'product_data' => [ 
+                        'name' => $infoItem['nombre'], 
+                        'metadata' => [ 
+                            'pro_id' => $infoItem['id'] 
+                        ]
+                    ],
+                    'unit_amount' => $stripeAmount, 
+                    'currency' => $currency, 
+                ], 
+                'quantity' => $item['cantidad']
+              ]);
             }
 
             // Create new Checkout Session for the order 
             try {
                 $checkout_session = $stripe->checkout->sessions->create([ 
-                    'line_items' => [[ 
-                        'price_data' => [ 
-                            'product_data' => [ 
-                                'name' => $productName, 
-                                'metadata' => [ 
-                                    'pro_id' => $productID 
-                                ]
-                            ],
-                            'unit_amount' => $amount, 
-                            'currency' => $currency, 
-                        ], 
-                        'quantity' => 1 
-                    ]], 
+                    // 'shipping_options' => [[
+                    //   'shipping_rate_data' => [
+                    //     'display_name' => 'DHL',
+                    //     'type' => 'fixed_amount',
+                    //     'delivery_estimate' => [
+                    //         'maximum' => 5,
+                    //         'minimum' => 2,
+                    //     ],
+                    //     'fixed_amount' => [
+                    //         'amount' => 250,
+                    //         'currency' => $currency,
+                    //     ],
+                    //   ],
+                    // ]],
+                    'line_items' => $stripe_items, 
                     'mode' => 'payment', 
-                    'success_url' => STRIPE_SUCCESS_URL.'?session_id={CHECKOUT_SESSION_ID}', 
+                    'success_url' => STRIPE_SUCCESS_URL.'&session_id={CHECKOUT_SESSION_ID}', 
                     'cancel_url' => STRIPE_CANCEL_URL, 
                 ]); 
             } catch(Exception $e) {  
@@ -366,5 +372,121 @@ class PedidoController
         } 
 
         echo json_encode($response); 
+    }
+
+    public function payment_success() {
+        if(empty($_GET['session_id'])){
+          return header('Location: index.php?page=home');
+        }
+        
+        $pedido = new Pedido;
+        $carritoModel = new Carrito;
+        $idUsuario = $_SESSION['cliente']['id'];
+        $session_id = $_GET['session_id']; 
+
+        $pedidoExist = $pedido->checkByStripeSession($session_id);
+
+        if($pedidoExist) {
+            echo "El pedido ya ha sido registrado.";
+        } else {
+            require_once 'lib/stripe-php/init.php';
+            require_once 'app/config.php';
+
+            $stripe = new \Stripe\StripeClient(STRIPE_API_KEY); 
+
+            // Fetch the Checkout Session to display the JSON result on the success page 
+            try { 
+                $checkout_session = $stripe->checkout->sessions->retrieve($session_id, ['expand' => ['line_items']]); 
+            } catch(Exception $e) {  
+                $api_error = $e->getMessage();  
+            }
+
+            if(empty($api_error) && $checkout_session){ 
+                // Get customer details 
+                $customer_details = $checkout_session->customer_details; 
+                
+                $line_items = $checkout_session->line_items;
+                
+                print_r($line_items->data[0]->price);
+     
+                // Retrieve the details of a PaymentIntent 
+                try { 
+                    $paymentIntent = $stripe->paymentIntents->retrieve($checkout_session->payment_intent); 
+                } catch (\Stripe\Exception\ApiErrorException $e) { 
+                    $api_error = $e->getMessage(); 
+                } 
+                 
+                if(empty($api_error) && $paymentIntent){ 
+                    // Check whether the payment was successful 
+                    if(!empty($paymentIntent) && $paymentIntent->status == 'succeeded'){ 
+                        // Transaction details  
+                        $transactionID = $paymentIntent->id; 
+                        $paidAmount = $paymentIntent->amount; 
+                        $paidAmount = ($paidAmount/100); 
+                        $paidCurrency = $paymentIntent->currency; 
+                        $payment_status = $paymentIntent->status; 
+                         
+                        // Customer info 
+                        $customer_name = $customer_email = ''; 
+                        if(!empty($customer_details)){ 
+                            $customer_name = !empty($customer_details->name)?$customer_details->name:''; 
+                            $customer_email = !empty($customer_details->email)?$customer_details->email:''; 
+                        } 
+
+
+                        // Check if any transaction data is exists already with the same TXN ID 
+                        // $sqlQ = "SELECT id FROM transactions WHERE txn_id = ?"; 
+                        // $stmt = $db->prepare($sqlQ);  
+                        // $stmt->bind_param("s", $transactionID); 
+                        // $stmt->execute(); 
+                        // $result = $stmt->get_result(); 
+                        // $prevRow = $result->fetch_assoc(); 
+                         
+                        // if(!empty($prevRow)){ 
+                        //     $payment_id = $prevRow['id']; 
+                        // }else{ 
+                        //     // Insert transaction data into the database 
+                        //     $sqlQ = "INSERT INTO transactions (customer_name,customer_email,item_name,item_number,item_price,item_price_currency,paid_amount,paid_amount_currency,txn_id,payment_status,stripe_checkout_session_id,created,modified) VALUES (?,?,?,?,?,?,?,?,?,?,?,NOW(),NOW())"; 
+                        //     $stmt = $db->prepare($sqlQ); 
+                        //     $stmt->bind_param("ssssdsdssss", $customer_name, $customer_email, $productName, $productID, $productPrice, $currency, $paidAmount, $paidCurrency, $transactionID, $payment_status, $session_id); 
+                        //     $insert = $stmt->execute(); 
+                             
+                        //     if($insert){ 
+                        //         $payment_id = $stmt->insert_id; 
+                        //     } 
+                        // } 
+
+                        $data = array(
+                            'total' => $paidAmount,
+                            'id_usuario' => $idUsuario,
+                            'status' => 1,
+                            'session_id' => $session_id,
+                        );
+
+                        $this->store($data);
+
+                        // Update Cart
+                        // print_r($customer_details);
+                        $carritoModel->destroyByUser($idUsuario);
+                        $_SESSION['cliente']['cartNum'] = 0;
+                         
+                        $status = 'success'; 
+                        $statusMsg = 'Su pago ha sido exitoso!'; 
+                    }else{ 
+                        $statusMsg = "La transacción ha fallado!"; 
+                    } 
+                }else{ 
+                    $statusMsg = "No se pueden obtener los detalles de la transacción! $api_error";  
+                } 
+            }else{ 
+                $statusMsg = "Transacción inválida! $api_error";  
+            } 
+        }
+
+        require_once 'app/views/pedidos/payments/success.php';
+    }
+    
+    public function payment_cancel() {
+      require_once 'app/views/pedidos/payments/cancel.php';
     }
 }

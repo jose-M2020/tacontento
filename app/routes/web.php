@@ -39,6 +39,8 @@ if (!empty($page)) {
     'storepedido' => array('model' => 'Pedido', 'view' => 'store', 'controller' => 'PedidoController'),
     'updatepedido' => array('model' => 'Pedido', 'view' => 'update', 'controller' => 'PedidoController'),
     'payment-init' => array('model' => 'Pedido', 'view' => 'payment_init', 'controller' => 'PedidoController'),
+    'payment-success' => array('model' => 'Pedido', 'view' => 'payment_success', 'controller' => 'PedidoController'),
+    'payment-cancel' => array('model' => 'Pedido', 'view' => 'payment_cancel', 'controller' => 'PedidoController'),
     #modificar usaurio
     'editpedido' => array('model' => 'Pedido', 'view' => 'edit', 'controller' => 'PedidoController'),
     'imprimirpedido' => array('model' => 'Pedido', 'view' => 'imprimir', 'controller' => 'PedidoController'),

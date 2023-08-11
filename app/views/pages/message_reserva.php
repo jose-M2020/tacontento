@@ -1,6 +1,8 @@
 <?php
 require_once 'app/views/components/header.php';
+echo createNavbar();
 ?>
+
 <br>
 <br>
 <section class="story-area left-text center-sm-text">

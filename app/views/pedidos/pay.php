@@ -1,8 +1,9 @@
 <?php
   require_once 'app/views/components/header.php';
   require_once 'app/config.php';
-
   include "./app/views/components/hero.php";
+
+  echo createNavbar();
   echo createHero('Detalles de la orden', 'menu.jpg');
 ?>
 

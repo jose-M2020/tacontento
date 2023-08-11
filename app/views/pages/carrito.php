@@ -1,5 +1,6 @@
 <?php
 require_once 'app/views/components/header.php';
+require_once 'app/views/components/hero.php';
 require_once 'app/controller/PedidoController.php';
 
 if(!isset($_SESSION)){ 
@@ -8,13 +9,10 @@ if(!isset($_SESSION)){
 
 $total = 0;
 
-?>
+echo createNavbar();
+echo createHero('Carrito de compras', 'menu.jpg');
 
-<?php 
-    include "./app/views/components/hero.php";
-    echo createHero('Carrito de compras', 'menu.jpg');
 ?>
-
 
 <section class="container" style="min-height: 60vh">
   <?php if (!empty($carrito)) : ?>
