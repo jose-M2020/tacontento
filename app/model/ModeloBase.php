@@ -31,6 +31,36 @@ class ModeloBase extends DB {
            
         }
     }
+
+    public function storeMultiple($table, $data) {     
+        $conexion = parent::conexion();
+        $utilities = new Utilidades();
+        print_r($data);
+        try { 
+          $fields = array_keys($data[0]);
+        
+          $placeholders = implode(', ', array_map(function ($field) {
+            return ":$field";
+          }, $fields));
+
+          $sql = "INSERT INTO $table (".implode(", ", $fields).") \n";
+          $sql .= "VALUES ($placeholders)";
+
+          $stmt = $conexion->prepare($sql);
+
+          foreach ($data as $item) {
+            $stmt->execute($item);
+          }
+
+          return $stmt;
+
+        } catch (PDOException $e) {
+          $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.' . $e);
+        } catch (Exception $e) {
+           
+        }
+    }
+
     public function login($email, $password) {
         $conexion = parent::conexion();
         $utilities = new Utilidades();

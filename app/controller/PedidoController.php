@@ -1,5 +1,6 @@
 <?php
 require_once 'app/model/Pedido.php';
+require_once 'app/model/PedidoArticulo.php';
 require_once 'app/model/Articulo.php';
 require_once 'app/model/Carrito.php';
 require_once 'app/utilidades/Request.php';
@@ -83,20 +84,45 @@ class PedidoController
     }
 
     public function store($data)
-    {        
+    {   
+        $carritoModel = new Carrito;
         $fecha = new  DateTime('now');
-        // $quitarespacio = str_replace(",", " ", $_POST['descripcion']);
 
-        
-        
+        $idUsuario = $_SESSION['cliente']['id'];
         $data['fecha'] = $fecha->format('Y-m-d');
+        $userCart = $carritoModel->indexCarrito($idUsuario, null, null);
+        $pedidoItems = [];
 
-        $create = new Pedido();
-        $pedidoStored = $create->storepedido($data);
+        $PedidoModel = new Pedido();
+        $PedidoArticuloModel = new PedidoArticulo();
+        $pedidoStored = $PedidoModel->storepedido($data);
+        
+        // Add pedido items information
+
+        $articulo = new Articulo();
+
+        foreach ($userCart as $key => $item) {
+          $infoItem = $articulo->editarticulo($item['id_articulo']);
+          $userCart[$key]['item'] = $infoItem;
+        }
+
+        // Set and store the pedido items data
+        
+        foreach ($userCart as $item) {
+            array_push($pedidoItems, [
+                'id_pedido' => $pedidoStored['id'],
+                'id_articulo' => $item['id_articulo'],
+                'cantidad' => $item['cantidad'],
+                'precio' => $item['item']['precio'],
+            ]);
+        }
+
+        $PedidoArticuloModel->storeArticulos($pedidoItems);
+
+        
+        
         // unset($_SESSION['add_carro']);
-
-        echo($pedidoStored['id']);
-
+        
         // $lastid = $create->obtenerid();
         // require_once 'app/views/pages/message.php';
     }
@@ -319,7 +345,8 @@ class PedidoController
                     'product_data' => [ 
                         'name' => $infoItem['nombre'], 
                         'metadata' => [ 
-                            'pro_id' => $infoItem['id'] 
+                            'pro_id' => $infoItem['id'] ,
+                            'pro' => 'dsd' 
                         ]
                     ],
                     'unit_amount' => $stripeAmount, 
@@ -405,16 +432,20 @@ class PedidoController
                 // Get customer details 
                 $customer_details = $checkout_session->customer_details; 
                 
-                $line_items = $checkout_session->line_items;
-                
-                print_r($line_items->data[0]->price);
+                // TODO: Get the product metadata
+                // $line_items = $checkout_session->line_items;
+                // foreach ($line_items->data as $item) {
+                //     echo '<pre>';
+                //     print_r($item);
+                //     echo '</pre>';
+                // }
      
                 // Retrieve the details of a PaymentIntent 
                 try { 
                     $paymentIntent = $stripe->paymentIntents->retrieve($checkout_session->payment_intent); 
                 } catch (\Stripe\Exception\ApiErrorException $e) { 
                     $api_error = $e->getMessage(); 
-                } 
+                }
                  
                 if(empty($api_error) && $paymentIntent){ 
                     // Check whether the payment was successful 
@@ -466,7 +497,6 @@ class PedidoController
                         $this->store($data);
 
                         // Update Cart
-                        // print_r($customer_details);
                         $carritoModel->destroyByUser($idUsuario);
                         $_SESSION['cliente']['cartNum'] = 0;
                          
