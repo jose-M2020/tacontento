@@ -1,15 +1,14 @@
 <?php
 require_once 'app/views/admin/header.php';
 
-
-$id = $p['id'];
-$fecha = $p['fecha'];
-$nombre = $p['nombre'];
-$apellidos = $p['apellidos'];
-$email = $p['email'];
-$telefono = $p['telefono'];
-$id_cliente = $p['id_cliente'];
-$total = $p['total'];
+$id = $pedido['id'];
+$fecha = $pedido['fecha'];
+$nombre = $pedido['nombre'];
+$apellidos = $pedido['apellidos'];
+$email = $pedido['email'];
+$telefono = $pedido['telefono'];
+$id_cliente = $pedido['id_cliente'];
+$total = $pedido['total'];
 
 ?>
 
@@ -31,27 +30,31 @@ $total = $p['total'];
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($articulos)) : ?>
-                    <?php for ($i = 0; $i < $limite; $i++) : ?>
-                        <tr>
-
-                            <td><?php echo $articulos[$i]['id'] ?></td>
-                            <td><?php echo $articulos[$i]['nombre'] ?></td>
-                            <td> <?php echo $cantidad[$i] ?> </td>
-                            <td> $<?php echo  $articulos[$i]['precio'] ?> </td>
-                            <?php
-                            $t = 0;
-                            $t = $articulos[$i]['precio'] *  $cantidad[$i];
-                            ?>
-
-                            <td>
-                                <?php echo number_format($t, 2); ?>
-                            </td>
-                        </tr>
-                    <?php endfor; ?>
+                <?php if (!empty($pedido['articulos'])) : ?>
+                  <?php foreach ($pedido['articulos'] as $item) : ?>
+                    <tr>
+                      <td><?php echo $item['id'] ?></td>
+                      <td><?php echo $item['nombre'] ?></td>
+                      <td> <?php echo $item['cantidad'] ?> </td>
+                      <td> $<?php echo  $item['precio'] ?> </td>
+                      <?php
+                        $t = 0;
+                        $t = $item['precio'] *  $item['cantidad'];
+                      ?>
+                      <td>
+                        $<?php echo number_format($t, 2); ?>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
         </table>
+        <div class="row justify-content-end">
+          <div class="col-md-3 d-flex justify-content-end font-13">
+            <span class="me-100">Total</span>
+            <span>$<?php echo number_format($pedido['total'], 2) ?></span>
+          </div>
+        </div>
       </div>
       <div class="col-md-4 shadow p-20 text-center user">
         <div class="user__photo mb-20">

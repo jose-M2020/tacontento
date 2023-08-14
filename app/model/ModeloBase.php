@@ -35,7 +35,7 @@ class ModeloBase extends DB {
     public function storeMultiple($table, $data) {     
         $conexion = parent::conexion();
         $utilities = new Utilidades();
-        print_r($data);
+        
         try { 
           $fields = array_keys($data[0]);
         
@@ -85,7 +85,7 @@ class ModeloBase extends DB {
             return  $conexion->query($sql)->fetch();
         
         } catch (PDOException $e){
-            $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
+            $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.' . $e);
         }
     }
 

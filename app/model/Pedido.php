@@ -37,10 +37,23 @@ class Pedido extends ModeloBase
     {
         $db = new ModeloBase();
 
-        $sql = "SELECT pedidos.id,pedidos.descripcion,pedidos.fecha,pedidos.total, usuarios.nombre,usuarios.apellidos,usuarios.email,usuarios.telefono,usuarios.id as id_cliente,pedidos.cantidad
-        FROM pedidos
-        left JOIN usuarios
-        ON pedidos.id_cliente = usuarios.id  Where pedidos.id = $id ";
+        $sql = "SELECT
+          pedidos.id,pedidos.fecha,pedidos.total,
+          usuarios.nombre,usuarios.apellidos,usuarios.email,usuarios.telefono,usuarios.id as id_cliente
+        --   JSON_ARRAYAGG(JSON_OBJECT('id', articulos.id, 'product_name', articulos.nombre, 'product_price', articulos.precio)) AS products
+        
+        FROM
+          pedidos
+        left JOIN 
+          usuarios ON pedidos.id_cliente = usuarios.id
+        
+        -- LEFT JOIN
+        --   pedidos_articulos ON pedidos.id = pedidos_articulos.id_pedido
+        -- LEFT JOIN
+        --   articulos ON pedidos_articulos.id_articulo = articulos.id
+
+        Where
+          pedidos.id = $id";
 
         return $db->show($sql);
     }
@@ -54,6 +67,23 @@ class Pedido extends ModeloBase
 
         return $db->show($sql);
     }
+    
+    public function getItems($idPedido)
+    {
+        $db = new ModeloBase();
+        $sql = "SELECT
+          pedidos_articulos.cantidad, pedidos_articulos.precio,
+          articulos.id, articulos.nombre, articulos.precio as precio_original
+        FROM
+          pedidos_articulos
+        left JOIN
+          articulos ON pedidos_articulos.id_articulo = articulos.id
+        Where
+         pedidos_articulos.id_pedido = $idPedido";
+
+        return $db->index($sql);
+    }
+
     public function destroypedido($id)
     {
         $db = new ModeloBase();

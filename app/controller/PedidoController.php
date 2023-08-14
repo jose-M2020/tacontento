@@ -203,20 +203,26 @@ class PedidoController
     {
         $id = $_GET['id'];
 
-        $pedido = new Pedido();
-        $p = $pedido->ticket($id);
+        $pedidoModel = new Pedido();
+        $pedido = $pedidoModel->ticket($id);
 
-        $array = explode(",", $p['descripcion']);
-        $dd = array_pop($array);
-        $articulos = [];
-        for ($i = 0; $i < count($array); $i++) {
-            $art = $pedido->getarticulos($array[$i]);
-            $articulos[$i] = $art;
-        }
+        $res = $pedidoModel->getItems($pedido['id']);
+        
+        $pedido['articulos'] = $res;
 
-        $cantidad = explode(",", $p['cantidad']);
-        $dd = array_pop($cantidad);
-        $limite = count($array);
+        // $array = explode(",", $p['descripcion']);
+        // $dd = array_pop($array);
+        // $articulos = [];
+
+
+        // for ($i = 0; $i < count($array); $i++) {
+        //     $art = $pedido->getarticulos($array[$i]);
+        //     $articulos[$i] = $art;
+        // }
+
+        // $cantidad = explode(",", $p['cantidad']);
+        // $dd = array_pop($cantidad);
+        // $limite = count($array);
 
         require_once 'app/views/pedidos/show.php';
     }
@@ -414,7 +420,7 @@ class PedidoController
         $pedidoExist = $pedido->checkByStripeSession($session_id);
 
         if($pedidoExist) {
-            echo "El pedido ya ha sido registrado.";
+            // echo "El pedido ya ha sido registrado.";
         } else {
             require_once 'lib/stripe-php/init.php';
             require_once 'app/config.php';
@@ -489,7 +495,7 @@ class PedidoController
 
                         $data = array(
                             'total' => $paidAmount,
-                            'id_usuario' => $idUsuario,
+                            'id_cliente' => $idUsuario,
                             'status' => 1,
                             'session_id' => $session_id,
                         );
