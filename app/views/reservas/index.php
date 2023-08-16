@@ -40,7 +40,7 @@ require_once 'app/views/admin/header.php';
             <td><?php echo $u['fecha'] ?> </td>
             <td><?php echo $u['hora'] ?> </td>
             <td>
-              <a href="index.php?page=showreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Ver reserva</a>
+              <a href="<?= BASE_URL ?>/showreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Ver reserva</a>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -52,7 +52,7 @@ require_once 'app/views/admin/header.php';
     <ul class="pagination justify-content-center">
       <?php for ($i = 1; $i <= $section; $i++) :  ?>
         <li class="page-item">
-          <a class="page-link" href="index.php?page=reserva&search=<?php echo $search ?>&p=<?php echo $i ?>">
+          <a class="page-link" href="<?= BASE_URL ?>/reserva&search=<?php echo $search ?>&p=<?php echo $i ?>">
             <?php echo $i ?>
           </a>
         </li>

@@ -3,6 +3,7 @@ require_once 'app/model/Usuario.php';
 require_once 'app/model/Carrito.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
+require_once 'app/config.php';
 
 class AuthController
 {
@@ -14,6 +15,7 @@ class AuthController
 
     public function auth()
     {
+      print_r($_GET['section']);
       require_once('./app/views/auth/index.php');
     }
     
@@ -31,20 +33,20 @@ class AuthController
         if ($respuesta) {
             if ($respuesta['admin'] == 1) {
                 $_SESSION['usuario'] = $respuesta;
-                header('Location: index.php?page=dashboard');
+                header('Location: '. BASE_URL .'/dashboard');
                 die();
             } else if($respuesta['admin'] == 2){
                 $cart = new Carrito();
                 $respuesta['cartNum'] = $cart->count($respuesta['id']) ?? 0;
                 $_SESSION['cliente'] = $respuesta;
-                header('Location: index.php?page=home');
+                header('Location: '. BASE_URL .'/home');
             }else {
                 $utilities->setMessage('error', 'Credenciales incorrectas. Inténtalo de nuevo.');
-                header('Location: index.php?page=auth');
+                header('Location: '. BASE_URL .'/auth');
             }
         } else {
             $utilities->setMessage('error', 'Credenciales incorrectas. Inténtalo de nuevo.');
-            header('Location: index.php?page=auth');
+            header('Location: '. BASE_URL .'/auth');
         }
     }
 
@@ -58,7 +60,7 @@ class AuthController
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-            header('Location: index.php?page=auth&section=register');
+            header('Location: '. BASE_URL .'/auth&section=register');
             return;
         }
 
@@ -94,5 +96,15 @@ class AuthController
            
         }
         */
+    }
+
+    public function logout()
+    {
+        if (isset($_SESSION['usuario']) || isset($_SESSION['cliente'] )) {
+            session_destroy();
+            header('Location: '. BASE_URL .'/home');
+        } else {
+            header('Location: '. BASE_URL .'/home');
+        }
     }
 }

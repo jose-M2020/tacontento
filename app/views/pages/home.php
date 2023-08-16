@@ -180,7 +180,7 @@ echo createNavbar();
             <div class="card-body d-flex flex-column mt-25">
               <h5 class="card-title"><?php echo $item['name'] ?></h5>
               <p class="card-text mb-15 flex-grow-1"><?php echo $item['description'] ?></p>
-              <a href="index.php?page=menu" class="btn btn-primary">Ver menú</a>
+              <a href="<?= BASE_URL ?>/menu" class="btn btn-primary">Ver menú</a>
             </div>
             <div class="card-footer text-muted">
               <?php echo $item['schedule'] ?>

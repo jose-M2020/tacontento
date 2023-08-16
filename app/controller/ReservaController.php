@@ -2,6 +2,7 @@
 require_once 'app/model/Reserva.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
+require_once 'app/config.php';
 
 class ReservaController
 {
@@ -13,7 +14,7 @@ class ReservaController
         session_start();
         if(!isset($_SESSION['usuario'])){
           
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         #inicializando los valores
         $reserva = new Reserva;
@@ -44,7 +45,7 @@ class ReservaController
     public function create()
     {  session_start();
         if(!isset($_SESSION['cliente'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         require_once('./app/views/reservas/create.php');
     }
@@ -53,7 +54,7 @@ class ReservaController
     {  
         session_start();
         if(!isset($_SESSION['cliente'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         
         $request = new Request();
@@ -86,7 +87,7 @@ class ReservaController
     public function edit()
     {  session_start();
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         $id = $_GET['id'];
         $oferta = new Oferta();
@@ -98,7 +99,7 @@ class ReservaController
     {  
         session_start();
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -121,7 +122,7 @@ class ReservaController
 
         if ($oferta) {
             unset ($_SESSION['mensaje']);
-            header('Location: index.php?page=dashboard');
+            header('Location: '. BASE_URL .'/dashboard');
         } else {
             echo $oferta;
         }
@@ -130,14 +131,14 @@ class ReservaController
     public function destroy()
     {  session_start();
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
             $id = $_GET['id'];
 
             $oferta = new Oferta();
             if ($oferta->destroyoferta($id)) {
-                header('Location: index.php?page=dashboard');  
+                header('Location: '. BASE_URL .'/dashboard');  
               
             } else {
              echo "error";
@@ -148,7 +149,7 @@ class ReservaController
   
     public function obtener2(){
         if (!isset($_SESSION['cliente'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }else{
             $id_cliente = $_SESSION['cliente']['id'];
             $compras = new Reserva();

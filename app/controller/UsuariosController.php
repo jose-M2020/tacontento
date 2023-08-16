@@ -2,6 +2,7 @@
 require_once 'app/model/Usuario.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
+require_once 'app/config.php';
 
 class UsuariosController
 {
@@ -13,7 +14,7 @@ class UsuariosController
     public function index()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         #inicializando los valores
         $users = new Usuario;
@@ -37,7 +38,7 @@ class UsuariosController
     public function create()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         require_once('./app/views/usuarios/create.php');
     }
@@ -51,7 +52,7 @@ class UsuariosController
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-            header('Location: index.php?page=createusuario');
+            header('Location: '. BASE_URL .'/createusuario');
             return;
         }
 
@@ -68,7 +69,7 @@ class UsuariosController
 
         
         $userModel->storeuser($datos);
-        header('Location: index.php?page=createusuario');
+        header('Location: '. BASE_URL .'/createusuario');
 
 
 
@@ -96,7 +97,7 @@ class UsuariosController
     public function edit()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         $id = $_GET['id'];
         $user = new Usuario();
@@ -109,7 +110,7 @@ class UsuariosController
     public function update()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -121,7 +122,7 @@ class UsuariosController
 
         // if ($emailExist) {
         //     $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-        //     header('Location: index.php?page=createusuario');
+        //     header('Location: '. BASE_URL .'/createusuario');
         //     return;
         // }
 
@@ -141,7 +142,7 @@ class UsuariosController
         $user = $user->updateuser($datos);
 
         if ($user) {
-            header('Location: index.php?page=usuario');
+            header('Location: '. BASE_URL .'/usuario');
         } else {
             echo $user;
         }
@@ -150,14 +151,14 @@ class UsuariosController
     public function destroy()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
             $id = $_GET['id'];
 
             $user = new Usuario();
             if ($user->destroyuser($id)) {
-                header('Location: index.php?page=usuario');
+                header('Location: '. BASE_URL .'/usuario');
             } else {
              echo "error";
             }

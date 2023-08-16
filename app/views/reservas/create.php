@@ -15,7 +15,7 @@ echo createHero('Mis reservas', 'about.jpg');
             <h2>Crear Reserva</h2>
         </div>
         <br>
-        <form method="POST" action="index.php?page=storereserva">
+        <form method="POST" action="<?= BASE_URL ?>/storereserva">
             <div class="row fuente">
                 <div class="col-lg-4 col-md-6">
                     <label for="personas">N.Personas</label>
@@ -68,7 +68,7 @@ $reservas = $reservas->obtener2();
                         <td><?php echo $u['fecha'] ?> </td>
                         <td><?php echo $u['hora'] ?> </td>
                         <td>
-                            <a href="index.php?page=imprimirreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir reserva</a>
+                            <a href="<?= BASE_URL ?>/imprimirreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir reserva</a>
                         </td>
                     </tr>
 

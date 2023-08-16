@@ -2,6 +2,7 @@
 require_once 'app/model/Oferta.php';
 require_once 'app/utilidades/Utilidades.php';
 require_once 'app/utilidades/Request.php';
+require_once 'app/config.php';
 
 class OfertaController
 {
@@ -17,7 +18,7 @@ class OfertaController
     {
         if(!isset($_SESSION['usuario'])){
           
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         #inicializando los valores
         $oferta = new Oferta;
@@ -41,7 +42,7 @@ class OfertaController
     public function create()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
        
        
@@ -52,7 +53,7 @@ class OfertaController
     {        
         if(empty($_POST) && $_SERVER['REQUEST_METHOD'] !== 'POST') exit;
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         
         $request = new Request();
@@ -67,14 +68,14 @@ class OfertaController
         #var_dump($datos);
         $createarticulo = new Oferta();
         $createarticulo->storeoferta($datos);
-        header('Location: index.php?page=createoferta');
+        header('Location: '. BASE_URL .'/createoferta');
     }
 
 
     public function edit()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         $id = $_GET['id'];
         $oferta = new Oferta();
@@ -85,7 +86,7 @@ class OfertaController
     public function update()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -108,7 +109,7 @@ class OfertaController
         $oferta = $oferta-> updateoferta($datos);
 
         if ($oferta) {
-            header('Location: index.php?page=dashboard');
+            header('Location: '. BASE_URL .'/dashboard');
         } else {
             echo $oferta;
         }
@@ -117,14 +118,14 @@ class OfertaController
     public function destroy()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
             $id = $_GET['id'];
 
             $oferta = new Oferta();
             if ($oferta->destroyoferta($id)) {
-                header('Location: index.php?page=dashboard');  
+                header('Location: '. BASE_URL .'/dashboard');  
               
             } else {
              echo "error";

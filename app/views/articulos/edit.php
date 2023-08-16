@@ -1,7 +1,7 @@
 <?php
 require_once 'app/views/admin/header.php';
 ?>
-<form method="POST" action="index.php?page=updatearticulo&id=<?php echo $articulo['id']; ?>" 
+<form method="POST" action="<?= BASE_URL ?>/updatearticulo&id=<?php echo $articulo['id']; ?>" 
 enctype="multipart/form-data">
 
     <?php include_once "form.php" ?>

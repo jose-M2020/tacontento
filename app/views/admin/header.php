@@ -71,7 +71,7 @@ $navItems = [
       <ul class="ps-0 mb-auto">
           <?php foreach($navItems as $item) : ?>
             <li class="li">
-              <a class="nav__a <?php if($_GET['page'] === $item['page']) echo 'active'; ?>" href="index.php?page=<?php echo $item['page'] ?>">
+              <a class="nav__a <?php if($_GET['page'] === $item['page']) echo 'active'; ?>" href="<?= BASE_URL ?>/<?php echo $item['page'] ?>">
                 <span class="icon"><i class="<?php echo $item['icon'] ?>"></i></span>
                 <?php echo $item['name'] ?>
               </a>
@@ -79,7 +79,7 @@ $navItems = [
           <?php endforeach ; ?>
       </ul>
       <div class="li">
-        <a class="nav__a" href="index.php?page=logout">
+        <a class="nav__a" href="<?= BASE_URL ?>/logout">
           <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
           Logout
         </a>

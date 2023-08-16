@@ -1,4 +1,5 @@
 <?php
+require_once 'app/config.php';
 
 class IndexController
 {
@@ -22,7 +23,7 @@ class IndexController
         if( isset($_SESSION['usuario'])) {
             require_once('./app/views/admin/index.php');
         } else{
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
     }
     
@@ -41,14 +42,5 @@ class IndexController
     public function services()
     {
         require_once('./app/views/pages/services.php');
-    }
-    public function logout()
-    {
-        if (isset($_SESSION['usuario']) || isset($_SESSION['cliente'] )) {
-            session_destroy();
-            header('Location: index.php?page=home');
-        } else {
-            header('Location: index.php?page=home');
-        }
     }
 }

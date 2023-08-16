@@ -1,4 +1,6 @@
 <?php
+require_once 'app/config.php';
+
 class Router
 {
     private $routes = [];
@@ -53,7 +55,7 @@ class Router
         $middlewares = array_merge($this->globalMiddleware, $middlewares, $this->routeMiddleware);
         $this->routes[] = [
             'method' => $method,
-            'route' => $route,
+            'route' => BASE_URL.$route,
             'handler' => $handler,
             'middlewares' => $middlewares,
         ];
@@ -70,8 +72,10 @@ class Router
             if ($route['method'] === $requestMethod) {
                 $pattern = preg_replace('/:[^\/]+/', '([^/]+)', $route['route']);
                 $pattern = str_replace('/', '\/', $pattern);
-                $pattern = '/^' . $pattern . '$/';
 
+                // pattern to allow optional query parameters
+                $pattern = '/^' . $pattern . '(?:\?.*)?$/';
+                
                 if (preg_match($pattern, $requestUri, $matches)) {
                     array_shift($matches);
                     $params = [];
@@ -82,6 +86,7 @@ class Router
                     foreach ($paramNames as $index => $name) {
                         $params[$name] = $matches[$index];
                     }
+
                     $route['params'] = $params;
                     $matchedRoute = $route;
                     break;
@@ -97,9 +102,21 @@ class Router
                     return;
                 }
             }
-            $handler = $matchedRoute['handler'];
-            $params = $matchedRoute['params'] ?? [];
-            call_user_func($handler, $params);
+            $handlerInfo = explode('@', $matchedRoute['handler']);
+            $controllerName = $handlerInfo[0];
+            $method = $handlerInfo[1];
+            $controllerClass = ucfirst($controllerName);
+            $controllerFile = 'app/controller/' . $controllerClass . '.php';
+            
+            if (file_exists($controllerFile)) {
+                require_once $controllerFile;
+                $controller = new $controllerClass();
+                $handlerMethod = $method;
+                $params = $matchedRoute['params'] ?? [];
+                call_user_func([$controller, $handlerMethod], $params);
+            } else {
+                echo "Controller not found.";
+            }
         } else {
             echo "Route not found.";
         }

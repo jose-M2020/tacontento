@@ -33,7 +33,7 @@
   <header>
     <div class="container">
       <div class="d-flex align-items-center">
-        <a class="logo d-flex align-items-center gap-1" href="index.php?page=home">
+        <a class="logo d-flex align-items-center gap-1" href="<?= BASE_URL ?>/home">
           <img src="images/taco.png" alt="Logo">
           <h1 class="logo-name">Ta'contento</h1>
         </a>
@@ -76,7 +76,7 @@
           <div class="card form__login">
             <div class="card-body">
               <h5 class="card-title text-center">Iniciar Sesión</h5>
-              <form action="index.php?page=accseso" method="POST" class="form-signin">
+              <form action="<?= BASE_URL ?>/accseso" method="POST" class="form-signin">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
                   <label for="inputEmail">Email address</label>
@@ -94,7 +94,7 @@
           <div class="card form__register">
             <div class="card-body">
               <h5 class="card-title text-center">Registro</h5>
-              <form action="index.php?page=accseso" method="POST" class="form-signin">
+              <form action="<?= BASE_URL ?>/accseso" method="POST" class="form-signin">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
                   <label for="inputEmail">Email address</label>

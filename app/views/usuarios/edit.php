@@ -1,7 +1,7 @@
 <?php
 require_once 'app/views/admin/header.php';
 ?>
-<form method="POST" action="index.php?page=updateusuario&id=<?php echo $user['id']; ?>">
+<form method="POST" action="<?= BASE_URL ?>/updateusuario&id=<?php echo $user['id']; ?>">
 
     <?php include_once "form.php" ?>
     

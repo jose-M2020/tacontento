@@ -11,8 +11,8 @@ $currency = "MXN";
  */ 
 define('STRIPE_API_KEY', ''); 
 define('STRIPE_PUBLISHABLE_KEY', ''); 
-define('STRIPE_SUCCESS_URL', 'http://localhost/tacontento/index.php?page=payment-success.php'); //Payment success URL 
-define('STRIPE_CANCEL_URL', 'http://localhost/tacontento/index.php?page=payment-cancel.php'); //Payment cancel URL 
+define('STRIPE_SUCCESS_URL', 'http://localhost/tacontento/<?= BASE_URL ?>/payment-success.php'); //Payment success URL 
+define('STRIPE_CANCEL_URL', 'http://localhost/tacontento/<?= BASE_URL ?>/payment-cancel.php'); //Payment cancel URL 
 
 // Database configuration    
 define('DB_HOST', 'MySQL_Database_Host');   

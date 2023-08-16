@@ -6,7 +6,7 @@ require_once 'app/views/admin/header.php';
   <h1>Articulos del menu</h1>
   <div class="row">
     <div class="col-8">
-      <a href="index.php?page=createarticulo" class="btn btn-primary pull-rigth ">Registrar platillo</a>
+      <a href="<?= BASE_URL ?>/createarticulo" class="btn btn-primary pull-rigth ">Registrar platillo</a>
     </div>
     <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">
@@ -39,7 +39,7 @@ require_once 'app/views/admin/header.php';
             <td> <?php echo $u['tipo'] ?> </td>
             <td class="d-flex gap-2 align-items-center">
               <a
-                href="index.php?page=editarticulo&id=<?php echo $u['id'] ?>"
+                href="<?= BASE_URL ?>/editarticulo&id=<?php echo $u['id'] ?>"
                 class='btn btn-outline-primary btn-sm'
                 data-bs-toggle="tooltip"
                 data-bs-title="Editar"
@@ -62,7 +62,7 @@ require_once 'app/views/admin/header.php';
     <ul class="pagination justify-content-center">
       <?php for ($i = 1; $i <= $section; $i++) :  ?>
         <li class="page-item">
-          <a class="page-link" href="index.php?page=articulo&search=<?php echo $search ?>&p=<?php echo $i ?>">
+          <a class="page-link" href="<?= BASE_URL ?>/articulo&search=<?php echo $search ?>&p=<?php echo $i ?>">
             <?php echo $i ?>
           </a>
         </li>
@@ -84,7 +84,7 @@ require_once 'app/views/admin/header.php';
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
-          <form style="display: inline;" method="POST" action="index.php?page=destroyarticulo&id=<?php echo $u['id'] ?>">
+          <form style="display: inline;" method="POST" action="<?= BASE_URL ?>/destroyarticulo&id=<?php echo $u['id'] ?>">
             <button type="submit" id="delete" class=" btn btn-danger" name="eliminar">Eliminar</button>
           </form>
         </div>

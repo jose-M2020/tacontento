@@ -1,4 +1,5 @@
 <?php
+require_once 'app/config.php';
 
 if (!isset($_SESSION)) {
     session_start();
@@ -8,27 +9,27 @@ if (!isset($_SESSION)) {
 $navItems = [
   0 => [
     "name" => 'INICIO',
-    "link" => 'index.php?page=home',
+    "link" => '<?= BASE_URL ?>/home',
     "checkLogin" => false,
   ],
   1 => [
     "name" => 'MENU',
-    "link" => 'index.php?page=menu',
+    "link" => '<?= BASE_URL ?>/menu',
     "checkLogin" => false,
   ],
   2 => [
     "name" => 'SERVICIOS',
-    "link" => 'index.php?page=services',
+    "link" => '<?= BASE_URL ?>/services',
     "checkLogin" => false,
   ],
   3 => [
     "name" => 'ACERCA',
-    "link" => 'index.php?page=about',
+    "link" => '<?= BASE_URL ?>/about',
     "checkLogin" => false,
   ],
   4 => [
     "icon" => 'fa-solid fa-cart-shopping',
-    "link" => 'index.php?page=carrito',
+    "link" => '<?= BASE_URL ?>/carrito',
     "checkLogin" => true,
   ],
   5 => [
@@ -40,19 +41,19 @@ $navItems = [
       0 => [
         "name" => 'RESERVAS',
         "ICON" => "fa-solid fa-table-list",
-        "link" => 'index.php?page=createreserva',
+        "link" => '<?= BASE_URL ?>/createreserva',
         "checkLogin" => true,
       ],
       1 => [
         "name" => 'COMPRAS',
         "ICON" => "fa-solid fa-utensils",
-        "link" => 'index.php?page=compras',
+        "link" => '<?= BASE_URL ?>/compras',
         "checkLogin" => true,
       ],
       2 => [
         "name" => 'CERRAR SESIÓN',
         "ICON" => "fa-solid fa-right-from-bracket",
-        "link" => 'index.php?page=logout',
+        "link" => '<?= BASE_URL ?>/logout',
         "checkLogin" => true,
       ],
     ]
@@ -90,6 +91,6 @@ $navItems = [
 
 <body>
   <?php 
-    include "./app/views/components/Navbar.php";
+    include "./app/views/components/navbar.php";
     require_once('./app/views/components/message.php');
   ?>

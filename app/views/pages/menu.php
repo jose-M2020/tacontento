@@ -84,7 +84,7 @@ echo createHero('Menú', 'menu.jpg');
 
 <div class="popover-overlay" id="popover_content_wrapper" style="display: none">
   <div class="menu__form">
-    <form method="POST" id="addCart" action="index.php?page=addcarrito&id=null">
+    <form method="POST" id="addCart" action="<?= BASE_URL ?>/addcarrito&id=null">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Cantidad (obligatorio)</label>
         <input type="number" class="form-control" min="1" pattern="^[0-9]+" name="cantidad" required placeholder="1">

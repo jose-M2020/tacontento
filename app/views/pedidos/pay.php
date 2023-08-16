@@ -18,7 +18,7 @@
       <span id="buttonText">Pay Now</span>
   </button>
 
-  <!-- <form action="index.php?page=storepedido" method="POST" class="credit-card-div">
+  <!-- <form action="<?= BASE_URL ?>/storepedido" method="POST" class="credit-card-div">
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -105,7 +105,7 @@
       
   // Create a Checkout Session with the selected product
   const createCheckoutSession = function (stripe) {
-      return fetch("index.php?page=payment-init", {
+      return fetch("<?= BASE_URL ?>/payment-init", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",

@@ -113,7 +113,7 @@ $(function() {
   $(document).on('click', '.menu__item', function() {
     currentMenuItem = $(this);
         
-    $('form#addCart').attr('action', `index.php?page=addcarrito&id=${currentMenuItem.data('itemid')}`)
+    $('form#addCart').attr('action', `<?= BASE_URL ?>/addcarrito&id=${currentMenuItem.data('itemid')}`)
     $('body').addClass('overlay');
     $(this).addClass('menu__item--active')
   });

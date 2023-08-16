@@ -5,6 +5,7 @@ require_once 'app/model/Articulo.php';
 require_once 'app/model/Carrito.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
+require_once 'app/config.php';
 
 class PedidoController
 {
@@ -18,7 +19,7 @@ class PedidoController
     public function index()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         #inicializando los valores
         $pedido = new Pedido;
@@ -41,7 +42,7 @@ class PedidoController
     public function venta()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         #inicializando los valores
         $pedido = new Pedido;
@@ -65,7 +66,7 @@ class PedidoController
     public function create()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         require_once('./app/views/articulos/create.php');
     }
@@ -131,7 +132,7 @@ class PedidoController
     public function edit()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         $id = $_GET['id'];
         $articulo = new Articulo();
@@ -143,7 +144,7 @@ class PedidoController
     public function update()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -155,7 +156,7 @@ class PedidoController
         $pedido = $pedido->updatepedido($datos);
 
         if ($pedido) {
-            header('Location: index.php?page=pedido');
+            header('Location: '. BASE_URL .'/pedido');
         }
     }
     public function imprimir_cliente($id)
@@ -231,7 +232,7 @@ class PedidoController
     public function addcarrito()
     {
         if (!isset($_SESSION['cliente'])) {
-            header('Location: index.php?page=auth');
+            header('Location: '. BASE_URL .'/auth');
         } else {
             $id = $_GET['id'];
             $cantidad = $_POST['cant'];
@@ -256,7 +257,7 @@ class PedidoController
                         );
 
                         $_SESSION['add_carro'][$count] = $item_array;
-                        header('Location: index.php?page=carrito');
+                        header('Location: '. BASE_URL .'/carrito');
                     } else {
                         echo '<script>alert("El Producto ya existe!");</script>';
                         require_once 'app/views/pages/home.php';
@@ -272,7 +273,7 @@ class PedidoController
                     );
 
                     $_SESSION['add_carro'][0] = $item_array;
-                    header('Location: index.php?page=carrito');
+                    header('Location: '. BASE_URL .'/carrito');
                 }
             }
         }
@@ -285,17 +286,17 @@ class PedidoController
                 foreach ($_SESSION['add_carro'] as $key => $value) {
                     if ($value['id'] == $_GET['id']) {
                         unset($_SESSION['add_carro'][$key]);
-                        header('Location: index.php?page=carrito');
+                        header('Location: '. BASE_URL .'/carrito');
                     }
                 }
             }
         } else {
-            header('Location: index.php?page=carrito');
+            header('Location: '. BASE_URL .'/carrito');
         }
     }
     public function compras(){
         if (!isset($_SESSION['cliente'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }else{
             $id_cliente = $_SESSION['cliente']['id'];
             $compras = new Pedido();
@@ -409,7 +410,7 @@ class PedidoController
 
     public function payment_success() {
         if(empty($_GET['session_id'])){
-          return header('Location: index.php?page=home');
+          return header('Location: '. BASE_URL .'/home');
         }
         
         $pedido = new Pedido;

@@ -2,6 +2,7 @@
 require_once 'app/model/Articulo.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
+require_once 'app/config.php';
 
 class ArticuloController
 {
@@ -15,7 +16,7 @@ class ArticuloController
     public function index()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         #inicializando los valores
         $articulo = new Articulo;
@@ -39,7 +40,7 @@ class ArticuloController
     public function create()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         require_once('./app/views/articulos/create.php');
     }
@@ -48,7 +49,7 @@ class ArticuloController
     {
     
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -67,13 +68,13 @@ class ArticuloController
 
         $createarticulo = new Articulo();
         $createarticulo->storearticulo($datos);
-        header('Location: index.php?page=createarticulo');
+        header('Location: '. BASE_URL .'/createarticulo');
     }
 
     public function edit()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         $id = $_GET['id'];
         $articulo = new Articulo();
@@ -85,7 +86,7 @@ class ArticuloController
     public function update()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -110,7 +111,7 @@ class ArticuloController
         $articulo = $articulo-> updatearticulo($datos);
 
         if ($articulo) {
-            header('Location: index.php?page=articulo');
+            header('Location: '. BASE_URL .'/articulo');
         } else {
             echo $articulo;
         }
@@ -119,14 +120,14 @@ class ArticuloController
     public function destroy()
     {
         if(!isset($_SESSION['usuario'])){
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
             $id = $_GET['id'];
 
             $articulo = new Articulo();
             if ($articulo->destroyarticulo($id)) {
-                header('Location: index.php?page=articulo');
+                header('Location: '. BASE_URL .'/articulo');
             } else {
              echo "error";
             }

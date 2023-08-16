@@ -27,7 +27,7 @@ echo createHero('Mis compras', 'menu.jpg');
               <td> <?php echo $u['fecha'] ?> </td>
               <td>$ <?php echo $u['total'] ?> </td>
               <td>
-                <a href="index.php?page=imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir ticket</a>
+                <a href="<?= BASE_URL ?>/imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir ticket</a>
               </td>
             </tr>
           <?php endforeach; ?>

@@ -3,6 +3,7 @@ require_once 'app/model/Carrito.php';
 require_once 'app/utilidades/Request.php';
 require_once 'app/utilidades/Utilidades.php';
 require_once 'app/model/Articulo.php';
+require_once 'app/config.php';
 
 class CarritoController
 {
@@ -11,7 +12,7 @@ class CarritoController
             session_start(); 
         }
         if (!isset($_SESSION['cliente'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
     }
     public function index()
@@ -58,13 +59,13 @@ class CarritoController
 
         $_SESSION['cliente']['cartNum'] += 1;
 
-        header('Location: index.php?page=menu');
+        header('Location: '. BASE_URL .'/menu');
     }
 
     public function update()
     {
         if (!isset($_SESSION['usuario'])) {
-            header('Location: index.php?page=home');
+            header('Location: '. BASE_URL .'/home');
         }
 
         $request = new Request();
@@ -76,7 +77,7 @@ class CarritoController
 
         // if ($emailExist) {
         //     $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-        //     header('Location: index.php?page=createusuario');
+        //     header('Location: '. BASE_URL .'/createusuario');
         //     return;
         // }
 
@@ -96,7 +97,7 @@ class CarritoController
         $user = $user->updateuser($datos);
 
         if ($user) {
-            header('Location: index.php?page=usuario');
+            header('Location: '. BASE_URL .'/usuario');
         } else {
             echo $user;
         }
@@ -109,7 +110,7 @@ class CarritoController
         $cart = new Carrito();
         if ($cart->destroyItem($id)) {
             $_SESSION['cliente']['cartNum'] -= 1;
-            header('Location: index.php?page=carrito&idUsuario='.$_SESSION['cliente']['id']);
+            header('Location: '. BASE_URL .'/carrito&idUsuario='.$_SESSION['cliente']['id']);
         } else {
             // echo "error";
         }
