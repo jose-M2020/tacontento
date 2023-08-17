@@ -1,16 +1,33 @@
 <?php
+// use App\Middleware\AuthMiddleware;
+require_once 'app/http/Kernel.php';
+use App\Http\Kernel;
 require_once 'app/config.php';
 
 class Router
 {
     private $routes = [];
-    private $globalMiddleware = [];
+    private $middlewares = [];
     private $routeMiddleware = [];
     private $groupMiddleware = [];
 
-    public function middleware($middleware)
+    public function middleware($middlewares)
     {
-        $this->globalMiddleware[] = $middleware;
+        if (!is_array($middlewares)) {
+            $middlewares = [$middlewares];
+        }
+        
+        foreach ($middlewares as $middlewareAlias) {
+            $kernel = new Kernel();
+            $middlewareClass = $kernel->getMiddlewareClass($middlewareAlias);
+            
+            echo (class_exists(Authenticate::class));
+            if ($middlewareClass && class_exists($middlewareClass)) {
+                $middlewareInstance = new $middlewareClass();
+                $this->middlewares[] = $middlewareInstance;
+            }
+        }
+
         return $this;
     }
 
@@ -52,7 +69,7 @@ class Router
 
     private function addRoute($method, $route, $handler, $middlewares)
     {
-        $middlewares = array_merge($this->globalMiddleware, $middlewares, $this->routeMiddleware);
+        $middlewares = array_merge($this->middlewares, $middlewares, $this->routeMiddleware);
         $this->routes[] = [
             'method' => $method,
             'route' => BASE_URL.$route,
@@ -96,23 +113,33 @@ class Router
 
         if ($matchedRoute) {
             $middlewares = $matchedRoute['middlewares'];
-            foreach ($middlewares as $middleware) {
-                if (!$middleware()) {
-                    echo "Middleware check failed. Access denied.";
-                    return;
-                }
-            }
+            $this->middleware($middlewares);
+
+            // foreach ($middlewares as $middleware) {
+            //     if (!$middleware()) {
+            //         echo "Middleware check failed. Access denied.";
+            //         return;
+            //     }
+            // }
             $handlerInfo = explode('@', $matchedRoute['handler']);
             $controllerName = $handlerInfo[0];
             $method = $handlerInfo[1];
             $controllerClass = ucfirst($controllerName);
-            $controllerFile = 'app/controller/' . $controllerClass . '.php';
+            $controllerFile = 'app/http/controller/' . $controllerClass . '.php';
             
             if (file_exists($controllerFile)) {
                 require_once $controllerFile;
                 $controller = new $controllerClass();
                 $handlerMethod = $method;
                 $params = $matchedRoute['params'] ?? [];
+                
+                // Call middlewares' handle method if implemented
+                foreach ($this->middlewares as $middleware) {
+                    if (method_exists($middleware, 'handle')) {
+                        $middleware->handle($requestUri);
+                    }
+                }
+
                 call_user_func([$controller, $handlerMethod], $params);
             } else {
                 echo "Controller not found.";

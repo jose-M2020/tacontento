@@ -29,6 +29,11 @@ class IndexController
     
     public function home()
     {
+        require_once 'app/http/controller/OfertaController.php';
+
+        $articulo = new OfertaController;
+        $articulos = $articulo->obtener();
+
         require_once('./app/views/pages/home.php');
     }
     public function menu()

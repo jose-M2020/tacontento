@@ -1,6 +1,5 @@
 <?php
 require_once 'app/views/components/header.php';
-require_once 'app/controller/OfertaController.php';
 
 $galleryItems = [
   1 => [
@@ -198,10 +197,6 @@ echo createNavbar();
     <div class="heading">
       <h2>Ofertas</h2>
     </div>
-    <?php
-    $articulo = new OfertaController;
-    $articulos = $articulo->obtener();
-    ?>
     <?php if (isset($articulos)) : ?>
 
       <div class="row justify-content-center g-3">

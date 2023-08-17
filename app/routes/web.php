@@ -10,7 +10,7 @@ $router = new Router();
  *  MAIN PAGES
  */
 
-$router->get('/home', 'IndexController@home');
+$router->get('/home', 'IndexController@home')->middleware('auth');;
 $router->get('/menu', 'IndexController@menu');
 $router->get('/services', 'IndexController@services');
 $router->get('/about', 'IndexController@about');

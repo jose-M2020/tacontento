@@ -15,7 +15,7 @@ class AuthController
 
     public function auth()
     {
-      print_r($_GET['section']);
+      print_r($_GET);
       require_once('./app/views/auth/index.php');
     }
     

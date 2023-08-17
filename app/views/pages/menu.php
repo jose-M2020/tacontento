@@ -56,7 +56,8 @@ echo createHero('Menú', 'menu.jpg');
                 <img 
                   class="br-3"
                   src="storage/<?php echo $item['img'] ?>"
-                  alt="Menu Image">
+                  alt="Menu Image"
+                  loading="lazy">
               </div>
               <!--s-left-->
               <div class="menu__item-left w-100 d-flex flex-column justify-content-center">
