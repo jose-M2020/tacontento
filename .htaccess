@@ -1,14 +1,25 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+  <IfModule mod_negotiation.c>
+      Options -MultiViews -Indexes
+  </IfModule>
+      
+  RewriteEngine On
 
-# Exclude specific folders from rewriting
-RewriteRule ^(public|storage|images|lib)($|/) - [L]
+  # Exclude specific folders from rewriting
+  # RewriteRule ^(public|storage|images|lib)($|/) - [L]
 
-# Allow direct access to existing files and directories
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+  # Redirect Trailing Slashes If Not A Folder...
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} (.+)/$
+  RewriteRule ^ %1 [L,R=301]
 
-# Rewrite the URL to 'index.php' with the original path as a query parameter.
-RewriteRule ^(.*)$ index.php?/$1 [L]
+  # Allow direct access to existing files and directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Redirect all other requests to index.php
+  RewriteRule ^ index.php [QSA,L]
 
-# Redirect all other requests to index.php
-RewriteRule ^ index.php [QSA,L]
+  # Rewrite the URL to 'index.php' with the original path as a query parameter.
+  # RewriteRule ^(.*)$ index.php/$1 [L]
+
+</IfModule>
