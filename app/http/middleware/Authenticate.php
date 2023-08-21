@@ -6,11 +6,11 @@ class Authenticate
 {
   public function handle($request)
   {
-      if (!isset($_SESSION['cliente'])) {
-          // Redirect or handle unauthorized user
-          header('Location: '. BASE_URL .'/auth');
-          exit;
-      }
+    if (!isset($_SESSION['cliente'])) {
+        // Redirect or handle unauthorized user
+        header('Location: '. BASE_URL .'/auth');
+        exit;
+    }
   }
 
   public static function checkAuthenticated()

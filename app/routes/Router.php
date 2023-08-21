@@ -1,6 +1,7 @@
 <?php
+namespace App\Routes;
+
 // use App\Middleware\AuthMiddleware;
-require_once 'app/http/Kernel.php';
 use App\Http\Kernel;
 require_once 'app/config.php';
 
@@ -10,6 +11,8 @@ class Router
     private $middlewares = [];
     private $routeMiddleware = [];
     private $groupMiddleware = [];
+    private $currentRoute = null;
+    private $isRouteGroup = false;
 
     public function middleware($middlewares)
     {
@@ -21,70 +24,99 @@ class Router
             $kernel = new Kernel();
             $middlewareClass = $kernel->getMiddlewareClass($middlewareAlias);
             
-            echo (class_exists(Authenticate::class));
             if ($middlewareClass && class_exists($middlewareClass)) {
-                $middlewareInstance = new $middlewareClass();
-                $this->middlewares[] = $middlewareInstance;
+                $middlewareInstance = [new $middlewareClass()];
+                // $this->middlewares[] = $middlewareInstance;
+                
+                // echo $this->isRouteGroup ? 'yes' : 'no';
+                $this->middlewares = array_merge($this->groupMiddleware, $middlewareInstance);
+                if(!$this->isRouteGroup) {
+                } else {
+                    // $this->groupMiddleware = $middlewareInstance;
+                }
             }
         }
+        
+        if(!$this->isRouteGroup) {
+        }
+        $lastIndex = count($this->routes) - 1;
+        $this->routes[$lastIndex]['middlewares'] = $this->middlewares;
+        
+        $this->middlewares = [];
 
         return $this;
     }
 
-    public function get($route, $handler, $middlewares = [])
+    public function get($route, $handler)
     {
-        $this->addRoute('GET', $route, $handler, $middlewares);
+        $this->addRoute('GET', $route, $handler);
         return $this;
     }
 
-    public function post($route, $handler, $middlewares = [])
+    public function post($route, $handler)
     {
-        $this->addRoute('POST', $route, $handler, $middlewares);
+        $this->addRoute('POST', $route, $handler);
         return $this;
     }
 
-    public function put($route, $handler, $middlewares = [])
+    public function put($route, $handler)
     {
-        $this->addRoute('PUT', $route, $handler, $middlewares);
+        $this->addRoute('PUT', $route, $handler);
         return $this;
     }
 
-    public function delete($route, $handler, $middlewares = [])
+    public function delete($route, $handler)
     {
-        $this->addRoute('DELETE', $route, $handler, $middlewares);
+        $this->addRoute('DELETE', $route, $handler);
         return $this;
     }
 
-    public function group($middlewares, $callback)
+    public function group($callback)
     {
-        $this->groupMiddleware  = $middlewares;
+        // $this->groupMiddleware  = $middlewares;
+        $this->isRouteGroup = true;
         $callback($this);
+        $this->isRouteGroup = false;
         $this->groupMiddleware  = [];
+
+        return $this;
     }
 
-    public function setRouteMiddleware($middlewares)
-    {
-        $this->routeMiddleware = $middlewares;
-    }
+    // public function setRouteMiddleware($middlewares)
+    // {
+    //     $this->routeMiddleware = $middlewares;
+    // }
 
-    private function addRoute($method, $route, $handler, $middlewares)
+    private function addRoute($method, $route, $handler)
     {
-        $middlewares = array_merge($this->middlewares, $middlewares, $this->routeMiddleware);
-        $this->routes[] = [
+        $middlewares = array_merge($this->middlewares, $this->groupMiddleware);
+        // $this->middleware($middlewares);
+        // $this->routes[] = ['isGroup' => $this->isRouteGroup ? 'yes' : 'no'];
+
+        $route = [
             'method' => $method,
             'route' => BASE_URL.$route,
             'handler' => $handler,
             'middlewares' => $middlewares,
         ];
-        $this->routeMiddleware = [];
+        
+        // echo '<br /><pre>';
+        // print_r($route);
+        // echo '</pre> <br />';
+
+        $this->routes[] = $route;
     }
 
     public function run()
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         $requestUri = $_SERVER['REQUEST_URI'];
-        
         $matchedRoute = null;
+        
+        echo '<pre>';
+        print_r($this->routes);
+        echo '</pre>';
+
         foreach ($this->routes as $route) {
             if ($route['method'] === $requestMethod) {
                 $pattern = preg_replace('/:[^\/]+/', '([^/]+)', $route['route']);
@@ -113,7 +145,6 @@ class Router
 
         if ($matchedRoute) {
             $middlewares = $matchedRoute['middlewares'];
-            $this->middleware($middlewares);
 
             // foreach ($middlewares as $middleware) {
             //     if (!$middleware()) {
@@ -134,7 +165,7 @@ class Router
                 $params = $matchedRoute['params'] ?? [];
                 
                 // Call middlewares' handle method if implemented
-                foreach ($this->middlewares as $middleware) {
+                foreach ($middlewares as $middleware) {
                     if (method_exists($middleware, 'handle')) {
                         $middleware->handle($requestUri);
                     }

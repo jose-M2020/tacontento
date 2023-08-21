@@ -13,7 +13,6 @@ class Kernel
      */
     protected $routeMiddleware = [
       'auth' => \App\Http\Middleware\Authenticate::class
-      // 'auth' => 'App\\Http\\Middleware\\'
     ];
 
     public function getMiddlewareClass($alias)

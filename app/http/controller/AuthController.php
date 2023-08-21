@@ -15,7 +15,6 @@ class AuthController
 
     public function auth()
     {
-      print_r($_GET);
       require_once('./app/views/auth/index.php');
     }
     
@@ -60,7 +59,7 @@ class AuthController
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-            header('Location: '. BASE_URL .'/auth&section=register');
+            header('Location: '. BASE_URL .'/auth?section=register');
             return;
         }
 

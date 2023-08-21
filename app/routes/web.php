@@ -1,19 +1,23 @@
 <?php
-// Include the necessary controllers and the router
-require_once 'Router.php';
+use App\Routes\Router;
 
-// Create the router instance
 $router = new Router();
-
 
 /*
  *  MAIN PAGES
  */
 
-$router->get('/home', 'IndexController@home')->middleware('auth');;
-$router->get('/menu', 'IndexController@menu');
-$router->get('/services', 'IndexController@services');
+$router->get('/home', 'IndexController@home');
+$router->get('/test1', 'IndexController@home')->middleware('auth');
+$router->get('/test2', 'IndexController@home');
+// $router->get('/menu', 'IndexController@menu');
+// $router->get('/services', 'IndexController@services');
 $router->get('/about', 'IndexController@about');
+
+$router->middleware('auth')->group(function($router) {
+  $router->get('/menu', 'IndexController@menu');
+  $router->get('/services', 'IndexController@services');
+});
 
 /*
  *  AUTHENTICATION
