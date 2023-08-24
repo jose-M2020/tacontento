@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Middleware;
-require_once 'app/config.php';
+require_once 'app/config/config.php';
 
 class Authenticate
 {

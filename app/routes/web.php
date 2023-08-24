@@ -14,7 +14,7 @@ $router->get('/test2', 'IndexController@home');
 // $router->get('/services', 'IndexController@services');
 $router->get('/about', 'IndexController@about');
 
-$router->middleware('auth')->group(function($router) {
+$router->middleware('auth', true)->group(function($router) {
   $router->get('/menu', 'IndexController@menu');
   $router->get('/services', 'IndexController@services');
 });

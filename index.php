@@ -1,5 +1,3 @@
 <?php
 	require_once 'vendor/autoload.php';
-	require('app/routes/web.php');
-?>
-
+	require_once 'app/routes/web.php';

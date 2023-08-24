@@ -1,6 +1,6 @@
 <?php
   require_once 'app/views/components/header.php';
-  require_once 'app/config.php';
+  require_once 'app/config/config.php';
   include "./app/views/components/hero.php";
 
   echo createNavbar();

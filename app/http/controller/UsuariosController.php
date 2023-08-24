@@ -1,8 +1,11 @@
 <?php
-require_once 'app/model/Usuario.php';
-require_once 'app/utilidades/Request.php';
-require_once 'app/utilidades/Utilidades.php';
-require_once 'app/config.php';
+namespace App\Http\Controllers;
+
+require_once 'app/config/config.php';
+
+use App\Models\Usuario;
+use App\Utilities\Request;
+use App\Utilities\Utilidades;
 
 class UsuariosController
 {

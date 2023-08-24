@@ -1,7 +1,10 @@
 <?php
+namespace App\Models;
 
-require_once 'app/database/BD.php';
-require_once 'app/utilidades/Utilidades.php';
+use App\Database\DB;
+use App\Utilities\Utilidades;
+use PDOException;
+use Exception;
 
 class ModeloBase extends DB {
 

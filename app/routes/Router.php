@@ -3,7 +3,7 @@ namespace App\Routes;
 
 // use App\Middleware\AuthMiddleware;
 use App\Http\Kernel;
-require_once 'app/config.php';
+require_once 'app/config/config.php';
 
 class Router
 {
@@ -13,8 +13,9 @@ class Router
     private $groupMiddleware = [];
     private $currentRoute = null;
     private $isRouteGroup = false;
+    protected static $resolvedInstance;
 
-    public function middleware($middlewares)
+    public function middleware($middlewares, $isGroup = false)
     {
         if (!is_array($middlewares)) {
             $middlewares = [$middlewares];
@@ -155,11 +156,12 @@ class Router
             $handlerInfo = explode('@', $matchedRoute['handler']);
             $controllerName = $handlerInfo[0];
             $method = $handlerInfo[1];
-            $controllerClass = ucfirst($controllerName);
-            $controllerFile = 'app/http/controller/' . $controllerClass . '.php';
-            
-            if (file_exists($controllerFile)) {
-                require_once $controllerFile;
+            $baseNamespace = 'App\\Http\\Controllers\\';
+
+            $controllerClass = $baseNamespace . ucfirst($controllerName);
+            echo $controllerClass . '</br>';
+            if (class_exists($controllerClass)) {
+                // require_once $controllerClass;
                 $controller = new $controllerClass();
                 $handlerMethod = $method;
                 $params = $matchedRoute['params'] ?? [];
@@ -177,6 +179,29 @@ class Router
             }
         } else {
             echo "Route not found.";
+        }
+    }
+
+    protected static function resolveInstance()
+    {
+        if (isset(static::$resolvedInstance)) {
+            return static::$resolvedInstance;
+        }
+
+        return static::$resolvedInstance = new self();
+    }
+
+    public static function __callStatic($method, $args)
+    {
+        // Create a temporary instance of the class and call the method
+        $instance = static::resolveInstance();
+        
+        // Check if the method exists as a non-static method
+        if (method_exists(self::class, $method)) {
+            // return call_user_func_array([$instance, $method], $args);
+            return $instance->$method(...$args);
+        } else {
+            throw new \BadMethodCallException("Static method $method does not exist.");
         }
     }
 }

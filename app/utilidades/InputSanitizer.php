@@ -1,4 +1,8 @@
 <?php
+namespace App\Utilities;
+
+use DOMDocument;
+use DOMXPath;
 
 class InputSanitizer
 {

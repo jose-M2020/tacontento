@@ -1,5 +1,9 @@
 <?php
-require_once 'app/config.php';
+namespace App\Http\Controllers;
+
+require_once 'app/config/config.php';
+
+use App\Http\Controllers\OfertaController;
 
 class IndexController
 {
@@ -29,8 +33,6 @@ class IndexController
     
     public function home()
     {
-        require_once 'app/http/controller/OfertaController.php';
-
         $articulo = new OfertaController;
         $articulos = $articulo->obtener();
 

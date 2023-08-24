@@ -1,6 +1,7 @@
 <?php
-require_once 'ModeloBase.php';
-require_once 'app/utilidades/Utilidades.php';
+namespace App\Models;
+
+use App\Models\ModeloBase;
 
 class PedidoArticulo extends ModeloBase
 {

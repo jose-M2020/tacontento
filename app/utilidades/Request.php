@@ -1,5 +1,7 @@
 <?php
-require_once 'InputSanitizer.php';
+namespace App\Utilities;
+
+use Closure;
 
 class Request {
   protected $data;
