@@ -312,10 +312,6 @@ class PedidoController
     }
 
     public function payment_init() {
-        require_once 'app/model/Articulo.php'; 
-        // Include the configuration file 
-        require_once 'app/config/config.php'; 
-        
         // Include the Stripe PHP library 
         require_once 'lib/stripe-php/init.php'; 
         

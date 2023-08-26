@@ -28,11 +28,10 @@ class CarritoController
 
         $startOfPaging = 0;
         $amountOfThePaging = 12;
-        $idUsuario = "";
+        $idUsuario = $_SESSION['cliente']['id'];
+        
         #asignando el inicio de de los articulos a paginar
         if (isset($_GET['p'])) $startOfPaging = $utilities->pagination($_GET['p'], $amountOfThePaging);
-        #asignando la busqueda si existe
-        if (isset($_GET['idUsuario'])) $idUsuario =  $_GET['idUsuario'];
         
         $section = $carrito->pagination($idUsuario);
         $carrito = $carrito->indexCarrito($idUsuario, $startOfPaging, $amountOfThePaging);
@@ -45,16 +44,16 @@ class CarritoController
         require_once('./app/views/pages/carrito.php');
     }
 
-    public function store()
+    public function store($params)
     {
         $request = new Request();
         $cartModel = new Carrito();
 
         $idCliente = $_SESSION['cliente']['id'];
-
+        
         $datos = array(
             'id_usuario' => $idCliente,
-            'id_articulo' => $request->query('id'),
+            'id_articulo' => $params['id'],
             'cantidad' => $request->input('cantidad'),
             'detalles' => $request->input('detalles'),
         );

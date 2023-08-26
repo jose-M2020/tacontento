@@ -1,7 +1,6 @@
 <?php
 require_once 'app/views/components/header.php';
 require_once "app/views/components/hero.php";
-require_once 'app/controller/ArticuloController.php';
 
 echo createNavbar();
 echo createHero('Menú', 'menu.jpg');
@@ -11,11 +10,6 @@ echo createHero('Menú', 'menu.jpg');
 ?>
 <section>
   <div class="container menu">
-
-    <?php
-    $articulo = new ArticuloController;
-    $articulos = $articulo->obtener();
-    ?>
     <?php if (isset($articulos)) : ?>
       <div class="row">
         <div class="col-sm-12">
@@ -85,7 +79,7 @@ echo createHero('Menú', 'menu.jpg');
 
 <div class="popover-overlay" id="popover_content_wrapper" style="display: none">
   <div class="menu__form">
-    <form method="POST" id="addCart" action="<?= BASE_URL ?>/addcarrito&id=null">
+    <form method="POST" id="addCart" action="<?= BASE_URL ?>/carrito">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Cantidad (obligatorio)</label>
         <input type="number" class="form-control" min="1" pattern="^[0-9]+" name="cantidad" required placeholder="1">
@@ -138,7 +132,6 @@ require_once 'app/views/components/footer.php';
     const itemId = $(triggerElement[0]).data('itemid')
 
     const currentData = menuItems.find(item => item.id === itemId)
-    console.log(currentData)
   });
 
 </script>

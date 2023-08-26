@@ -1,6 +1,5 @@
 <?php
 require_once 'app/views/components/header.php';
-require_once 'app/controller/ReservaController.php';
 include "./app/views/components/hero.php";
 
 echo createNavbar();
@@ -36,10 +35,7 @@ echo createHero('Mis reservas', 'about.jpg');
         </form>
     </div>
 </section>
-<?php
-$reservas = new ReservaController;
-$reservas = $reservas->obtener2();
-?>
+
 <?php if (!empty($reservas)) ?>
 <section class="story-area left-text center-sm-text">
     <div class="container">

@@ -114,9 +114,9 @@ class Router
         $requestUri = $_SERVER['REQUEST_URI'];
         $matchedRoute = null;
         
-        echo '<pre>';
-        print_r($this->routes);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($this->routes);
+        // echo '</pre>';
 
         foreach ($this->routes as $route) {
             if ($route['method'] === $requestMethod) {
@@ -159,7 +159,7 @@ class Router
             $baseNamespace = 'App\\Http\\Controllers\\';
 
             $controllerClass = $baseNamespace . ucfirst($controllerName);
-            echo $controllerClass . '</br>';
+            
             if (class_exists($controllerClass)) {
                 // require_once $controllerClass;
                 $controller = new $controllerClass();

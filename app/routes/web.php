@@ -33,8 +33,8 @@ $router->get('/logout', 'AuthController@logout');
  */
 
 $router->get('/carrito', 'CarritoController@index');
-$router->get('/addcarrito', 'CarritoController@store');
-$router->get('/deletecarrito', 'CarritoController@destroy');
+$router->post('/carrito/:id', 'CarritoController@store');
+$router->delete('/deletecarrito', 'CarritoController@destroy');
 
 $router->get('/compras', 'PedidoController@compras');
 

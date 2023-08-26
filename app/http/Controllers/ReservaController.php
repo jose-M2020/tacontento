@@ -53,6 +53,9 @@ class ReservaController
         if(!isset($_SESSION['cliente'])){
             header('Location: '. BASE_URL .'/home');
         }
+        
+        $reservas = $this->obtener2();
+
         require_once('./app/views/reservas/create.php');
     }
 

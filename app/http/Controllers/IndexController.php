@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 require_once 'app/config/config.php';
 
 use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\ArticuloController;
 
 class IndexController
 {
@@ -40,6 +41,9 @@ class IndexController
     }
     public function menu()
     {
+        $articulo = new ArticuloController;
+        $articulos = $articulo->obtener();
+
         require_once('./app/views/pages/menu.php');
     }
     public function about()
@@ -51,3 +55,4 @@ class IndexController
         require_once('./app/views/pages/services.php');
     }
 }
+?>

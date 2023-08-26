@@ -15,7 +15,7 @@ class Carrito extends ModeloBase {
         $sql = "SELECT * FROM carrito WHERE id_usuario = $idUsuario";
 
         $sql = $startOfPaging && $amountOfThePaging ? $sql." LIMIT $startOfPaging,$amountOfThePaging" : $sql;
-        return  $db->index($sql);
+        return  $db->index($sql) ?? [];
         
     }
     

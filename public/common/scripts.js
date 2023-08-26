@@ -96,6 +96,7 @@ $(function() {
 
   const togglePopover = $('[data-bs-toggle="popover"]');
   let currentMenuItem;
+  const CarritoUrl = $('form#addCart').attr('action');
 
   togglePopover.popover({
     html: true,
@@ -111,9 +112,9 @@ $(function() {
   });
 
   $(document).on('click', '.menu__item', function() {
-    currentMenuItem = $(this);
-        
-    $('form#addCart').attr('action', `<?= BASE_URL ?>/addcarrito&id=${currentMenuItem.data('itemid')}`)
+    currentMenuItem = $(this);    
+
+    $('form#addCart').attr('action', `${CarritoUrl}/${currentMenuItem.data('itemid')}`)
     $('body').addClass('overlay');
     $(this).addClass('menu__item--active')
   });

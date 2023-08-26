@@ -1,7 +1,6 @@
 <?php
 require_once 'app/views/components/header.php';
 require_once 'app/views/components/hero.php';
-require_once 'app/controller/PedidoController.php';
 
 if(!isset($_SESSION)){ 
     session_start(); 

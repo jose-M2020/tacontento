@@ -19,7 +19,7 @@
               <li><a class="faded-text" href="<?= BASE_URL ?>/about">ACERCA</a></li>
               <?php if (isset($_SESSION['cliente'])) : ?>
                 <li>
-                  <a class="faded-text position-relative" href="<?= BASE_URL ?>/carrito&idUsuario=<?php echo $_SESSION['cliente']['id'] ?>">
+                  <a class="faded-text position-relative" href="<?= BASE_URL ?>/carrito">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span class="bg-primary position-absolute top-0 start-100 translate-middle badge border border-light rounded-pill d-flex justify-content-center align-items-center p-2" style="width: 20px; height:20px;">
                       <?php echo($_SESSION['cliente']['cartNum']) ?>
