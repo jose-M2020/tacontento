@@ -64,7 +64,7 @@ $router->get('/updatearticulo', 'ArticuloController@update');
 $router->get('/editarticulo', 'ArticuloController@edit');
 $router->get('/destroyarticulo', 'ArticuloController@destroy');
 
-$router->get('/dashboard', 'OfertaController@index');
+$router->get('/ofertas', 'OfertaController@index');
 $router->get('/createoferta', 'OfertaController@create');
 $router->get('/storeoferta', 'OfertaController@store');
 $router->get('/editoferta', 'OfertaController@edit');

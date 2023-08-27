@@ -1,38 +1,43 @@
 
 <?php 
 
-$navItems = [
-    0 => [
-        'name' => 'Ofertas',
-        'icon' => 'fas fa-gifts',
-        'page' => 'dashboard',
-    ],
-    1 => [
-        'name' => 'Pedidos',
-        'icon' => 'fas fa-clipboard-list',
-        'page' => 'pedido',
-    ],
-    2 => [
-        'name' => 'Reservas',
-        'icon' => 'fas fa-concierge-bell',
-        'page' => 'reservas',
-    ],
-    3 => [
-        'name' => 'Menú',
-        'icon' => 'fas fa-clipboard',
-        'page' => 'articulo',
-    ],
-    4 => [
-        'name' => 'Ventas',
-        'icon' => 'far fa-credit-card',
-        'page' => 'venta',
-    ],
-    5 => [
-        'name' => 'Clientes',
-        'icon' => 'fas fa-address-card',
-        'page' => 'usuario',
-    ]
-];
+  $pathUrl = $_SERVER['REQUEST_URI'];
+  $path = parse_url($pathUrl, PHP_URL_PATH);
+  $lastPathSegment = basename($path);
+
+
+  $navItems = [
+      0 => [
+          'name' => 'Ofertas',
+          'icon' => 'fas fa-gifts',
+          'page' => 'ofertas',
+      ],
+      1 => [
+          'name' => 'Pedidos',
+          'icon' => 'fas fa-clipboard-list',
+          'page' => 'pedido',
+      ],
+      2 => [
+          'name' => 'Reservas',
+          'icon' => 'fas fa-concierge-bell',
+          'page' => 'reservas',
+      ],
+      3 => [
+          'name' => 'Menú',
+          'icon' => 'fas fa-clipboard',
+          'page' => 'articulo',
+      ],
+      4 => [
+          'name' => 'Ventas',
+          'icon' => 'far fa-credit-card',
+          'page' => 'venta',
+      ],
+      5 => [
+          'name' => 'Clientes',
+          'icon' => 'fas fa-address-card',
+          'page' => 'usuario',
+      ]
+  ];
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +76,7 @@ $navItems = [
       <ul class="ps-0 mb-auto">
           <?php foreach($navItems as $item) : ?>
             <li class="li">
-              <a class="nav__a <?php if($_GET['page'] === $item['page']) echo 'active'; ?>" href="<?= BASE_URL ?>/<?php echo $item['page'] ?>">
+              <a class="nav__a <?php if($lastPathSegment === $item['page']) echo 'active'; ?>" href="<?= BASE_URL ?>/<?php echo $item['page'] ?>">
                 <span class="icon"><i class="<?php echo $item['icon'] ?>"></i></span>
                 <?php echo $item['name'] ?>
               </a>

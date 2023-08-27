@@ -1,4 +1,3 @@
-
 <nav class="navbar bg-light shadow-sm py-3 px-3">
   <div class="container-fluid d-flex align-items-center">
     <div class="d-flex d-md-none align-items-center gap-3">
