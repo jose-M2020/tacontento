@@ -5,7 +5,7 @@
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="logo align-items-center">
-        <img style="width:50px"  src="images/taco.png" alt="">
+        <img style="width:50px"  src="<?= $url->getFullRoute('/images/taco.png') ?>" alt="">
         <!-- <span class="logo-name">TA'CONTENTO</span> -->
       </div>
     </div>
@@ -38,7 +38,7 @@
           aria-expanded="false"
           >
           <img
-            src="images/profile.png"
+            src="<?= $url->getFullRoute('/images/profile.png') ?>"
             class="rounded-circle"
             height="43"
             alt="User Portrait"
