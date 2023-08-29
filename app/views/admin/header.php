@@ -3,12 +3,11 @@
   require_once 'app/config/config.php';
 
   use App\Utilities\Url;
-  $url = new Url();
-  
-  $pathUrl = $_SERVER['REQUEST_URI'];
-  $path = parse_url($pathUrl, PHP_URL_PATH);
-  $lastPathSegment = basename($path);
 
+  $url = new Url();
+
+  $route = $url->getUrlRoutes()[0];
+  
   $navItems = [
       0 => [
           'name' => 'Ofertas',
@@ -18,7 +17,7 @@
       1 => [
           'name' => 'Pedidos',
           'icon' => 'fas fa-clipboard-list',
-          'page' => 'pedido',
+          'page' => 'pedidos',
       ],
       2 => [
           'name' => 'Reservas',
@@ -28,17 +27,17 @@
       3 => [
           'name' => 'Menú',
           'icon' => 'fas fa-clipboard',
-          'page' => 'articulo',
+          'page' => 'platillos',
       ],
       4 => [
           'name' => 'Ventas',
           'icon' => 'far fa-credit-card',
-          'page' => 'venta',
+          'page' => 'ventas',
       ],
       5 => [
           'name' => 'Clientes',
           'icon' => 'fas fa-address-card',
-          'page' => 'usuario',
+          'page' => 'usuarios',
       ]
   ];
 ?>
@@ -79,7 +78,7 @@
       <ul class="ps-0 mb-auto">
           <?php foreach($navItems as $item) : ?>
             <li class="li">
-              <a class="nav__a <?php if($lastPathSegment === $item['page']) echo 'active'; ?>" href="<?= BASE_URL ?>/<?php echo $item['page'] ?>">
+              <a class="nav__a <?php if($route === $item['page']) echo 'active'; ?>" href="<?= BASE_URL ?>/<?php echo $item['page'] ?>">
                 <span class="icon"><i class="<?php echo $item['icon'] ?>"></i></span>
                 <?php echo $item['name'] ?>
               </a>

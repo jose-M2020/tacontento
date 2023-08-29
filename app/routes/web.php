@@ -50,53 +50,54 @@ $router->get('/storepedido', 'PedidoController@store');
  *  ADMIN
  */
 
-$router->get('/usuario', 'UsuariosController@index');
-$router->get('/createusuario', 'UsuariosController@create');
-$router->get('/storeusuario', 'UsuariosController@store');
-$router->get('/updateusuario', 'UsuariosController@update');
-$router->get('/editusuario', 'UsuariosController@edit');
-$router->get('/destroyusuario', 'UsuariosController@destroy');
+$router->get('/usuarios', 'UsuariosController@index');
+$router->get('/usuarios/create', 'UsuariosController@create');
+$router->post('/usuarios', 'UsuariosController@store');
+$router->get('/usuarios/:usuario/edit', 'UsuariosController@edit');
+$router->put('/usuarios/:usuario', 'UsuariosController@update');
+$router->delete('/usuarios/:usuario', 'UsuariosController@destroy');
 
-$router->get('/articulo', 'ArticuloController@index');
-$router->get('/createarticulo', 'ArticuloController@create');
-$router->get('/storearticulo', 'ArticuloController@store');
-$router->get('/updatearticulo', 'ArticuloController@update');
-$router->get('/editarticulo', 'ArticuloController@edit');
-$router->get('/destroyarticulo', 'ArticuloController@destroy');
+$router->get('/platillos', 'ArticuloController@index');
+$router->get('/platillos/create', 'ArticuloController@create');
+$router->post('/platillos', 'ArticuloController@store');
+$router->put('/platillos/:platillo', 'ArticuloController@update');
+$router->get('/platillos/:platillo/edit', 'ArticuloController@edit');
+$router->delete('/platillos/:platillo', 'ArticuloController@destroy');
 
 $router->get('/ofertas', 'OfertaController@index');
 $router->get('/ofertas/create', 'OfertaController@create');
-$router->get('/storeoferta', 'OfertaController@store');
-$router->get('/editoferta', 'OfertaController@edit');
-$router->get('/updateoferta', 'OfertaController@update');
-$router->get('/destroyoferta', 'OfertaController@destroy');
+$router->post('/ofertas', 'OfertaController@store');
+$router->get('/ofertas/:oferta/edit', 'OfertaController@edit');
+$router->put('/ofertas/:oferta', 'OfertaController@update');
+$router->delete('/ofertas/:oferta', 'OfertaController@destroy');
 
-$router->get('/pedido', 'PedidoController@index');
-$router->get('/venta', 'PedidoController@venta');
+$router->get('/pedidos', 'PedidoController@index'); //admin
+$router->get('/ventas', 'PedidoController@venta');
+$router->get('/ventas/:pedido', 'PedidoController@show');
 
 
-$router->get('/storepedido', 'PedidoController@update');
+$router->put('/pedidos/:pedido', 'PedidoController@update'); //admin
 
 
 
 
 // ?
 
-$router->get('/reservas', 'ReservaController@index');
+$router->get('/reservas', 'ReservaController@index'); //admin
 $router->get('/createreserva', 'ReservaController@create');
 $router->get('/storereserva', 'ReservaController@store');
 $router->get('/editreserva', 'ReservaController@edit');
 $router->get('/updatereserva', 'ReservaController@update');
 $router->get('/destroyreserva', 'ReservaController@destroy');
 
-$router->get('/showreserva', 'ReservaController@show');
+$router->get('/reservas/:reserva', 'ReservaController@show'); //admin
 $router->get('/imprimirreserva', 'ReservaController@imprimir');
 
 
 
 $router->get('/editpedido', 'PedidoController@edit');
 $router->get('/imprimirpedido', 'PedidoController@imprimir');
-$router->get('/showpedido', 'PedidoController@show');
+$router->get('/pedidos/:pedido', 'PedidoController@show'); //admin
 
 
 

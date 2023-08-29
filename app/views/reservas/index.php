@@ -40,7 +40,7 @@ require_once 'app/views/admin/header.php';
             <td><?php echo $u['fecha'] ?> </td>
             <td><?php echo $u['hora'] ?> </td>
             <td>
-              <a href="<?= BASE_URL ?>/showreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Ver reserva</a>
+              <a href="<?= BASE_URL ?>/reservas/<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Ver reserva</a>
             </td>
           </tr>
         <?php endforeach; ?>

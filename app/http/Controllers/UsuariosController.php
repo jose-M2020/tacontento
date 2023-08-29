@@ -55,7 +55,7 @@ class UsuariosController
 
         if ($emailExist) {
             $utilities->setMessage('error', 'El correo ya se encuentra registrado.');
-            header('Location: '. BASE_URL .'/createusuario');
+            header('Location: '. BASE_URL .'/usuarios/create');
             return;
         }
 
@@ -72,7 +72,7 @@ class UsuariosController
 
         
         $userModel->storeuser($datos);
-        header('Location: '. BASE_URL .'/createusuario');
+        header('Location: '. BASE_URL .'/usuarios/create');
 
 
 
@@ -97,20 +97,20 @@ class UsuariosController
     }
 
 
-    public function edit()
+    public function edit($params)
     {
         if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
         }
-        $id = $_GET['id'];
+        $idUsuario = $params['usuario'];
         $user = new Usuario();
-        $user = $user->edituser($id);
+        $user = $user->edituser($idUsuario);
 
         
         require_once('./app/views/usuarios/edit.php');
     }
 
-    public function update()
+    public function update($params)
     {
         if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
@@ -130,7 +130,7 @@ class UsuariosController
         // }
 
         $datos = array(
-            'id'   =>  $request->input('id'),
+            'id'   =>  $params['usuario'],
             'nombre' => $request->input('nombre'),
             'apellidos' => $request->input('apellidos'),
             'direccion' => $request->input('direccion'),
@@ -145,23 +145,23 @@ class UsuariosController
         $user = $user->updateuser($datos);
 
         if ($user) {
-            header('Location: '. BASE_URL .'/usuario');
+            header('Location: '. BASE_URL .'/usuarios');
         } else {
             echo $user;
         }
     }
 
-    public function destroy()
+    public function destroy($params)
     {
         if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
-            $id = $_GET['id'];
+            $idUsuario = $params['usuario'];
 
             $user = new Usuario();
-            if ($user->destroyuser($id)) {
-                header('Location: '. BASE_URL .'/usuario');
+            if ($user->destroyuser($idUsuario)) {
+                header('Location: '. BASE_URL .'/usuarios');
             } else {
              echo "error";
             }

@@ -39,12 +39,12 @@ class ReservaController
 
         require_once('./app/views/reservas/index.php');
     }
-    public function show()
+    public function show($params)
     { 
-        $id = $_GET['id'];
+        $idReserva = $params['reserva'];
 
         $reserva = new Reserva();
-        $reserva = $reserva->show($id);
+        $reserva = $reserva->show($idReserva);
 
         require_once 'app/views/reservas/show.php';
     }

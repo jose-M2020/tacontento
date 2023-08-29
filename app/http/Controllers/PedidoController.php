@@ -147,22 +147,21 @@ class PedidoController
         require_once('./app/views/articulos/edit.php');
     }
 
-    public function update()
+    public function update($params)
     {
         if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
         }
 
-        $request = new Request();
         $datos = [
-            'id' => $request->input('id'),
+            'id' => $params['pedido'],
             'status' => 2
         ];
         $pedido = new Pedido;
         $pedido = $pedido->updatepedido($datos);
 
         if ($pedido) {
-            header('Location: '. BASE_URL .'/pedido');
+            header('Location: '. BASE_URL .'/pedidos');
         }
     }
     public function imprimir_cliente($id)
@@ -206,12 +205,12 @@ class PedidoController
 
         require_once 'app/views/pedidos/ticket.php';
     }
-    public function show()
+    public function show($params)
     {
-        $id = $_GET['id'];
+        $idPedido = $params['pedido'];
 
         $pedidoModel = new Pedido();
-        $pedido = $pedidoModel->ticket($id);
+        $pedido = $pedidoModel->ticket($idPedido);
 
         $res = $pedidoModel->getItems($pedido['id']);
         

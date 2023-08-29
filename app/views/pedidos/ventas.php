@@ -40,7 +40,7 @@ require_once 'app/views/admin/header.php';
             <td> <?php echo $u['total'] ?> </td>
             <td> <?php echo $u['id_cliente'] ?> </td>
             <td>
-            <a href="<?= BASE_URL ?>/showpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm' >Ver pedido</a>
+            <a href="<?= BASE_URL ?>/ventas/<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm' >Ver venta</a>
             <a href="<?= BASE_URL ?>/imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-primary btn-sm' download="ticket.pdf">Imprimir ticket</a>
             </td>
           </tr>

@@ -71,22 +71,22 @@ class ArticuloController
 
         $createarticulo = new Articulo();
         $createarticulo->storearticulo($datos);
-        header('Location: '. BASE_URL .'/createarticulo');
+        header('Location: '. BASE_URL .'/platillos');
     }
 
-    public function edit()
+    public function edit($params)
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
         }
-        $id = $_GET['id'];
+        $id = $params['platillo'];
         $articulo = new Articulo();
         $articulo = $articulo->editarticulo($id);
 
 
         require_once('./app/views/articulos/edit.php');
     }
-    public function update()
+    public function update($params)
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
@@ -96,13 +96,13 @@ class ArticuloController
         $art = new Articulo();
         $file = new Utilidades();
         
-        $art = $art->editarticulo($request->input('id'));
+        $art = $art->editarticulo($params['platillo']);
         $img = $file->uploadFile('storage','img');
 
         if(empty($img)) $img = $art['img'];
         
         $datos = array(
-            'id' => $request->input('id'),
+            'id' => $params['platillo'],
             'nombre' => $request->input('nombre'),
             'descripcion' => $request->input('descripcion'),
             'precio' => $request->input('precio'),
@@ -114,23 +114,23 @@ class ArticuloController
         $articulo = $articulo-> updatearticulo($datos);
 
         if ($articulo) {
-            header('Location: '. BASE_URL .'/articulo');
+            header('Location: '. BASE_URL .'/platillos');
         } else {
             echo $articulo;
         }
     }
 
-    public function destroy()
+    public function destroy($params)
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
-            $id = $_GET['id'];
+            $id = $params['platillo'];
 
             $articulo = new Articulo();
             if ($articulo->destroyarticulo($id)) {
-                header('Location: '. BASE_URL .'/articulo');
+                header('Location: '. BASE_URL .'/platillos');
             } else {
              echo "error";
             }

@@ -35,7 +35,7 @@ class OfertaController
         if (isset($_GET['search'])) $search =  $_GET['search'];
 
         $section = $oferta->paginationoferta($search);
-        $oferta = $oferta->indexoferta($search, $startOfPaging, $amountOfThePaging);
+        $ofertas = $oferta->indexoferta($search, $startOfPaging, $amountOfThePaging);
 
 
         require_once('./app/views/admin/index.php');
@@ -75,18 +75,18 @@ class OfertaController
     }
 
 
-    public function edit()
+    public function edit($params)
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
         }
-        $id = $_GET['id'];
+        ;
         $oferta = new Oferta();
-        $oferta = $oferta->editoferta($id);
+        $oferta = $oferta->editoferta($params['oferta']);
         require_once('./app/views/admin/edit.php');
     }
 
-    public function update()
+    public function update($params)
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
@@ -96,13 +96,13 @@ class OfertaController
         $art = new Oferta();
         $file = new Utilidades();
 
-        $art = $art->editoferta($request->input('id'));
-
+        $art = $art->editoferta($params['oferta']);
         $img = $file->uploadFile('storage','img');
+        
         if(empty($img)) $img = $art['img'];
         
         $datos = array(
-            'id' => $request->input('id'),
+            'id' => $params['oferta'],
             'titulo' => $request->input('titulo'),
             'descripcion' => $request->input('descripcion'),
             'img' => $img,
@@ -112,23 +112,21 @@ class OfertaController
         $oferta = $oferta-> updateoferta($datos);
 
         if ($oferta) {
-            header('Location: '. BASE_URL .'/dashboard');
+            header('Location: '. BASE_URL .'/ofertas');
         } else {
             echo $oferta;
         }
     }
 
-    public function destroy()
+    public function destroy($params)
     {
         if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
         }
         if (isset($_POST['eliminar'])) {
-            $id = $_GET['id'];
-
             $oferta = new Oferta();
-            if ($oferta->destroyoferta($id)) {
-                header('Location: '. BASE_URL .'/dashboard');  
+            if ($oferta->destroyoferta($params['oferta'])) {
+                header('Location: '. BASE_URL .'/ofertas');  
               
             } else {
              echo "error";

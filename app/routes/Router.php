@@ -114,6 +114,11 @@ class Router
         $requestUri = $_SERVER['REQUEST_URI'];
         $matchedRoute = null;
         
+        // Check if the _method parameter exists
+        if (isset($_REQUEST['_method'])) {
+          $requestMethod = strtoupper($_REQUEST['_method']);
+        }
+        
         // echo '<pre>';
         // print_r($this->routes);
         // echo '</pre>';

@@ -18,7 +18,7 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   # Redirect all other requests to index.php
   RewriteRule ^ index.php [QSA,L]
-
+  
   # Rewrite the URL to 'index.php' with the original path as a query parameter.
   # RewriteRule ^(.*)$ index.php/$1 [L]
 

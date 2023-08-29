@@ -3,7 +3,7 @@ require_once 'app/views/admin/header.php';
 ?>
 
 <h1>Crear articulo</h1>
-  <form method="POST" action="<?= BASE_URL ?>/storearticulo" enctype="multipart/form-data" >
+  <form method="POST" action="<?= BASE_URL ?>/platillos" enctype="multipart/form-data" >
     
     <?php include_once "form.php" ?>
 
