@@ -1,5 +1,5 @@
 <?php
-namespace App\Routes;
+namespace Core\Routing;
 
 // use App\Middleware\AuthMiddleware;
 use App\Http\Kernel;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Utilities;
+namespace Core\Http;
 require_once 'app/config/config.php';
 
 class Url {

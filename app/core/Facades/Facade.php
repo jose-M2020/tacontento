@@ -1,6 +1,7 @@
 <?php
-namespace App\Facades;
-use App\Routes\Router;
+namespace Core\Facades;
+use Core\Routing\Router;
+use Core\Http\Request;
 
 class Facade
 {
@@ -30,14 +31,11 @@ class Facade
 
     protected static function createResolvedInstance($facadeAccessor)
     {
-        // Implement logic to create and return the appropriate instance
-        // based on the $facadeAccessor.
         switch ($facadeAccessor) {
             case 'router':
-                return new Router(); // Create a Router instance.
+                return new Router();
             case 'request':
-                // return new Request(); // Create a Request instance.
-            // Add more cases for other classes you want to resolve.
+                return new Request();
             default:
                 throw new \RuntimeException("Facade accessor '$facadeAccessor' not supported.");
         }

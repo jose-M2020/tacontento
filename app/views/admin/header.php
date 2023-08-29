@@ -2,11 +2,11 @@
 <?php 
   require_once 'app/config/config.php';
 
-  use App\Utilities\Url;
+  use Core\Http\Request;
 
-  $url = new Url();
+  $request = new Request();
 
-  $route = $url->getUrlRoutes()[0];
+  $route = $request->getUrlRoutes()[0];
   
   $navItems = [
       0 => [
@@ -49,21 +49,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="shortcut icon" href="<?= $url->getFullRoute('/images/taco.png') ?>">
+  <link rel="shortcut icon" href="<?= $request->getFullRoute('/images/taco.png') ?>">
   <title>ADMIN - TACONTENTO</title>
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Dosis:wght@400;600;800&display=swap" rel="stylesheet">
   <!-- Libraries Stylesheet -->
-  <link href="<?= $url->getFullRoute('/public/plugin-frameworks/animate/animate.min.css') ?>" rel="stylesheet">
+  <link href="<?= $request->getFullRoute('/public/plugin-frameworks/animate/animate.min.css') ?>" rel="stylesheet">
   
-  <link href="<?= $url->getFullRoute('/public/plugin-frameworks/bootstrap/bootstrap.min.css') ?>" rel="stylesheet">
-  <link href="<?= $url->getFullRoute('/public/plugin-frameworks/swiper.css') ?>" rel="stylesheet">
-  <link href="<?= $url->getFullRoute('/public/fonts/ionicons.css') ?>" rel="stylesheet">
-  <link href="<?= $url->getFullRoute('/public/common/css/admin.css') ?>" rel="stylesheet">
-  <!-- <link href="<?= $url->getFullRoute('/public/fonts/all.min.css') ?>" rel="stylesheet"> -->
-  <script src="<?= $url->getFullRoute('/public/common/all.min.js') ?>"></script>
+  <link href="<?= $request->getFullRoute('/public/plugin-frameworks/bootstrap/bootstrap.min.css') ?>" rel="stylesheet">
+  <link href="<?= $request->getFullRoute('/public/plugin-frameworks/swiper.css') ?>" rel="stylesheet">
+  <link href="<?= $request->getFullRoute('/public/fonts/ionicons.css') ?>" rel="stylesheet">
+  <link href="<?= $request->getFullRoute('/public/common/css/admin.css') ?>" rel="stylesheet">
+  <!-- <link href="<?= $request->getFullRoute('/public/fonts/all.min.css') ?>" rel="stylesheet"> -->
+  <script src="<?= $request->getFullRoute('/public/common/all.min.js') ?>"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -72,7 +72,7 @@
       
     <div class="d-flex flex-column menu-fixed">
       <div class="logo align-items-center mb-30 d-none d-md-flex">
-          <img style="width:50px"  src="<?= $url->getFullRoute('/images/taco.png') ?>" alt="">
+          <img style="width:50px"  src="<?= $request->getFullRoute('/images/taco.png') ?>" alt="">
           <span class="logo-name">TA'CONTENTO</span>
       </div>
       <ul class="ps-0 mb-auto">

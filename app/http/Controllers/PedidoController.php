@@ -10,7 +10,7 @@ use App\Models\Pedido;
 use App\Models\PedidoArticulo;
 use App\Models\Articulo;
 use App\Models\Carrito;
-use App\Utilities\Request;
+use Core\Http\Request;
 use App\Utilities\Utilidades;
 
 class PedidoController

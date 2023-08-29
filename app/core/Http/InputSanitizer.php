@@ -1,5 +1,5 @@
 <?php
-namespace App\Utilities;
+namespace Core\Http;
 
 use DOMDocument;
 use DOMXPath;

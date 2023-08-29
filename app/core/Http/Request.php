@@ -1,9 +1,10 @@
 <?php
-namespace App\Utilities;
+namespace Core\Http;
 
 use Closure;
+use Core\Http\Url;
 
-class Request {
+class Request extends Url {
   protected $data;
   private $query;
   protected $headers;

@@ -40,7 +40,7 @@ $error = function ($field) {
     <div class="row fuente">
     <?php if (isset($articulo['img'])) : ?>
             <div class="col-3">
-                <img class="photo-perfil-edit" src="<?= $url->getFullRoute('/storage/'.$articulo['img']) ?>" alt="foto de perfil">
+                <img class="photo-perfil-edit" src="<?= $request->getFullRoute('/storage/'.$articulo['img']) ?>" alt="foto de perfil">
 
             </div>
             <div class="col-3">

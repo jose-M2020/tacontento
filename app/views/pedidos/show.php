@@ -58,7 +58,7 @@ $total = $pedido['total'];
       </div>
       <div class="col-md-4 shadow p-20 text-center user">
         <div class="user__photo mb-20">
-            <img src="<?= $url->getFullRoute('/images/no-image.png'); ?>" alt="" >
+            <img src="<?= $request->getFullRoute('/images/no-image.png'); ?>" alt="" >
         </div>
         <div class="mb-20">
             <h4 class="mb-5"><?php echo $nombre ?> <?php echo $apellidos ?></h4>

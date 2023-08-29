@@ -1,5 +1,5 @@
 <?php
-namespace App\Facades;
+namespace Core\Facades;
 
 class Route extends Facade
 {

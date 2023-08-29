@@ -3,8 +3,8 @@ namespace App\Http\Controllers;
 
 require_once 'app/config/config.php';
 
+use Core\Http\Request;
 use App\Models\Articulo;
-use App\Utilities\Request;
 use App\Utilities\Utilidades;
 
 class ArticuloController

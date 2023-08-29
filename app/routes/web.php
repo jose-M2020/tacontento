@@ -1,103 +1,101 @@
 <?php
-use App\Routes\Router;
-
-$router = new Router();
+use Core\Facades\Route;
 
 /*
  *  MAIN PAGES
  */
 
-$router->get('/home', 'IndexController@home');
-$router->get('/test1', 'IndexController@home')->middleware('auth');
-$router->get('/test2', 'IndexController@home');
-// $router->get('/menu', 'IndexController@menu');
-// $router->get('/services', 'IndexController@services');
-$router->get('/about', 'IndexController@about');
+Route::get('/home', 'IndexController@home');
+Route::get('/test1', 'IndexController@home')->middleware('auth');
+Route::get('/test2', 'IndexController@home');
+// Route::get('/menu', 'IndexController@menu');
+// Route::get('/services', 'IndexController@services');
+Route::get('/about', 'IndexController@about');
 
-$router->middleware('auth', true)->group(function($router) {
-  $router->get('/menu', 'IndexController@menu');
-  $router->get('/services', 'IndexController@services');
+Route::middleware('auth', true)->group(function($router) {
+  Route::get('/menu', 'IndexController@menu');
+  Route::get('/services', 'IndexController@services');
 });
 
 /*
  *  AUTHENTICATION
  */
 
-$router->get('/auth', 'AuthController@auth');
-$router->post('/login', 'AuthController@login');
-$router->post('/register', 'AuthController@register');
-$router->get('/logout', 'AuthController@logout');
+Route::get('/auth', 'AuthController@auth');
+Route::post('/login', 'AuthController@login');
+Route::post('/register', 'AuthController@register');
+Route::get('/logout', 'AuthController@logout');
 
 /*
  *  CLIENT PAGES
  */
 
-$router->get('/carrito', 'CarritoController@index');
-$router->post('/carrito/:id', 'CarritoController@store');
-$router->delete('/deletecarrito', 'CarritoController@destroy');
+Route::get('/carrito', 'CarritoController@index');
+Route::post('/carrito/:id', 'CarritoController@store');
+Route::delete('/deletecarrito', 'CarritoController@destroy');
 
-$router->get('/compras', 'PedidoController@compras');
+Route::get('/compras', 'PedidoController@compras');
 
-$router->get('/pay', 'PedidoController@pay');
-$router->get('/payment-init', 'PedidoController@payment_init');
-$router->get('/payment-success', 'PedidoController@payment_success');
-$router->get('/payment-cancel', 'PedidoController@payment_cancel');
+Route::get('/pay', 'PedidoController@pay');
+Route::get('/payment-init', 'PedidoController@payment_init');
+Route::get('/payment-success', 'PedidoController@payment_success');
+Route::get('/payment-cancel', 'PedidoController@payment_cancel');
 
-$router->get('/createpedido', 'PedidoController@create');
-$router->get('/storepedido', 'PedidoController@store');
+Route::get('/createpedido', 'PedidoController@create');
+Route::get('/storepedido', 'PedidoController@store');
 
 /*
  *  ADMIN
  */
 
-$router->get('/usuarios', 'UsuariosController@index');
-$router->get('/usuarios/create', 'UsuariosController@create');
-$router->post('/usuarios', 'UsuariosController@store');
-$router->get('/usuarios/:usuario/edit', 'UsuariosController@edit');
-$router->put('/usuarios/:usuario', 'UsuariosController@update');
-$router->delete('/usuarios/:usuario', 'UsuariosController@destroy');
+Route::get('/usuarios', 'UsuariosController@index');
+Route::get('/usuarios/create', 'UsuariosController@create');
+Route::post('/usuarios', 'UsuariosController@store');
+Route::get('/usuarios/:usuario/edit', 'UsuariosController@edit');
+Route::put('/usuarios/:usuario', 'UsuariosController@update');
+Route::delete('/usuarios/:usuario', 'UsuariosController@destroy');
 
-$router->get('/platillos', 'ArticuloController@index');
-$router->get('/platillos/create', 'ArticuloController@create');
-$router->post('/platillos', 'ArticuloController@store');
-$router->put('/platillos/:platillo', 'ArticuloController@update');
-$router->get('/platillos/:platillo/edit', 'ArticuloController@edit');
-$router->delete('/platillos/:platillo', 'ArticuloController@destroy');
+Route::get('/platillos', 'ArticuloController@index');
+Route::get('/platillos/create', 'ArticuloController@create');
+Route::post('/platillos', 'ArticuloController@store');
+Route::put('/platillos/:platillo', 'ArticuloController@update');
+Route::get('/platillos/:platillo/edit', 'ArticuloController@edit');
+Route::delete('/platillos/:platillo', 'ArticuloController@destroy');
 
-$router->get('/ofertas', 'OfertaController@index');
-$router->get('/ofertas/create', 'OfertaController@create');
-$router->post('/ofertas', 'OfertaController@store');
-$router->get('/ofertas/:oferta/edit', 'OfertaController@edit');
-$router->put('/ofertas/:oferta', 'OfertaController@update');
-$router->delete('/ofertas/:oferta', 'OfertaController@destroy');
+Route::get('/ofertas', 'OfertaController@index');
+Route::get('/ofertas/create', 'OfertaController@create');
+Route::post('/ofertas', 'OfertaController@store');
+Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
+Route::put('/ofertas/:oferta', 'OfertaController@update');
+Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
 
-$router->get('/pedidos', 'PedidoController@index'); //admin
-$router->get('/ventas', 'PedidoController@venta');
-$router->get('/ventas/:pedido', 'PedidoController@show');
+Route::get('/pedidos', 'PedidoController@index'); //admin
+Route::get('/ventas', 'PedidoController@venta');
+Route::get('/ventas/:pedido', 'PedidoController@show');
 
 
-$router->put('/pedidos/:pedido', 'PedidoController@update'); //admin
+Route::put('/pedidos/:pedido', 'PedidoController@update'); //admin
 
 
 
 
 // ?
 
-$router->get('/reservas', 'ReservaController@index'); //admin
-$router->get('/createreserva', 'ReservaController@create');
-$router->get('/storereserva', 'ReservaController@store');
-$router->get('/editreserva', 'ReservaController@edit');
-$router->get('/updatereserva', 'ReservaController@update');
-$router->get('/destroyreserva', 'ReservaController@destroy');
+Route::get('/reservas', 'ReservaController@index'); //admin
+Route::get('/createreserva', 'ReservaController@create');
+Route::get('/storereserva', 'ReservaController@store');
+Route::get('/editreserva', 'ReservaController@edit');
+Route::get('/updatereserva', 'ReservaController@update');
+Route::get('/destroyreserva', 'ReservaController@destroy');
 
-$router->get('/reservas/:reserva', 'ReservaController@show'); //admin
-$router->get('/imprimirreserva', 'ReservaController@imprimir');
+Route::get('/reservas/:reserva', 'ReservaController@show'); //admin
+Route::get('/imprimirreserva', 'ReservaController@imprimir');
 
 
 
-$router->get('/editpedido', 'PedidoController@edit');
-$router->get('/imprimirpedido', 'PedidoController@imprimir');
-$router->get('/pedidos/:pedido', 'PedidoController@show'); //admin
+Route::get('/editpedido', 'PedidoController@edit');
+Route::get('/imprimirpedido', 'PedidoController@imprimir');
+Route::get('/pedidos/:pedido', 'PedidoController@show'); //admin
 
 
 
@@ -109,17 +107,17 @@ $router->get('/pedidos/:pedido', 'PedidoController@show'); //admin
 // ------------------------------------------------------
 
 
-$router->get('/users', 'UserController@index');
-$router->get('/user/:userId', 'UserController@show');
-$router->get('/user/create', 'UserController@create');
-$router->post('/user', 'UserController@store');
-$router->get('/user/:userId/edit', 'UserController@edit');
-$router->put('/user/:userId', 'UserController@update');
-$router->delete('/user/:userId', 'UserController@destroy');
+Route::get('/users', 'UserController@index');
+Route::get('/user/:userId', 'UserController@show');
+Route::get('/user/create', 'UserController@create');
+Route::post('/user', 'UserController@store');
+Route::get('/user/:userId/edit', 'UserController@edit');
+Route::put('/user/:userId', 'UserController@update');
+Route::delete('/user/:userId', 'UserController@destroy');
 
 // ------------------------------------------------------
 
 
 
 // Run the router
-$router->run();
+Route::run();

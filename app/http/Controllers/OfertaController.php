@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 require_once 'app/config/config.php';
 
 use App\Models\Oferta;
-use App\Utilities\Request;
+use Core\Http\Request;
 use App\Utilities\Utilidades;
 
 class OfertaController

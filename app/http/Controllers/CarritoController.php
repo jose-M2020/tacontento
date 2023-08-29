@@ -6,7 +6,7 @@ require_once 'app/config/config.php';
 use App\Models\Carrito;
 use App\Models\Articulo;
 use App\Models\Usuario;
-use App\Utilities\Request;
+use Core\Http\Request;
 use App\Utilities\Utilidades;
 
 class CarritoController

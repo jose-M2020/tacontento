@@ -3,11 +3,10 @@ namespace App\Http\Controllers;
 
 require_once 'app/config/config.php';
 
+use Core\Http\Request;
 use App\Models\Usuario;
 use App\Models\Carrito;
-use App\Utilities\Request;
 use App\Utilities\Utilidades;
-
 
 class AuthController
 {
@@ -36,7 +35,7 @@ class AuthController
         if ($respuesta) {
             if ($respuesta['admin'] == 1) {
                 $_SESSION['usuario'] = $respuesta;
-                header('Location: '. BASE_URL .'/dashboard');
+                header('Location: '. BASE_URL .'/ofertas');
                 die();
             } else if($respuesta['admin'] == 2){
                 $cart = new Carrito();
