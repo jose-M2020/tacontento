@@ -1,6 +1,5 @@
 <?php
 require_once 'app/views/components/header.php';
-require_once 'app/controller/ReservaController.php';
 include "./app/views/components/hero.php";
 
 echo createNavbar();
@@ -15,7 +14,7 @@ echo createHero('Mis reservas', 'about.jpg');
             <h2>Crear Reserva</h2>
         </div>
         <br>
-        <form method="POST" action="index.php?page=storereserva">
+        <form method="POST" action="<?= BASE_URL ?>/storereserva">
             <div class="row fuente">
                 <div class="col-lg-4 col-md-6">
                     <label for="personas">N.Personas</label>
@@ -36,10 +35,7 @@ echo createHero('Mis reservas', 'about.jpg');
         </form>
     </div>
 </section>
-<?php
-$reservas = new ReservaController;
-$reservas = $reservas->obtener2();
-?>
+
 <?php if (!empty($reservas)) ?>
 <section class="story-area left-text center-sm-text">
     <div class="container">
@@ -68,7 +64,7 @@ $reservas = $reservas->obtener2();
                         <td><?php echo $u['fecha'] ?> </td>
                         <td><?php echo $u['hora'] ?> </td>
                         <td>
-                            <a href="index.php?page=imprimirreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir reserva</a>
+                            <a href="<?= BASE_URL ?>/imprimirreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir reserva</a>
                         </td>
                     </tr>
 

@@ -1,6 +1,5 @@
 <?php
 require_once 'app/views/components/header.php';
-require_once 'app/controller/OfertaController.php';
 
 $galleryItems = [
   1 => [
@@ -180,7 +179,7 @@ echo createNavbar();
             <div class="card-body d-flex flex-column mt-25">
               <h5 class="card-title"><?php echo $item['name'] ?></h5>
               <p class="card-text mb-15 flex-grow-1"><?php echo $item['description'] ?></p>
-              <a href="index.php?page=menu" class="btn btn-primary">Ver menú</a>
+              <a href="<?= BASE_URL ?>/menu" class="btn btn-primary">Ver menú</a>
             </div>
             <div class="card-footer text-muted">
               <?php echo $item['schedule'] ?>
@@ -198,10 +197,6 @@ echo createNavbar();
     <div class="heading">
       <h2>Ofertas</h2>
     </div>
-    <?php
-    $articulo = new OfertaController;
-    $articulos = $articulo->obtener();
-    ?>
     <?php if (isset($articulos)) : ?>
 
       <div class="row justify-content-center g-3">

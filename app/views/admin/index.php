@@ -6,7 +6,7 @@ require_once 'header.php';
   <h1>Oferta</h1>
   <div class="row">
     <div class="col-8">
-      <a href="index.php?page=createoferta" class="btn btn-primary pull-rigth ">Registrar oferta</a>
+      <a href="<?= BASE_URL ?>/ofertas/create" class="btn btn-primary pull-rigth ">Registrar oferta</a>
     </div>
     <div class="ms-auto col-4 ">
       <form method="GET" action="index.php" autocomplete="off">
@@ -28,15 +28,15 @@ require_once 'header.php';
       </tr>
     </thead>
     <tbody>
-      <?php if (!empty($oferta)) : ?>
-        <?php foreach ($oferta as $u) : ?>
+      <?php if (!empty($ofertas)) : ?>
+        <?php foreach ($ofertas as $oferta) : ?>
           <tr >
-          <td><?php echo $u['id'] ?></td>
-            <td><?php echo $u['titulo'] ?></td>
-            <td><?php echo $u['descripcion'] ?></td>
+          <td><?= $oferta['id'] ?></td>
+            <td><?= $oferta['titulo'] ?></td>
+            <td><?= $oferta['descripcion'] ?></td>
             <td class="d-flex gap-2 align-items-center">
               <a 
-                href="index.php?page=editoferta&id=<?php echo $u['id'] ?>"
+                href="<?= BASE_URL ?>/ofertas/<?= $oferta['id'] ?>/edit"
                 class='btn btn-outline-primary btn-sm'
                 data-bs-toggle="tooltip"
                 data-bs-title="Editar"
@@ -48,7 +48,7 @@ require_once 'header.php';
                   type="button"
                   class=" btn btn-outline-danger btn-sm"
                   data-bs-toggle="modal"
-                  data-bs-target="#modal<?php echo $u['id'] ?>"
+                  data-bs-target="#modal<?= $oferta['id'] ?>"
                 >
                   <span class="icon"><i class="fas fa-trash"></i></span>
                 </button>
@@ -64,23 +64,18 @@ require_once 'header.php';
     <ul class="pagination justify-content-center">
       <?php for ($i = 1; $i <= $section; $i++) :  ?>
         <li class="page-item">
-          <a class="page-link" href="index.php?page=dashboard&search=<?php echo $search ?>&p=<?php echo $i ?>">
-            <?php echo $i ?>
+          <a class="page-link" href="<?= BASE_URL ?>/ofertas?search=<?= $search ?>&p=<?= $i ?>">
+            <?= $i ?>
           </a>
         </li>
       <?php endfor;  ?>
     </ul>
   </nav>
-  <!-- Session message -->
-  <?php if (isset($_SESSION['delete'])) : ?>
-    <div class="alert alert-success" role="alert">
-      <?php echo $_SESSION['delete'] ?>
-    </div>
-  <?php endif; ?>
 </div>
+
 <!-- Modal -->
-<?php foreach ($oferta as $u) : ?>
-  <div class="modal fade" id="modal<?php echo $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach ($ofertas as $oferta) : ?>
+  <div class="modal fade" id="modal<?= $oferta['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -91,8 +86,8 @@ require_once 'header.php';
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-
-          <form style="display: inline;" method="POST" action="index.php?page=destroyoferta&id=<?php echo $u['id'] ?>">
+          <form style="display: inline;" method="POST" action="<?= BASE_URL ?>/ofertas/<?= $oferta['id'] ?>">
+            <input type="hidden" name="_method" value="DELETE">
             <button type="submit" id="delete" class=" btn btn-danger" name="eliminar">Eliminar</button>
           </form>
         </div>

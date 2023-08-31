@@ -1,7 +1,6 @@
 <?php
 require_once 'app/views/components/header.php';
 require_once 'app/views/components/hero.php';
-require_once 'app/controller/PedidoController.php';
 
 if(!isset($_SESSION)){ 
     session_start(); 
@@ -50,7 +49,7 @@ echo createHero('Carrito de compras', 'menu.jpg');
                                 <td>$<?php echo $totalPerItem ?></td>
         
                                 <td>
-                                    <form style="display: inline;" method="POST" action="index.php?page=deletecarrito&id=<?php echo $item["id"] ?>">
+                                    <form style="display: inline;" method="POST" action="<?= BASE_URL ?>/deletecarrito&id=<?php echo $item["id"] ?>">
                                         <button type="submit" class="btn btn-outline-danger btn-sm" value="delete" name="delete">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
@@ -78,7 +77,7 @@ echo createHero('Carrito de compras', 'menu.jpg');
                     <span>$<?php echo number_format($total, 2); ?></span>
                 </div>
                 <div>
-                    <a href="index.php?page=pay" value="registrar" class="btn btn-lg btn-primary w-100">Continuar compra</a>                
+                    <a href="<?= BASE_URL ?>/pay" value="registrar" class="btn btn-lg btn-primary w-100">Continuar compra</a>                
                 </div>
                 </div>
             </div>
@@ -88,7 +87,7 @@ echo createHero('Carrito de compras', 'menu.jpg');
     <div class="text-center">
       <i class="fa-solid fa-cart-shopping font-40 mb-20"></i>
       <p class="mb-20 font-20"><strong>¡Tu carrito esta vació!</strong></p>
-      <a class="btn btn-primary" href="index.php?page=menu">Agregar platillos</a>
+      <a class="btn btn-primary" href="<?= BASE_URL ?>/menu">Agregar platillos</a>
     </div>
   <?php endif; ?>
 </section>

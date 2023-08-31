@@ -1,97 +1,123 @@
 <?php
-ob_start();
+use Core\Facades\Route;
 
-$page = $_GET['page'];
+/*
+ *  MAIN PAGES
+ */
 
-if (!empty($page)) {
+Route::get('/home', 'IndexController@home');
+Route::get('/test1', 'IndexController@home')->middleware('auth');
+Route::get('/test2', 'IndexController@home');
+// Route::get('/menu', 'IndexController@menu');
+// Route::get('/services', 'IndexController@services');
+Route::get('/about', 'IndexController@about');
 
-  $router = array(
-    #Auth
-    'auth' => array('model' => 'Usuario', 'view' => 'auth', 'controller' => 'AuthController'),
-    'login' => array('model' => 'Usuario', 'view' => 'login', 'controller' => 'AuthController'),
-    'register' => array('model' => 'Usuario', 'view' => 'register', 'controller' => 'AuthController'),
-    #index de la pagina
-    // 'index' => array('model' => 'Index', 'view' => 'index', 'controller' => 'IndexController'),
-    'pay' => array('model' => 'Index', 'view' => 'pay', 'controller' => 'PedidoController'),
-    'carrito' => array('model' => 'Carrito', 'view' => 'index', 'controller' => 'CarritoController'),
-    'home' => array('model' => 'Index', 'view' => 'home', 'controller' => 'IndexController'),
-    'menu' => array('model' => 'Index', 'view' => 'menu', 'controller' => 'IndexController'),
-    'compras' => array('model' => 'Pedido', 'view' => 'compras', 'controller' => 'PedidoController'),
-    'services' => array('model' => 'Index', 'view' => 'services', 'controller' => 'IndexController'),
-    'about' => array('model' => 'Index', 'view' => 'about', 'controller' => 'IndexController'),
-    'logout' => array('model' => 'Index', 'view' => 'logout', 'controller' => 'IndexController'),
-    /////////////////////////////////////////////////////////////
-    #index usuarios
-    'usuario' => array('model' => 'Usuario', 'view' => 'index', 'controller' => 'UsuariosController'),
-    # vista Crear un usuario
-    'createusuario' => array('model' => 'Usuario', 'view' => 'create', 'controller' => 'UsuariosController'),
-    'storeusuario' => array('model' => 'Usuario', 'view' => 'store', 'controller' => 'UsuariosController'),
-    'updateusuario' => array('model' => 'Usuario', 'view' => 'update', 'controller' => 'UsuariosController'),
-    #modificar usaurio
-    'editusuario' => array('model' => 'Usuario', 'view' => 'edit', 'controller' => 'UsuariosController'),
-    'destroyusuario' => array('model' => 'Usuario', 'view' => 'destroy', 'controller' => 'UsuariosController'),
-    /////////////////////////////////////////////////////////////
-    #articulo 
-    'pedido' => array('model' => 'Pedido', 'view' => 'index', 'controller' => 'PedidoController'),
-    'venta' => array('model' => 'Pedido', 'view' => 'venta', 'controller' => 'PedidoController'),
-    # vista Crear un usuario
-    'createpedido' => array('model' => 'Pedido', 'view' => 'create', 'controller' => 'PedidoController'),
-    'storepedido' => array('model' => 'Pedido', 'view' => 'store', 'controller' => 'PedidoController'),
-    'updatepedido' => array('model' => 'Pedido', 'view' => 'update', 'controller' => 'PedidoController'),
-    'payment-init' => array('model' => 'Pedido', 'view' => 'payment_init', 'controller' => 'PedidoController'),
-    'payment-success' => array('model' => 'Pedido', 'view' => 'payment_success', 'controller' => 'PedidoController'),
-    'payment-cancel' => array('model' => 'Pedido', 'view' => 'payment_cancel', 'controller' => 'PedidoController'),
-    #modificar usaurio
-    'editpedido' => array('model' => 'Pedido', 'view' => 'edit', 'controller' => 'PedidoController'),
-    'imprimirpedido' => array('model' => 'Pedido', 'view' => 'imprimir', 'controller' => 'PedidoController'),
-    'showpedido' => array('model' => 'Pedido', 'view' => 'show', 'controller' => 'PedidoController'),
-    /////////////////////////////////////////////////////////////
-    #articulo 
-    'articulo' => array('model' => 'Usuario', 'view' => 'index', 'controller' => 'ArticuloController'),
-    # vista Crear un usuario
-    'createarticulo' => array('model' => 'Articulo', 'view' => 'create', 'controller' => 'ArticuloController'),
-    'storearticulo' => array('model' => 'Articulo', 'view' => 'store', 'controller' => 'ArticuloController'),
-    'updatearticulo' => array('model' => 'Articulo', 'view' => 'update', 'controller' => 'ArticuloController'),
-    #modificar usaurio
-    'editarticulo' => array('model' => 'Articulo', 'view' => 'edit', 'controller' => 'ArticuloController'),
-    'destroyarticulo' => array('model' => 'Articulo', 'view' => 'destroy', 'controller' => 'ArticuloController'),
-    /////////////////////////carrito de compras
-    'addcarrito' => array('model' => 'Carrito', 'view' => 'store', 'controller' => 'CarritoController'),
-    'deletecarrito' => array('model' => 'Carrito', 'view' => 'destroy', 'controller' => 'CarritoController'),
-    ////////////////////////////////////
-    'dashboard' => array('model' => 'Index', 'view' => 'index', 'controller' => 'OfertaController'),
-    'createoferta' => array('model' => 'Oferta', 'view' => 'create', 'controller' => 'OfertaController'),
-    'storeoferta' => array('model' => 'Oferta', 'view' => 'store', 'controller' => 'OfertaController'),
-    'editoferta' => array('model' => 'Oferta', 'view' => 'edit', 'controller' => 'OfertaController'),
-    'updateoferta' => array('model' => 'Oferta', 'view' => 'update', 'controller' => 'OfertaController'),
-    'destroyoferta' => array('model' => 'Oferta', 'view' => 'destroy', 'controller' => 'OfertaController'),
-    ////////////////////////////////////
-    'reservas' => array('model' => 'Reserva', 'view' => 'index', 'controller' => 'ReservaController'),
-    'createreserva' => array('model' => 'Reserva', 'view' => 'create', 'controller' => 'ReservaController'),
-    'storereserva' => array('model' => 'Reserva', 'view' => 'store', 'controller' => 'ReservaController'),
-    'editreserva' => array('model' => 'Reserva', 'view' => 'edit', 'controller' => 'ReservaController'),
-    'updatereserva' => array('model' => 'Reserva', 'view' => 'update', 'controller' => 'ReservaController'),
-    'destroyreserva' => array('model' => 'Reserva', 'view' => 'destroy', 'controller' => 'ReservaController'),
-    'showreserva' => array('model' => 'Reserva', 'view' => 'show', 'controller' => 'ReservaController'),
-    'imprimirreserva' => array('model' => 'Reserva', 'view' => 'imprimir', 'controller' => 'ReservaController'),
-  );
+Route::middleware('auth', true)->group(function($router) {
+  Route::get('/menu', 'IndexController@menu');
+  Route::get('/services', 'IndexController@services');
+});
 
-  foreach ($router as $key => $components) {
-    if ($page == $key) {
-      $model = $components['model'];
-      $view = $components['view'];
-      $controller = $components['controller'];
-      break;
-    }
-  }
+/*
+ *  AUTHENTICATION
+ */
 
-  if (isset($model)) {
-    require_once 'app/controller/' . $controller . '.php';
-    $objeto = new $controller();
-    $objeto->$view();
-  }
-} else {
-  header('Location: index.php?page=home');
-}
+Route::get('/auth', 'AuthController@auth');
+Route::post('/login', 'AuthController@login');
+Route::post('/register', 'AuthController@register');
+Route::get('/logout', 'AuthController@logout');
 
-ob_end_flush();
+/*
+ *  CLIENT PAGES
+ */
+
+Route::get('/carrito', 'CarritoController@index');
+Route::post('/carrito/:id', 'CarritoController@store');
+Route::delete('/deletecarrito', 'CarritoController@destroy');
+
+Route::get('/compras', 'PedidoController@compras');
+
+Route::get('/pay', 'PedidoController@pay');
+Route::get('/payment-init', 'PedidoController@payment_init');
+Route::get('/payment-success', 'PedidoController@payment_success');
+Route::get('/payment-cancel', 'PedidoController@payment_cancel');
+
+Route::get('/createpedido', 'PedidoController@create');
+Route::get('/storepedido', 'PedidoController@store');
+
+/*
+ *  ADMIN
+ */
+
+Route::get('/usuarios', 'UsuariosController@index');
+Route::get('/usuarios/create', 'UsuariosController@create');
+Route::post('/usuarios', 'UsuariosController@store');
+Route::get('/usuarios/:usuario/edit', 'UsuariosController@edit');
+Route::put('/usuarios/:usuario', 'UsuariosController@update');
+Route::delete('/usuarios/:usuario', 'UsuariosController@destroy');
+
+Route::get('/platillos', 'ArticuloController@index');
+Route::get('/platillos/create', 'ArticuloController@create');
+Route::post('/platillos', 'ArticuloController@store');
+Route::put('/platillos/:platillo', 'ArticuloController@update');
+Route::get('/platillos/:platillo/edit', 'ArticuloController@edit');
+Route::delete('/platillos/:platillo', 'ArticuloController@destroy');
+
+Route::get('/ofertas', 'OfertaController@index');
+Route::get('/ofertas/create', 'OfertaController@create');
+Route::post('/ofertas', 'OfertaController@store');
+Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
+Route::put('/ofertas/:oferta', 'OfertaController@update');
+Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
+
+Route::get('/pedidos', 'PedidoController@index'); //admin
+Route::get('/ventas', 'PedidoController@venta');
+Route::get('/ventas/:pedido', 'PedidoController@show');
+
+
+Route::put('/pedidos/:pedido', 'PedidoController@update'); //admin
+
+
+
+
+// ?
+
+Route::get('/reservas', 'ReservaController@index'); //admin
+Route::get('/createreserva', 'ReservaController@create');
+Route::get('/storereserva', 'ReservaController@store');
+Route::get('/editreserva', 'ReservaController@edit');
+Route::get('/updatereserva', 'ReservaController@update');
+Route::get('/destroyreserva', 'ReservaController@destroy');
+
+Route::get('/reservas/:reserva', 'ReservaController@show'); //admin
+Route::get('/imprimirreserva', 'ReservaController@imprimir');
+
+
+
+Route::get('/editpedido', 'PedidoController@edit');
+Route::get('/imprimirpedido', 'PedidoController@imprimir');
+Route::get('/pedidos/:pedido', 'PedidoController@show'); //admin
+
+
+
+
+
+
+
+
+// ------------------------------------------------------
+
+
+Route::get('/users', 'UserController@index');
+Route::get('/user/:userId', 'UserController@show');
+Route::get('/user/create', 'UserController@create');
+Route::post('/user', 'UserController@store');
+Route::get('/user/:userId/edit', 'UserController@edit');
+Route::put('/user/:userId', 'UserController@update');
+Route::delete('/user/:userId', 'UserController@destroy');
+
+// ------------------------------------------------------
+
+
+
+// Run the router
+Route::run();

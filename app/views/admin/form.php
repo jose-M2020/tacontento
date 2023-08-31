@@ -27,7 +27,7 @@ $error = function ($field) {
             <div class="row fuente">
                 <?php if (isset($oferta['img'])) : ?>
                     <div class="mb-3">
-                        <img class="photo-perfil-edit" src="storage/<?php echo $oferta['img'] ?>" alt="foto de perfil">
+                        <img class="photo-perfil-edit" src="<?= $request->getFullRoute('/storage/'.$oferta['img']); ?>" alt="foto de perfil">
                     </div>
                     <div class="">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">

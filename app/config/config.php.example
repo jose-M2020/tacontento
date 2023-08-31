@@ -1,0 +1,23 @@
+<?php 
+ 
+// Product Details  
+// Minimum amount is $10 MXN
+$currency = "MXN"; 
+  
+/* 
+ * Stripe API configuration 
+ * Remember to switch to your live publishable and secret key in production! 
+ * See your keys here: https://dashboard.stripe.com/account/apikeys 
+ */ 
+define('STRIPE_API_KEY', ''); 
+define('STRIPE_PUBLISHABLE_KEY', ''); 
+define('STRIPE_SUCCESS_URL', 'http://localhost/tacontento/<?= BASE_URL ?>/payment-success.php'); //Payment success URL 
+define('STRIPE_CANCEL_URL', 'http://localhost/tacontento/<?= BASE_URL ?>/payment-cancel.php'); //Payment cancel URL 
+
+// Database configuration    
+define('DB_HOST', 'MySQL_Database_Host');   
+define('DB_USERNAME', 'MySQL_Database_Username'); 
+define('DB_PASSWORD', 'MySQL_Database_Password');   
+define('DB_NAME', 'MySQL_Database_Name'); 
+ 
+?>

@@ -40,8 +40,8 @@ require_once 'app/views/admin/header.php';
             <td> <?php echo $u['total'] ?> </td>
             <td> <?php echo $u['id_cliente'] ?> </td>
             <td>
-            <a href="index.php?page=showpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm' >Ver pedido</a>
-            <a href="index.php?page=imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-primary btn-sm' download="ticket.pdf">Imprimir ticket</a>
+            <a href="<?= BASE_URL ?>/ventas/<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm' >Ver venta</a>
+            <a href="<?= BASE_URL ?>/imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-primary btn-sm' download="ticket.pdf">Imprimir ticket</a>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -53,7 +53,7 @@ require_once 'app/views/admin/header.php';
     <ul class="pagination justify-content-center">
       <?php for ($i = 1; $i <= $section; $i++) :  ?>
         <li class="page-item">
-          <a class="page-link" href="index.php?page=venta&search=<?php echo $search ?>&p=<?php echo $i ?>">
+          <a class="page-link" href="<?= BASE_URL ?>/venta&search=<?php echo $search ?>&p=<?php echo $i ?>">
             <?php echo $i ?>
           </a>
         </li>

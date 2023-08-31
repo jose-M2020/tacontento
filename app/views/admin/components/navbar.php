@@ -1,4 +1,3 @@
-
 <nav class="navbar bg-light shadow-sm py-3 px-3">
   <div class="container-fluid d-flex align-items-center">
     <div class="d-flex d-md-none align-items-center gap-3">
@@ -6,7 +5,7 @@
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="logo align-items-center">
-        <img style="width:50px"  src="images/taco.png" alt="">
+        <img style="width:50px"  src="<?= $request->getFullRoute('/images/taco.png') ?>" alt="">
         <!-- <span class="logo-name">TA'CONTENTO</span> -->
       </div>
     </div>
@@ -39,7 +38,7 @@
           aria-expanded="false"
           >
           <img
-            src="images/profile.png"
+            src="<?= $request->getFullRoute('/images/profile.png') ?>"
             class="rounded-circle"
             height="43"
             alt="User Portrait"

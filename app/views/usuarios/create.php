@@ -3,7 +3,7 @@ require_once 'app/views/admin/header.php';
 ?>
 
 <h1>Crear usuario</h1>
-  <form method="POST" action="index.php?page=storeusuario" >
+  <form method="POST" action="<?= BASE_URL ?>/usuarios" >
     
     <?php include_once "form.php" ?>
 

@@ -34,7 +34,7 @@ require_once 'app/views/admin/header.php';
             <td> <?php echo $u['id_cliente'] ?> </td>
             <td class="d-flex gap-2 align-items-center">
               <a
-                href="index.php?page=showpedido&id=<?php echo $u['id'] ?>"
+                href="<?= BASE_URL ?>/pedidos/<?php echo $u['id'] ?>"
                 class='btn btn-outline-primary btn-sm'
                 data-bs-toggle="tooltip"
                 data-bs-title="Ver detalles"
@@ -42,7 +42,8 @@ require_once 'app/views/admin/header.php';
                 <span class="icon"><i class="fas fa-eye"></i></span>
               </a>
               <div data-bs-toggle="tooltip" data-bs-title="Finalizar">
-                <form style="display: inline;" method="POST" action="index.php?page=updatepedido&id=<?php echo $u['id'] ?>">
+                <form style="display: inline;" method="POST" action="<?= BASE_URL ?>/pedidos/<?php echo $u['id'] ?>">
+                  <input type="hidden" name="_method" value="PUT">
                   <button type="submit" class=" btn btn-outline-danger" name="editar">
                     <span class="icon"><i class="fas fa-check"></i></span>
                   </button>
@@ -59,7 +60,7 @@ require_once 'app/views/admin/header.php';
     <ul class="pagination justify-content-center">
       <?php for ($i = 1; $i <= $section; $i++) :  ?>
         <li class="page-item">
-          <a class="page-link" href="index.php?page=pedido&search=<?php echo $search ?>&p=<?php echo $i ?>">
+          <a class="page-link" href="<?= BASE_URL ?>/pedido&search=<?php echo $search ?>&p=<?php echo $i ?>">
             <?php echo $i ?>
           </a>
         </li>
