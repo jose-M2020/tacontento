@@ -17,11 +17,6 @@ class ReservaController
     }
     public function index()
     {
-        session_start();
-        if(!isset($_SESSION['usuario'])){
-          
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $reserva = new Reserva;
         $utilities = new Utilidades();
@@ -49,23 +44,14 @@ class ReservaController
         require_once 'app/views/reservas/show.php';
     }
     public function create()
-    {  session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-        
+    {   
         $reservas = $this->obtener2();
 
         require_once('./app/views/reservas/create.php');
     }
 
     public function store()
-    {  
-        session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-        
+    {   
         $request = new Request();
         $fecha = new  DateTime($request->input('fecha'));
         $hora = new  DateTime($request->input('hora'));
@@ -94,10 +80,7 @@ class ReservaController
     }
 
     public function edit()
-    {  session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
+    {
         $id = $_GET['id'];
         $oferta = new Oferta();
         $oferta = $oferta->editoferta($id);
@@ -105,12 +88,7 @@ class ReservaController
     }
 
     public function update()
-    {  
-        session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-
+    {
         $request = new Request();
         $art = new Oferta();
         $file = new Utilidades();
@@ -138,10 +116,7 @@ class ReservaController
     }
 
     public function destroy()
-    {  session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
+    {
         if (isset($_POST['eliminar'])) {
             $id = $_GET['id'];
 
@@ -157,13 +132,8 @@ class ReservaController
 
   
     public function obtener2(){
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }else{
-            $id_cliente = $_SESSION['usuario']['id'];
-            $compras = new Reserva();
-            return $compras = $compras->getreservas2($id_cliente);
-            
-        }
+        $id_cliente = $_SESSION['usuario']['id'];
+        $compras = new Reserva();
+        return $compras = $compras->getreservas2($id_cliente);
     }
 }

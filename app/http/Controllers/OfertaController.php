@@ -59,7 +59,7 @@ class OfertaController
         #var_dump($datos);
         $createarticulo = new Oferta();
         $createarticulo->storeoferta($datos);
-        header('Location: '. BASE_URL .'/createoferta');
+        header('Location: '. BASE_URL .'/ofertas');
     }
 
 
@@ -100,14 +100,12 @@ class OfertaController
 
     public function destroy($params)
     {
-        if (isset($_POST['eliminar'])) {
-            $oferta = new Oferta();
-            if ($oferta->destroyoferta($params['oferta'])) {
-                header('Location: '. BASE_URL .'/ofertas');  
-              
-            } else {
-             echo "error";
-            }
+        $oferta = new Oferta();
+        if ($oferta->destroyoferta($params['oferta'])) {
+            header('Location: '. BASE_URL .'/ofertas');  
+          
+        } else {
+         echo "error";
         }
     }
 

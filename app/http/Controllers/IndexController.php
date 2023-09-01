@@ -25,11 +25,7 @@ class IndexController
 
     public function dashboard()
     {
-        if( isset($_SESSION['usuario'])) {
-            require_once('./app/views/admin/index.php');
-        } else{
-            header('Location: '. BASE_URL .'/home');
-        }
+        require_once('./app/views/admin/index.php');
     }
     
     public function home()

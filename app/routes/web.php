@@ -29,19 +29,24 @@ Route::get('/logout', 'AuthController@logout');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/carrito', 'CarritoController@index');
-Route::post('/carrito/:id', 'CarritoController@store');
-Route::delete('/deletecarrito', 'CarritoController@destroy');
+Route::group(['middleware' => 'auth'], function($router) {
+  
+  Route::get('/carrito', 'CarritoController@index');
+  Route::post('/carrito/:id', 'CarritoController@store');
+  Route::delete('/deletecarrito', 'CarritoController@destroy');
+  
+  Route::get('/compras', 'PedidoController@compras');
+  
+  Route::get('/pay', 'PedidoController@pay');
+  Route::get('/payment-init', 'PedidoController@payment_init');
+  Route::get('/payment-success', 'PedidoController@payment_success');
+  Route::get('/payment-cancel', 'PedidoController@payment_cancel');
+  
+  Route::get('/createpedido', 'PedidoController@create');
+  Route::get('/storepedido', 'PedidoController@store');
+  
+});
 
-Route::get('/compras', 'PedidoController@compras');
-
-Route::get('/pay', 'PedidoController@pay');
-Route::get('/payment-init', 'PedidoController@payment_init');
-Route::get('/payment-success', 'PedidoController@payment_success');
-Route::get('/payment-cancel', 'PedidoController@payment_cancel');
-
-Route::get('/createpedido', 'PedidoController@create');
-Route::get('/storepedido', 'PedidoController@store');
 
 /*
 |--------------------------------------------------------------------------

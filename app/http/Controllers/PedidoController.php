@@ -24,9 +24,6 @@ class PedidoController
 
     public function index()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $pedido = new Pedido;
         $utilities = new Utilidades();
@@ -47,9 +44,6 @@ class PedidoController
     }
     public function venta()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $pedido = new Pedido;
         $utilities = new Utilidades();
@@ -71,9 +65,6 @@ class PedidoController
 
     public function create()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         require_once('./app/views/articulos/create.php');
     }
     public function pay()
@@ -137,9 +128,6 @@ class PedidoController
 
     public function edit()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         $id = $_GET['id'];
         $articulo = new Articulo();
         $articulo = $articulo->editarticulo($id);
@@ -149,10 +137,6 @@ class PedidoController
 
     public function update($params)
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $datos = [
             'id' => $params['pedido'],
             'status' => 2
@@ -166,7 +150,6 @@ class PedidoController
     }
     public function imprimir_cliente($id)
     {
-
         $pedido = new Pedido();
         $p = $pedido->ticket($id);
 
@@ -236,38 +219,19 @@ class PedidoController
 
     public function addcarrito()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/auth');
-        } else {
-            $id = $_GET['id'];
-            $cantidad = $_POST['cant'];
-            $id_cliente = $_SESSION['usuario']['id'];
-            $articulo = new Articulo();
-            $articulo = $articulo->editarticulo($id);
-            $total = $cantidad * $articulo['precio'];
+        $id = $_GET['id'];
+        $cantidad = $_POST['cant'];
+        $id_cliente = $_SESSION['usuario']['id'];
+        $articulo = new Articulo();
+        $articulo = $articulo->editarticulo($id);
+        $total = $cantidad * $articulo['precio'];
 
-            if (isset($_POST['agregar'])) {
-                if (isset($_SESSION['add_carro'])) {
-                    $item_array_id_cart = array_column($_SESSION['add_carro'], 'id');
-                    if (!in_array($_GET['id'], $item_array_id_cart)) {
+        if (isset($_POST['agregar'])) {
+            if (isset($_SESSION['add_carro'])) {
+                $item_array_id_cart = array_column($_SESSION['add_carro'], 'id');
+                if (!in_array($_GET['id'], $item_array_id_cart)) {
 
-                        $count = count($_SESSION['add_carro']);
-                        $item_array = array(
-                            'id'        => $_GET['id'],
-                            'descripcion'    => $articulo['nombre'],
-                            'precio'    => $articulo['precio'],
-                            'cantidad'  =>  $cantidad,
-                            'total'  =>  $total,
-                            'id_cliente'  =>  $id_cliente,
-                        );
-
-                        $_SESSION['add_carro'][$count] = $item_array;
-                        header('Location: '. BASE_URL .'/carrito');
-                    } else {
-                        echo '<script>alert("El Producto ya existe!");</script>';
-                        require_once 'app/views/pages/home.php';
-                    }
-                } else {
+                    $count = count($_SESSION['add_carro']);
                     $item_array = array(
                         'id'        => $_GET['id'],
                         'descripcion'    => $articulo['nombre'],
@@ -277,9 +241,24 @@ class PedidoController
                         'id_cliente'  =>  $id_cliente,
                     );
 
-                    $_SESSION['add_carro'][0] = $item_array;
+                    $_SESSION['add_carro'][$count] = $item_array;
                     header('Location: '. BASE_URL .'/carrito');
+                } else {
+                    echo '<script>alert("El Producto ya existe!");</script>';
+                    require_once 'app/views/pages/home.php';
                 }
+            } else {
+                $item_array = array(
+                    'id'        => $_GET['id'],
+                    'descripcion'    => $articulo['nombre'],
+                    'precio'    => $articulo['precio'],
+                    'cantidad'  =>  $cantidad,
+                    'total'  =>  $total,
+                    'id_cliente'  =>  $id_cliente,
+                );
+
+                $_SESSION['add_carro'][0] = $item_array;
+                header('Location: '. BASE_URL .'/carrito');
             }
         }
     }
@@ -300,14 +279,10 @@ class PedidoController
         }
     }
     public function compras(){
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }else{
-            $id_cliente = $_SESSION['usuario']['id'];
-            $compras = new Pedido();
-            $compras = $compras->getcompras($id_cliente);
-            require_once 'app/views/pages/compras.php';
-        }
+        $id_cliente = $_SESSION['usuario']['id'];
+        $compras = new Pedido();
+        $compras = $compras->getcompras($id_cliente);
+        require_once 'app/views/pages/compras.php';
     }
 
     public function payment_init() {

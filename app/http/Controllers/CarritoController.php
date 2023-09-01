@@ -15,9 +15,6 @@ class CarritoController
         if(!isset($_SESSION)){ 
             session_start(); 
         }
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
     }
     public function index()
     {
@@ -67,10 +64,6 @@ class CarritoController
 
     public function update()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $request = new Request();
         $user = new Usuario;
         $utilities = new Utilidades();
