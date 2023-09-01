@@ -50,7 +50,7 @@ class ReservaController
     }
     public function create()
     {  session_start();
-        if(!isset($_SESSION['cliente'])){
+        if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
         }
         
@@ -62,7 +62,7 @@ class ReservaController
     public function store()
     {  
         session_start();
-        if(!isset($_SESSION['cliente'])){
+        if(!isset($_SESSION['usuario'])){
             header('Location: '. BASE_URL .'/home');
         }
         
@@ -157,10 +157,10 @@ class ReservaController
 
   
     public function obtener2(){
-        if (!isset($_SESSION['cliente'])) {
+        if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
         }else{
-            $id_cliente = $_SESSION['cliente']['id'];
+            $id_cliente = $_SESSION['usuario']['id'];
             $compras = new Reserva();
             return $compras = $compras->getreservas2($id_cliente);
             

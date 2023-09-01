@@ -36,7 +36,7 @@ if (!isset($_SESSION)) {
                 <li><a href="<?= BASE_URL ?>/services">SERVICIOS</a></li>
                 <li><a href="<?= BASE_URL ?>/about">ACERCA DE NOSOTROS</a></li>
                
-                <?php if (isset($_SESSION['cliente'])) : ?>
+                <?php if (isset($_SESSION['usuario'])) : ?>
                     <li><a href="<?= BASE_URL ?>/carrito">CARRITO DE COMPRAS</a></li>
                     <li><a href="<?= BASE_URL ?>/createreserva">RESERVAS</a></li>
                     <li><a href="<?= BASE_URL ?>/compras">COMPRAS</a></li>

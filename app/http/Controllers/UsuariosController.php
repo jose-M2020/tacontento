@@ -16,9 +16,6 @@ class UsuariosController
     }
     public function index()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $users = new Usuario;
         $utilities = new Utilidades();
@@ -40,9 +37,6 @@ class UsuariosController
     { }
     public function create()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         require_once('./app/views/usuarios/create.php');
     }
 
@@ -99,9 +93,6 @@ class UsuariosController
 
     public function edit($params)
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         $idUsuario = $params['usuario'];
         $user = new Usuario();
         $user = $user->edituser($idUsuario);
@@ -112,10 +103,6 @@ class UsuariosController
 
     public function update($params)
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $request = new Request();
         $user = new Usuario;
         $utilities = new Utilidades();
@@ -153,9 +140,6 @@ class UsuariosController
 
     public function destroy($params)
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         if (isset($_POST['eliminar'])) {
             $idUsuario = $params['usuario'];
 

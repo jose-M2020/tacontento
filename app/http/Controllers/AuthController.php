@@ -40,7 +40,7 @@ class AuthController
             } else if($respuesta['admin'] == 2){
                 $cart = new Carrito();
                 $respuesta['cartNum'] = $cart->count($respuesta['id']) ?? 0;
-                $_SESSION['cliente'] = $respuesta;
+                $_SESSION['usuario'] = $respuesta;
                 header('Location: '. BASE_URL .'/home');
             }else {
                 $utilities->setMessage('error', 'Credenciales incorrectas. Inténtalo de nuevo.');
@@ -102,7 +102,7 @@ class AuthController
 
     public function logout()
     {
-        if (isset($_SESSION['usuario']) || isset($_SESSION['cliente'] )) {
+        if (isset($_SESSION['usuario']) || isset($_SESSION['usuario'] )) {
             session_destroy();
             header('Location: '. BASE_URL .'/home');
         } else {

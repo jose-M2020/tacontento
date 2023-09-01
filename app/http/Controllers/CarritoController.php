@@ -15,7 +15,7 @@ class CarritoController
         if(!isset($_SESSION)){ 
             session_start(); 
         }
-        if (!isset($_SESSION['cliente'])) {
+        if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
         }
     }
@@ -28,7 +28,7 @@ class CarritoController
 
         $startOfPaging = 0;
         $amountOfThePaging = 12;
-        $idUsuario = $_SESSION['cliente']['id'];
+        $idUsuario = $_SESSION['usuario']['id'];
         
         #asignando el inicio de de los articulos a paginar
         if (isset($_GET['p'])) $startOfPaging = $utilities->pagination($_GET['p'], $amountOfThePaging);
@@ -49,7 +49,7 @@ class CarritoController
         $request = new Request();
         $cartModel = new Carrito();
 
-        $idCliente = $_SESSION['cliente']['id'];
+        $idCliente = $_SESSION['usuario']['id'];
         
         $datos = array(
             'id_usuario' => $idCliente,
@@ -60,7 +60,7 @@ class CarritoController
         
         $cartModel->storeItem($datos);
 
-        $_SESSION['cliente']['cartNum'] += 1;
+        $_SESSION['usuario']['cartNum'] += 1;
 
         header('Location: '. BASE_URL .'/menu');
     }
@@ -112,8 +112,8 @@ class CarritoController
 
         $cart = new Carrito();
         if ($cart->destroyItem($id)) {
-            $_SESSION['cliente']['cartNum'] -= 1;
-            header('Location: '. BASE_URL .'/carrito&idUsuario='.$_SESSION['cliente']['id']);
+            $_SESSION['usuario']['cartNum'] -= 1;
+            header('Location: '. BASE_URL .'/carrito&idUsuario='.$_SESSION['usuario']['id']);
         } else {
             // echo "error";
         }

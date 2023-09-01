@@ -30,7 +30,7 @@ echo createHero('Mis reservas', 'about.jpg');
                 </div>
             </div>
             <br>
-            <input type="hidden" readonly name="id_cliente" value="<?php echo $_SESSION['cliente']['id'] ?>">
+            <input type="hidden" readonly name="id_cliente" value="<?php echo $_SESSION['usuario']['id'] ?>">
             <button name="registrar" value="registrar" class="btn btn-primary d-block w-100">Reservar</button>
         </form>
     </div>

@@ -2,24 +2,21 @@
 use Core\Facades\Route;
 
 /*
- *  MAIN PAGES
- */
+|--------------------------------------------------------------------------
+| MAIN PAGES
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/home', 'IndexController@home');
-Route::get('/test1', 'IndexController@home')->middleware('auth');
-Route::get('/test2', 'IndexController@home');
-// Route::get('/menu', 'IndexController@menu');
-// Route::get('/services', 'IndexController@services');
+Route::get('/menu', 'IndexController@menu');
+Route::get('/services', 'IndexController@services');
 Route::get('/about', 'IndexController@about');
 
-Route::middleware('auth', true)->group(function($router) {
-  Route::get('/menu', 'IndexController@menu');
-  Route::get('/services', 'IndexController@services');
-});
-
 /*
- *  AUTHENTICATION
- */
+|--------------------------------------------------------------------------
+| AUTHENTICATION
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/auth', 'AuthController@auth');
 Route::post('/login', 'AuthController@login');
@@ -27,8 +24,10 @@ Route::post('/register', 'AuthController@register');
 Route::get('/logout', 'AuthController@logout');
 
 /*
- *  CLIENT PAGES
- */
+|--------------------------------------------------------------------------
+| CLIENT PAGES
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/carrito', 'CarritoController@index');
 Route::post('/carrito/:id', 'CarritoController@store');
@@ -45,29 +44,37 @@ Route::get('/createpedido', 'PedidoController@create');
 Route::get('/storepedido', 'PedidoController@store');
 
 /*
- *  ADMIN
- */
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/usuarios', 'UsuariosController@index');
-Route::get('/usuarios/create', 'UsuariosController@create');
-Route::post('/usuarios', 'UsuariosController@store');
-Route::get('/usuarios/:usuario/edit', 'UsuariosController@edit');
-Route::put('/usuarios/:usuario', 'UsuariosController@update');
-Route::delete('/usuarios/:usuario', 'UsuariosController@destroy');
+Route::group(['middleware' => ['auth', 'role:cliente']], function($router) {
+  
+  Route::get('/usuarios', 'UsuariosController@index');
+  Route::get('/usuarios/create', 'UsuariosController@create');
+  Route::post('/usuarios', 'UsuariosController@store');
+  Route::get('/usuarios/:usuario/edit', 'UsuariosController@edit');
+  Route::put('/usuarios/:usuario', 'UsuariosController@update');
+  Route::delete('/usuarios/:usuario', 'UsuariosController@destroy');
+  
+  Route::get('/platillos', 'ArticuloController@index');
+  Route::get('/platillos/create', 'ArticuloController@create');
+  Route::post('/platillos', 'ArticuloController@store');
+  Route::put('/platillos/:platillo', 'ArticuloController@update');
+  Route::get('/platillos/:platillo/edit', 'ArticuloController@edit');
+  Route::delete('/platillos/:platillo', 'ArticuloController@destroy');
+  
+  Route::get('/ofertas', 'OfertaController@index');
+  Route::get('/ofertas/create', 'OfertaController@create');
+  Route::post('/ofertas', 'OfertaController@store');
+  Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
+  Route::put('/ofertas/:oferta', 'OfertaController@update');
+  Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
+  
+});
 
-Route::get('/platillos', 'ArticuloController@index');
-Route::get('/platillos/create', 'ArticuloController@create');
-Route::post('/platillos', 'ArticuloController@store');
-Route::put('/platillos/:platillo', 'ArticuloController@update');
-Route::get('/platillos/:platillo/edit', 'ArticuloController@edit');
-Route::delete('/platillos/:platillo', 'ArticuloController@destroy');
 
-Route::get('/ofertas', 'OfertaController@index');
-Route::get('/ofertas/create', 'OfertaController@create');
-Route::post('/ofertas', 'OfertaController@store');
-Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
-Route::put('/ofertas/:oferta', 'OfertaController@update');
-Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
 
 Route::get('/pedidos', 'PedidoController@index'); //admin
 Route::get('/ventas', 'PedidoController@venta');

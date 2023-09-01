@@ -19,10 +19,6 @@ class OfertaController
 
     public function index()
     {
-        if(!isset($_SESSION['usuario'])){
-          
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $oferta = new Oferta;
         $utilities = new Utilidades();
@@ -44,20 +40,12 @@ class OfertaController
     { }
     public function create()
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-       
-       
         require_once('./app/views/admin/create.php');
     }
 
     public function store()
     {        
         if(empty($_POST) && $_SERVER['REQUEST_METHOD'] !== 'POST') exit;
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
         
         $request = new Request();
         $file = new Utilidades();
@@ -77,10 +65,6 @@ class OfertaController
 
     public function edit($params)
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-        ;
         $oferta = new Oferta();
         $oferta = $oferta->editoferta($params['oferta']);
         require_once('./app/views/admin/edit.php');
@@ -88,10 +72,6 @@ class OfertaController
 
     public function update($params)
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $request = new Request();
         $art = new Oferta();
         $file = new Utilidades();
@@ -120,9 +100,6 @@ class OfertaController
 
     public function destroy($params)
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
         if (isset($_POST['eliminar'])) {
             $oferta = new Oferta();
             if ($oferta->destroyoferta($params['oferta'])) {

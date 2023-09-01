@@ -95,7 +95,7 @@ class PedidoController
         $carritoModel = new Carrito;
         $fecha = new  DateTime('now');
 
-        $idUsuario = $_SESSION['cliente']['id'];
+        $idUsuario = $_SESSION['usuario']['id'];
         $data['fecha'] = $fecha->format('Y-m-d');
         $userCart = $carritoModel->indexCarrito($idUsuario, null, null);
         $pedidoItems = [];
@@ -236,12 +236,12 @@ class PedidoController
 
     public function addcarrito()
     {
-        if (!isset($_SESSION['cliente'])) {
+        if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/auth');
         } else {
             $id = $_GET['id'];
             $cantidad = $_POST['cant'];
-            $id_cliente = $_SESSION['cliente']['id'];
+            $id_cliente = $_SESSION['usuario']['id'];
             $articulo = new Articulo();
             $articulo = $articulo->editarticulo($id);
             $total = $cantidad * $articulo['precio'];
@@ -300,10 +300,10 @@ class PedidoController
         }
     }
     public function compras(){
-        if (!isset($_SESSION['cliente'])) {
+        if (!isset($_SESSION['usuario'])) {
             header('Location: '. BASE_URL .'/home');
         }else{
-            $id_cliente = $_SESSION['cliente']['id'];
+            $id_cliente = $_SESSION['usuario']['id'];
             $compras = new Pedido();
             $compras = $compras->getcompras($id_cliente);
             require_once 'app/views/pages/compras.php';
@@ -336,7 +336,7 @@ class PedidoController
         } 
         
         if(!empty($request->createCheckoutSession)){
-            $userId = $_SESSION['cliente']['id'];
+            $userId = $_SESSION['usuario']['id'];
             $carritoModel = new Carrito;
             $articuloModel = new Articulo;
             $userCart = $carritoModel->indexCarrito($userId, null, null);
@@ -416,7 +416,7 @@ class PedidoController
         
         $pedido = new Pedido;
         $carritoModel = new Carrito;
-        $idUsuario = $_SESSION['cliente']['id'];
+        $idUsuario = $_SESSION['usuario']['id'];
         $session_id = $_GET['session_id']; 
 
         $pedidoExist = $pedido->checkByStripeSession($session_id);
@@ -506,7 +506,7 @@ class PedidoController
 
                         // Update Cart
                         $carritoModel->destroyByUser($idUsuario);
-                        $_SESSION['cliente']['cartNum'] = 0;
+                        $_SESSION['usuario']['cartNum'] = 0;
                          
                         $status = 'success'; 
                         $statusMsg = 'Su pago ha sido exitoso!'; 
