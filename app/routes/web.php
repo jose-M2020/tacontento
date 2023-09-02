@@ -21,15 +21,15 @@ Route::get('/about', 'IndexController@about');
 Route::get('/auth', 'AuthController@auth');
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
-Route::get('/logout', 'AuthController@logout');
+Route::get('/logout', 'AuthController@logout')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
-| CLIENT PAGES
+| CLIENT ROUTES
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => 'auth'], function($router) {
+Route::group(['middleware' => ['auth', 'role:client']], function($router) {
   
   Route::get('/carrito', 'CarritoController@index');
   Route::post('/carrito/:id', 'CarritoController@store');
@@ -37,16 +37,18 @@ Route::group(['middleware' => 'auth'], function($router) {
   
   Route::get('/compras', 'PedidoController@compras');
   
+  Route::get('/createreserva', 'ReservaController@create');
+  Route::get('/storereserva', 'ReservaController@store');
+
   Route::get('/pay', 'PedidoController@pay');
-  Route::get('/payment-init', 'PedidoController@payment_init');
+  Route::post('/payment-init', 'PedidoController@payment_init');
   Route::get('/payment-success', 'PedidoController@payment_success');
   Route::get('/payment-cancel', 'PedidoController@payment_cancel');
   
   Route::get('/createpedido', 'PedidoController@create');
   Route::get('/storepedido', 'PedidoController@store');
-  
-});
 
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +56,7 @@ Route::group(['middleware' => 'auth'], function($router) {
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => ['auth', 'role:cliente']], function($router) {
+Route::group(['middleware' => ['auth', 'role:admin']], function($router) {
   
   Route::get('/usuarios', 'UsuariosController@index');
   Route::get('/usuarios/create', 'UsuariosController@create');
@@ -76,59 +78,31 @@ Route::group(['middleware' => ['auth', 'role:cliente']], function($router) {
   Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
   Route::put('/ofertas/:oferta', 'OfertaController@update');
   Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
+
+  Route::get('/reservas', 'ReservaController@index');
+  Route::get('/reservas/:reserva', 'ReservaController@show');
   
+  Route::get('/pedidos', 'PedidoController@index');
+  Route::get('/pedidos/:pedido', 'PedidoController@show');
+  Route::put('/pedidos/:pedido', 'PedidoController@update');
+
+  Route::get('/ventas', 'PedidoController@venta');
+  Route::get('/ventas/:pedido', 'PedidoController@show');
+
 });
 
 
-
-Route::get('/pedidos', 'PedidoController@index'); //admin
-Route::get('/ventas', 'PedidoController@venta');
-Route::get('/ventas/:pedido', 'PedidoController@show');
+// ? ----------------------------- ?
 
 
-Route::put('/pedidos/:pedido', 'PedidoController@update'); //admin
+// Route::get('/editreserva', 'ReservaController@edit');
+// Route::get('/updatereserva', 'ReservaController@update');
+// Route::get('/destroyreserva', 'ReservaController@destroy');
 
-
-
-
-// ?
-
-Route::get('/reservas', 'ReservaController@index'); //admin
-Route::get('/createreserva', 'ReservaController@create');
-Route::get('/storereserva', 'ReservaController@store');
-Route::get('/editreserva', 'ReservaController@edit');
-Route::get('/updatereserva', 'ReservaController@update');
-Route::get('/destroyreserva', 'ReservaController@destroy');
-
-Route::get('/reservas/:reserva', 'ReservaController@show'); //admin
 Route::get('/imprimirreserva', 'ReservaController@imprimir');
 
-
-
-Route::get('/editpedido', 'PedidoController@edit');
+// Route::get('/editpedido', 'PedidoController@edit');
 Route::get('/imprimirpedido', 'PedidoController@imprimir');
-Route::get('/pedidos/:pedido', 'PedidoController@show'); //admin
-
-
-
-
-
-
-
-
-// ------------------------------------------------------
-
-
-Route::get('/users', 'UserController@index');
-Route::get('/user/:userId', 'UserController@show');
-Route::get('/user/create', 'UserController@create');
-Route::post('/user', 'UserController@store');
-Route::get('/user/:userId/edit', 'UserController@edit');
-Route::put('/user/:userId', 'UserController@update');
-Route::delete('/user/:userId', 'UserController@destroy');
-
-// ------------------------------------------------------
-
 
 
 // Run the router

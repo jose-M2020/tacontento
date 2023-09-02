@@ -20,18 +20,23 @@ class Router
             $middlewares = [$middlewares];
         }
         
-        foreach ($middlewares as $middlewareAlias) {
-            $middlewareInstance = $this->getMiddlewareInstance($middlewareAlias);
+        foreach ($middlewares as $middleware) {
+            $parseMiddleware = $this->parseMiddleware($middleware);
+            $middlewareInstance = $this->getMiddlewareInstance($parseMiddleware['alias']);
 
             if ($middlewareInstance) {
-              $this->middlewares = array_merge(
-                $this->middlewares,
-                $middlewareInstance
-              );
+              $arr = [
+                  'instance' => $middlewareInstance,
+                  'params' => $parseMiddleware['params']
+              ];
+
+              array_push($this->middlewares, $arr);
             }
         }
-        
-        $this->middlewares = array_merge($this->groupMiddleware, $this->middlewares);
+
+        if(!empty($this->groupMiddleware)) {
+          array_push($this->middlewares, $this->groupMiddleware);
+        }
 
         // if(!$this->isRouteGroup || !$isGroup) {
           $lastIndex = count($this->routes) - 1;
@@ -41,13 +46,6 @@ class Router
         $this->middlewares = [];
 
         return $this;
-    }
-
-    private function getMiddlewareInstance($middlewareAlias) {
-        $kernel = new Kernel();
-        $middlewareClass = $kernel->getMiddlewareClass($middlewareAlias);
-        
-        return ($middlewareClass && class_exists($middlewareClass)) ? [new $middlewareClass()] : null;
     }
 
     public function get($route, $handler)
@@ -99,16 +97,49 @@ class Router
             $middlewares = [$middlewares];
         }
         
-        foreach ($middlewares as $middlewareAlias) {
-            $middlewareInstance = $this->getMiddlewareInstance($middlewareAlias);
+        foreach ($middlewares as $middleware) {
+            $parseMiddleware = $this->parseMiddleware($middleware);
+            $middlewareInstance = $this->getMiddlewareInstance($parseMiddleware['alias']);
 
             if ($middlewareInstance) {
-              $this->groupMiddleware = array_merge(
-                $this->groupMiddleware,
-                $middlewareInstance,
-              );
+              $arr = [
+                'instance' => $middlewareInstance,
+                'params' => $parseMiddleware['params']
+              ];
+
+              array_push($this->groupMiddleware, $arr);
             }
         }
+    }
+
+    private function getMiddlewareInstance($middlewareAlias) {
+        $kernel = new Kernel();
+        $middlewareClass = $kernel->getMiddlewareClass($middlewareAlias);
+        
+        return ($middlewareClass && class_exists($middlewareClass)) ? new $middlewareClass() : null;
+    }
+
+    /**
+     * Extracting the middleware alias and any associated parameters.
+     *
+     * @param string $middlewareString The middleware string to be parsed.
+     *
+     * @return array An associative array containing the parsed components:
+     *               - 'alias': The middleware name or alias.
+     *               - 'params': An array of parameters, if present (comma-separated).
+     */
+    function parseMiddleware(string $middlewareString) {
+        $parts = explode(':', $middlewareString, 2);
+        $alias = $parts[0];
+    
+        // If there is a second part, it contains the parameters (comma-separated)
+        $params = isset($parts[1]) ? explode(',', $parts[1]) : [];
+    
+        // Return the parsed components
+        return [
+            'alias' => $alias,
+            'params' => $params,
+        ];
     }
 
     private function addRoute($method, $route, $handler)
@@ -166,13 +197,6 @@ class Router
 
         if ($matchedRoute) {
             $middlewares = $matchedRoute['middlewares'];
-
-            // foreach ($middlewares as $middleware) {
-            //     if (!$middleware()) {
-            //         echo "Middleware check failed. Access denied.";
-            //         return;
-            //     }
-            // }
             $handlerInfo = explode('@', $matchedRoute['handler']);
             $controllerName = $handlerInfo[0];
             $method = $handlerInfo[1];
@@ -188,8 +212,13 @@ class Router
                 
                 // Call middlewares' handle method if implemented
                 foreach ($middlewares as $middleware) {
-                    if (method_exists($middleware, 'handle')) {
-                        $middleware->handle($requestUri);
+                    $middlewareInstance = $middleware['instance'];
+                    $middlewareParams = $middleware['params'];
+
+                    if (method_exists($middlewareInstance, 'handle')) {
+                        $res = $middlewareInstance->handle($middlewareParams);
+                        
+                        if(!$res) exit;
                     }
                 }
 
