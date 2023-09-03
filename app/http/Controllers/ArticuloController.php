@@ -32,14 +32,18 @@ class ArticuloController
         $section = $articulo->paginationarticulo($search);
         $articulo = $articulo->indexarticulo($search, $startOfPaging, $amountOfThePaging);
  
-
-        require_once('./app/views/articulos/index.php');
+        $utilities->view('admin.menu.index', [
+          'articulo' =>$articulo,
+          'section' => $section,
+          'search' =>$search,
+        ]);
     }
     public function show()
     { }
     public function create()
     {
-        require_once('./app/views/articulos/create.php');
+      $utilities = new Utilidades();
+      $utilities->view('admin.menu.create');
     }
 
     public function store()
@@ -67,10 +71,10 @@ class ArticuloController
     {
         $id = $params['platillo'];
         $articulo = new Articulo();
+        $utilities = new Utilidades();
         $articulo = $articulo->editarticulo($id);
 
-
-        require_once('./app/views/articulos/edit.php');
+        $utilities->view('admin.menu.edit', ['articulo' =>$articulo]);
     }
     public function update($params)
     {
