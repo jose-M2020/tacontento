@@ -1,6 +1,8 @@
 <?php
+  use Core\Http\Request;
 
-$error = function ($field) {
+  $request = new Request();
+  $error = function ($field) {
     if (isset($_SESSION['errores'])) {
         foreach ($_SESSION['errores'] as $key => $dato) {
             $errores[$key] = $dato;

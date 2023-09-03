@@ -17,7 +17,7 @@
               <li><a class="faded-text" href="<?= BASE_URL ?>/menu">MENU</a></li>
               <li><a class="faded-text" href="<?= BASE_URL ?>/services">SERVICIOS</a></li>
               <li><a class="faded-text" href="<?= BASE_URL ?>/about">ACERCA</a></li>
-              <?php if (isset($_SESSION['usuario'])) : ?>
+              <?php if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['role'] === 'client') ) : ?>
                 <li>
                   <a class="faded-text position-relative" href="<?= BASE_URL ?>/carrito">
                     <i class="fa-solid fa-cart-shopping"></i>
