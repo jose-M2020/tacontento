@@ -31,17 +31,21 @@ class ReservaController
         $section = $reserva->paginationreserva($search);
         $reserva = $reserva->indexreserva($search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/reservas/index.php');
+        $utilities->view('admin.reserva.index', [
+          'reserva' =>$reserva,
+          'section' => $section,
+          'search' =>$search,
+        ]);
     }
     public function show($params)
     { 
         $idReserva = $params['reserva'];
 
         $reserva = new Reserva();
+        $utilities = new Utilidades();
         $reserva = $reserva->show($idReserva);
 
-        require_once 'app/views/reservas/show.php';
+        $utilities->view('admin.reserva.show', ['reserva' =>$reserva]);
     }
     public function create()
     {   
@@ -131,7 +135,8 @@ class ReservaController
     }
 
   
-    public function obtener2(){
+    public function obtener2()
+    {
         $id_cliente = $_SESSION['usuario']['id'];
         $compras = new Reserva();
         return $compras = $compras->getreservas2($id_cliente);

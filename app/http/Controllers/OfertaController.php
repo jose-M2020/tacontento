@@ -3,8 +3,8 @@ namespace App\Http\Controllers;
 
 require_once 'app/config/config.php';
 
-use App\Models\Oferta;
 use Core\Http\Request;
+use App\Models\Oferta;
 use App\Utilities\Utilidades;
 
 class OfertaController
@@ -33,14 +33,18 @@ class OfertaController
         $section = $oferta->paginationoferta($search);
         $ofertas = $oferta->indexoferta($search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/admin/index.php');
+        $utilities->view('admin.oferta.index', [
+          'ofertas' =>$ofertas,
+          'section' => $section,
+          'search' =>$search
+        ]);
     }
     public function show()
     { }
     public function create()
     {
-        require_once('./app/views/admin/create.php');
+      $utilities = new Utilidades();
+      $utilities->view('admin.oferta.create');
     }
 
     public function store()
@@ -65,9 +69,11 @@ class OfertaController
 
     public function edit($params)
     {
-        $oferta = new Oferta();
-        $oferta = $oferta->editoferta($params['oferta']);
-        require_once('./app/views/admin/edit.php');
+      $oferta = new Oferta();
+      $utilities = new Utilidades();
+      $oferta = $oferta->editoferta($params['oferta']);
+
+      $utilities->view('admin.oferta.edit', ['oferta' => $oferta]);
     }
 
     public function update($params)

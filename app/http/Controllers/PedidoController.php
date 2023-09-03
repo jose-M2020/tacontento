@@ -39,8 +39,11 @@ class PedidoController
         $section = $pedido->paginationpedido($search);
         $pedido = $pedido->indexpedido($status, $search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/pedidos/index.php');
+        $utilities->view('admin.pedido.index', [
+          'section' => $section,
+          'pedido' =>$pedido,
+          'search' =>$search,
+        ]);
     }
     public function venta()
     {
@@ -59,8 +62,11 @@ class PedidoController
         $section = $pedido->paginationventa($search);
         $pedido = $pedido->indexpedido($status, $search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/pedidos/ventas.php');
+        $utilities->view('admin.venta.index', [
+          'pedido' =>$pedido,
+          'section' => $section,
+          'search' =>$search
+        ]);
     }
 
     public function create()
@@ -193,6 +199,7 @@ class PedidoController
         $idPedido = $params['pedido'];
 
         $pedidoModel = new Pedido();
+        $utilities = new Utilidades();
         $pedido = $pedidoModel->ticket($idPedido);
 
         $res = $pedidoModel->getItems($pedido['id']);
@@ -212,8 +219,8 @@ class PedidoController
         // $cantidad = explode(",", $p['cantidad']);
         // $dd = array_pop($cantidad);
         // $limite = count($array);
-
-        require_once 'app/views/pedidos/show.php';
+        
+        $utilities->view('admin.pedido.show', ['pedido' => $pedido]);
     }
 
 
@@ -286,7 +293,6 @@ class PedidoController
     }
 
     public function payment_init() {
-        // Include the Stripe PHP library 
         require_once 'lib/stripe-php/init.php'; 
         
         // Set API key 
@@ -333,7 +339,7 @@ class PedidoController
                         ]
                     ],
                     'unit_amount' => $stripeAmount, 
-                    'currency' => $currency, 
+                    'currency' => CURRENCY, 
                 ], 
                 'quantity' => $item['cantidad']
               ]);

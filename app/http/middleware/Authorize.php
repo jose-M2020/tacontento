@@ -6,12 +6,12 @@ class Authorize
 {
   public function handle($request)
   {
-    if (!isset($_SESSION['usuario'])) {
-        // Redirect or handle unauthorized user
-        header('Location: '. BASE_URL .'/auth');
-        return false;
-    }
+    $role = $_SESSION['usuario']['role'] ?? null;
 
-    return true;
+    if ($role && in_array($role, $request)) {
+      return true;
+    }
+    
+    return false;
   }
 }

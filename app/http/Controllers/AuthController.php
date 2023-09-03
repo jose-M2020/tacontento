@@ -33,11 +33,11 @@ class AuthController
         );
 
         if ($respuesta) {
-            if ($respuesta['admin'] == 1) {
+            if ($respuesta['role'] == 'admin') {
                 $_SESSION['usuario'] = $respuesta;
                 header('Location: '. BASE_URL .'/ofertas');
                 die();
-            } else if($respuesta['admin'] == 2){
+            } else if($respuesta['role'] == 'client'){
                 $cart = new Carrito();
                 $respuesta['cartNum'] = $cart->count($respuesta['id']) ?? 0;
                 $_SESSION['usuario'] = $respuesta;
@@ -74,7 +74,7 @@ class AuthController
             'edad' => $request->input('edad'),
             'telefono' => $request->input('telefono'),
             'password' => $request->input('password'),
-            'admin' => "2",
+            'role' => "2",
         );
 
         $userModel->storeuser($datos);
@@ -102,11 +102,7 @@ class AuthController
 
     public function logout()
     {
-        if (isset($_SESSION['usuario']) || isset($_SESSION['usuario'] )) {
-            session_destroy();
-            header('Location: '. BASE_URL .'/home');
-        } else {
-            header('Location: '. BASE_URL .'/home');
-        }
+      session_destroy();
+      header('Location: '. BASE_URL .'/home');
     }
 }
