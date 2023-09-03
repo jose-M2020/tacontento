@@ -1,10 +1,8 @@
-<?php $view->setLayout('layouts.admin'); ?>
+<?php
+require_once 'app/views/admin/header.php';
+?>
 
-<?php $view->section('title', 'Crear platillo'); ?>
-
-<?php $view->section('content'); ?>
-
-  <h1>Crear articulo</h1>
+<h1>Crear articulo</h1>
   <form method="POST" action="<?= BASE_URL ?>/platillos" enctype="multipart/form-data" >
     
     <?php include_once "form.php" ?>
@@ -13,4 +11,7 @@
 
   </form>
 
-<?php $view->endSection(); ?>
+
+<?php
+require_once 'app/views/admin/footer.php';
+?>

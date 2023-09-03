@@ -30,18 +30,14 @@ class UsuariosController
         $section = $users->paginationuser($search);
         $users = $users->indexuser($search, $startOfPaging, $amountOfThePaging);
 
-        $utilities->view('admin.usuario.index', [
-          'users' =>$users,
-          'section' => $section,
-          'search' =>$search
-        ]);
+
+        require_once('./app/views/usuarios/index.php');
     }
     public function show()
     { }
     public function create()
     {
-      $utilities = new Utilidades();
-      $utilities->view('admin.usuario.create');
+        require_once('./app/views/usuarios/create.php');
     }
 
     public function store()
@@ -99,10 +95,10 @@ class UsuariosController
     {
         $idUsuario = $params['usuario'];
         $user = new Usuario();
-        $utilities = new Utilidades();
         $user = $user->edituser($idUsuario);
 
-        $utilities->view('admin.usuario.edit', ['user' => $user]);
+        
+        require_once('./app/views/usuarios/edit.php');
     }
 
     public function update($params)

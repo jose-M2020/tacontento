@@ -2,10 +2,8 @@
  
 // Product Details  
 // Minimum amount is $10 MXN
-define('CURRENCY', 'MXN');
-
-define('BASE_URL', '/tacontento');
-
+$currency = "MXN"; 
+  
 /* 
  * Stripe API configuration 
  * Remember to switch to your live publishable and secret key in production! 
