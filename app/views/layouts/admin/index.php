@@ -5,6 +5,8 @@
   use Core\Http\Request;
 
   $request = new Request();
+
+  $title = $this->getSection('title') ? ($this->getSection('title') . ' - ') : '';
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" href="<?= $request->getFullRoute('/images/taco.png') ?>">
-  <title><?= $this->getSection('title') ?> - Admin Ta'Contento</title>
+  <title><?= $title ?>Admin Ta'Contento</title>
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

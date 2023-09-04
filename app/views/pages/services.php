@@ -1,51 +1,50 @@
-<?php
-require_once 'app/views/components/header.php';
-require_once "./app/views/components/hero.php";
+<?php $view->setLayout('layouts.client'); ?>
 
-echo createNavbar();
-echo createHero('Nuestros Servicios', 'services.jpg');
-?>
+<?php $view->section('title', 'Servicios'); ?>
 
-<section class="counter-section section center-text" id="counter">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6 ">
-                <div class="mb-30 ">
-                    <i class="fas fa-parking fa-7x"></i>
+<?php $view->section('content'); ?>
 
-                    <h3><b><span>Estacionamiento</span></b>
-                    </h3>
+    <?php
+    require_once "./app/views/components/hero.php";
+    echo createHero('Nuestros Servicios', 'services.jpg');
+    ?>
 
-                </div><!-- margin-b-30 -->
-            </div><!-- col-md-3-->
+    <section class="counter-section section center-text" id="counter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 ">
+                    <div class="mb-30 ">
+                        <i class="fas fa-parking fa-7x"></i>
 
-            <div class="col-sm-12 col-md-6 ">
-                <div class="mb-30">
-                    <i class="fas fa-swimmer  fa-7x"></i>
-                    <h3><b><span>Alberca</span></b>
-                </div><!-- margin-b-30 -->
-            </div><!-- col-md-3-->
+                        <h3><b><span>Estacionamiento</span></b>
+                        </h3>
 
-            <div class="col-sm-12 col-md-6">
-                <div class="mb-30">
-                    <i class="fas fa-truck fa-7x"></i>
-                    <h3><b><span>Domicilio</span></b>
-                </div><!-- margin-b-30 -->
-            </div><!-- col-md-3-->
+                    </div><!-- margin-b-30 -->
+                </div><!-- col-md-3-->
 
-            <div class="col-sm-12 col-md-6 ">
-                <div class="mb-30">
-                    <i class="fas fa-music fa-7x"></i>
-                    <h3><b><span>Musica en vivo</span></b>
-                </div><!-- margin-b-30 -->
-            </div><!-- col-md-3-->
+                <div class="col-sm-12 col-md-6 ">
+                    <div class="mb-30">
+                        <i class="fas fa-swimmer  fa-7x"></i>
+                        <h3><b><span>Alberca</span></b>
+                    </div><!-- margin-b-30 -->
+                </div><!-- col-md-3-->
 
-        </div><!-- row-->
-    </div><!-- container-->
-</section><!-- counter-section-->
+                <div class="col-sm-12 col-md-6">
+                    <div class="mb-30">
+                        <i class="fas fa-truck fa-7x"></i>
+                        <h3><b><span>Domicilio</span></b>
+                    </div><!-- margin-b-30 -->
+                </div><!-- col-md-3-->
 
+                <div class="col-sm-12 col-md-6 ">
+                    <div class="mb-30">
+                        <i class="fas fa-music fa-7x"></i>
+                        <h3><b><span>Musica en vivo</span></b>
+                    </div><!-- margin-b-30 -->
+                </div><!-- col-md-3-->
 
+            </div><!-- row-->
+        </div><!-- container-->
+    </section><!-- counter-section-->
 
-<?php
-require_once 'app/views/components/footer.php';
-?>
+<?php $view->endSection(); ?>
