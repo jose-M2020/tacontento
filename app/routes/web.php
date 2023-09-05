@@ -32,15 +32,16 @@ Route::get('/logout', 'AuthController@logout')->middleware('auth');
 Route::group(['middleware' => ['auth', 'role:client']], function($router) {
   
   Route::get('/carrito', 'CarritoController@index');
-  Route::post('/carrito/:id', 'CarritoController@store');
-  Route::delete('/deletecarrito', 'CarritoController@destroy');
+  Route::post('/carrito/:itemId', 'CarritoController@store');
+  Route::delete('/carrito/:itemId', 'CarritoController@destroy');
   
   Route::get('/compras', 'PedidoController@compras');
   
-  Route::get('/createreserva', 'ReservaController@create');
-  Route::get('/storereserva', 'ReservaController@store');
+  Route::get('/reservas', 'ReservaController@getAllByClient');
+  Route::get('/reservas/create', 'ReservaController@create');
+  Route::post('/reservas', 'ReservaController@store');
 
-  Route::get('/pay', 'PedidoController@pay');
+  Route::get('/checkout', 'PedidoController@checkout');
   Route::post('/payment-init', 'PedidoController@payment_init');
   Route::get('/payment-success', 'PedidoController@payment_success');
   Route::get('/payment-cancel', 'PedidoController@payment_cancel');

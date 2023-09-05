@@ -1,9 +1,15 @@
-<?php function createNavbar($scrollEffect = 'true') { ?>
+<?php
+  use Core\Http\Request;
+  $request = new Request();
+?>
+
+<?php $createNavbar = function ($scrollEffect = 'true') use ($request) { ?>
+
     <header data-scroll-effect="<?php echo $scrollEffect ?>">
         <div class="container d-flex justify-content-between">
             <div class="d-flex align-items-center">
               <a class="logo d-flex align-items-center" href="<?= BASE_URL ?>/home">
-                <img src="images/taco.png" alt="Logo">
+                <img src="<?= $request->getFullRoute('/images/taco.png') ?>" alt="Logo">
                 <h1 class="logo-name">Ta'contento</h1>
               </a>
             </div>
@@ -32,7 +38,7 @@
                       Cuenta
                   </a>
                   <div class="dropdown-menu account dropdown-menu-end m-0">
-                      <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/createreserva"><i class="me-3 fa-solid fa-table-list"></i>RESERVAS</a>
+                      <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/reservas"><i class="me-3 fa-solid fa-table-list"></i>RESERVAS</a>
                       <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/compras"><i class="me-3 fa-solid fa-utensils"></i>COMPRAS</a>
                       <hr class="dropdown-divider">
                       <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/logout"><i class="me-3 fa-solid fa-right-from-bracket"></i>Cerrar sesión</a>

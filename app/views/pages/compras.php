@@ -6,7 +6,7 @@
 
   <?php
     require_once "./app/views/components/hero.php";
-    echo createHero('Mis compras', 'menu.jpg');
+    echo $createHero('Mis compras', 'menu.jpg');
   ?>
 
   <section class="story-area left-text center-sm-text">

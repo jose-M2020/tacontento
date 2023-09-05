@@ -6,6 +6,7 @@ class View
     protected $layout;
     protected $contentBlocks = [];
     protected $sectionName = '';
+    protected $params = [];
     protected $isString = false;
 
     public function __construct()
@@ -28,8 +29,21 @@ class View
       }
     }
 
+    public function setParams($params)
+    {
+      $this->params = $params;
+    }
+
     public function getSection($sectionName) {
-      echo $this->contentBlocks[$sectionName] ?? '';
+      return $this->contentBlocks[$sectionName] ?? null;
+    }
+    
+    public function existSection($sectionName) {
+      if(array_key_exists($sectionName, $this->contentBlocks)) {
+        return true;
+      }
+
+      return false;
     }
 
     public function section($sectionName, $content = null)

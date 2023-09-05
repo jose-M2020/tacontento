@@ -12,7 +12,7 @@
     }
 
     $total = 0;
-    echo createHero('Carrito de compras', 'menu.jpg');
+    echo $createHero('Carrito de compras', 'menu.jpg');
   ?>
 
   <section class="container" style="min-height: 60vh">
@@ -51,12 +51,11 @@
                                   <td>$<?php echo $totalPerItem ?></td>
           
                                   <td>
-                                      <form style="display: inline;" method="POST" action="<?= BASE_URL ?>/deletecarrito&id=<?php echo $item["id"] ?>">
-                                          <button type="submit" class="btn btn-outline-danger btn-sm" value="delete" name="delete">
-                                              <i class="fa-solid fa-trash"></i>
-                                          </button>
-                                          <button>
-                                          </button>
+                                      <form style="display: inline;" method="POST" action="<?= BASE_URL ?>/carrito/<?php echo $item["id"] ?>">
+                                        <input type="hidden" name="_method" value="DELETE">    
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" value="delete" name="delete">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                       </form>
                                   </td>
                               </tr>
@@ -79,7 +78,7 @@
                       <span>$<?php echo number_format($total, 2); ?></span>
                   </div>
                   <div>
-                      <a href="<?= BASE_URL ?>/pay" value="registrar" class="btn btn-lg btn-primary w-100">Continuar compra</a>                
+                      <a href="<?= BASE_URL ?>/checkout" value="registrar" class="btn btn-lg btn-primary w-100">Continuar compra</a>                
                   </div>
                   </div>
               </div>

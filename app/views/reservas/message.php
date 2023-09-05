@@ -1,10 +1,11 @@
-<?php
-require_once 'app/views/components/header.php';
-echo createNavbar();
-?>
+<?php $view->setLayout('layouts.client'); ?>
 
-<br>
-<br>
+<?php $view->setParams(['scrollEffect' => 'false']); ?>
+
+<?php $view->section('title', 'Reserva'); ?>
+
+<?php $view->section('content'); ?>
+
 <section class="story-area left-text center-sm-text">
     <div class="container">
         <div class="heading">
@@ -18,6 +19,4 @@ echo createNavbar();
     </div><!-- container -->
 </section>
 
-<?php
-require_once 'app/views/components/footer.php';
-?>
+<?php $view->endSection(); ?>

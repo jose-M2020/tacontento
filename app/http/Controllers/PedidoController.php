@@ -73,18 +73,19 @@ class PedidoController
     {
         require_once('./app/views/articulos/create.php');
     }
-    public function pay()
+    public function checkout()
     {
         $request = new Request();
+        $utilities = new Utilidades();
 
         $datos = array(
             'descripcion' => $request->input('descripcion'),
             'cantidad' => $request->input('cantidad'),
             'total' => $request->input('total'),
-            'id_cliente' => $request->input('id_cliente'),
+            'id_cliente' => $request->input('id_cliente')
         );
 
-        require_once('./app/views/pedidos/pay.php');
+        $utilities->view('pedidos.checkout', ['datos' => $datos]);
     }
 
     public function store($data)
@@ -288,8 +289,10 @@ class PedidoController
     public function compras(){
         $id_cliente = $_SESSION['usuario']['id'];
         $compras = new Pedido();
+        $utilities = new Utilidades;
         $compras = $compras->getcompras($id_cliente);
-        require_once 'app/views/pages/compras.php';
+
+        $utilities->view('pages.compras', ['compras' => $compras]);
     }
 
     public function payment_init() {
@@ -397,6 +400,7 @@ class PedidoController
         
         $pedido = new Pedido;
         $carritoModel = new Carrito;
+        $utilities = new Utilidades();
         $idUsuario = $_SESSION['usuario']['id'];
         $session_id = $_GET['session_id']; 
 
@@ -499,13 +503,14 @@ class PedidoController
                 } 
             }else{ 
                 $statusMsg = "Transacción inválida! $api_error";  
-            } 
+            }
         }
 
-        require_once 'app/views/pedidos/payments/success.php';
+        $utilities->view('pedidos.payments.success');
     }
     
     public function payment_cancel() {
-      require_once 'app/views/pedidos/payments/cancel.php';
+      $utilities = new Utilidades();
+      $utilities->view('pedidos.payments.cancel');
     }
 }

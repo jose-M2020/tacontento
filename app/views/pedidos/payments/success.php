@@ -1,8 +1,10 @@
-<?php
-  require_once 'app/views/components/header.php';
+<?php $view->setLayout('layouts.client'); ?>
 
-  echo createNavbar(false);
-?>
+<?php $view->section('title', 'Compra realizada'); ?>
+
+<?php $view->setParams(['scrollEffect' => 'false']); ?>
+
+<?php $view->section('content'); ?>
 
   <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 90vh;">
       <div class="status">
@@ -10,6 +12,4 @@
       </div>
   </div>
 
-<?php
-  require_once 'app/views/components/footer.php';
-?>
+<?php $view->endSection(); ?>

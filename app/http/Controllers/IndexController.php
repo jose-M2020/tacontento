@@ -5,6 +5,7 @@ require_once 'app/config/config.php';
 
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\ArticuloController;
+use App\Utilities\Utilidades;
 
 class IndexController
 {
@@ -31,24 +32,28 @@ class IndexController
     public function home()
     {
         $articulo = new OfertaController;
+        $utilities = new Utilidades;
         $articulos = $articulo->obtener();
 
-        require_once('./app/views/pages/home.php');
+        $utilities->view('pages.home', ['articulos' =>$articulos]);
     }
     public function menu()
     {
         $articulo = new ArticuloController;
+        $utilities = new Utilidades;
         $articulos = $articulo->obtener();
 
-        require_once('./app/views/pages/menu.php');
+        $utilities->view('pages.menu', ['articulos' =>$articulos]);
     }
     public function about()
     {
-        require_once('./app/views/pages/about.php');
+        $utilities = new Utilidades;
+        $utilities->view('pages.about');
     }
     public function services()
     {
-        require_once('./app/views/pages/services.php');
+        $utilities = new Utilidades;
+        $utilities->view('pages.services');
     }
 }
 ?>

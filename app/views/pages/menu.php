@@ -6,7 +6,7 @@
 
   <?php
     require_once "app/views/components/hero.php";
-    echo createHero('Menú', 'menu.jpg');
+    echo $createHero('Menú', 'menu.jpg');
   ?>
 
   <section>

@@ -1,6 +1,4 @@
 <?php 
- 
-// Product Details  
 // Minimum amount is $10 MXN
 define('CURRENCY', 'MXN');
 

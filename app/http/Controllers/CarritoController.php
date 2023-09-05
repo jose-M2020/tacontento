@@ -38,7 +38,10 @@ class CarritoController
           $carrito[$key]['item'] = $infoItem;
         }
 
-        require_once('./app/views/pages/carrito.php');
+        $utilities->view('pages.carrito', [
+          'carrito' =>$carrito,
+          'section' =>$section
+        ]);
     }
 
     public function store($params)
@@ -50,7 +53,7 @@ class CarritoController
         
         $datos = array(
             'id_usuario' => $idCliente,
-            'id_articulo' => $params['id'],
+            'id_articulo' => $params['itemId'],
             'cantidad' => $request->input('cantidad'),
             'detalles' => $request->input('detalles'),
         );
@@ -99,14 +102,14 @@ class CarritoController
         }
     }
 
-    public function destroy()
+    public function destroy($params)
     {
-        $id = $_GET['id'];
+        $id = $params['itemId'];
 
         $cart = new Carrito();
         if ($cart->destroyItem($id)) {
             $_SESSION['usuario']['cartNum'] -= 1;
-            header('Location: '. BASE_URL .'/carrito&idUsuario='.$_SESSION['usuario']['id']);
+            header('Location: '. BASE_URL .'/carrito');
         } else {
             // echo "error";
         }

@@ -49,14 +49,22 @@ class ReservaController
     }
     public function create()
     {   
+        $utilities = new Utilidades;
+        $utilities->view('reservas.create');
+    }
+    
+    public function getAllByClient()
+    {   
+        $utilities = new Utilidades;
         $reservas = $this->obtener2();
 
-        require_once('./app/views/reservas/create.php');
+        $utilities->view('reservas.index', ['reservas' => $reservas]);
     }
 
     public function store()
     {   
         $request = new Request();
+        $utilities = new Utilidades();
         $fecha = new  DateTime($request->input('fecha'));
         $hora = new  DateTime($request->input('hora'));
 
@@ -71,7 +79,7 @@ class ReservaController
         $create->storereserva($datos);
 
         $lastid = $create->obtenerid();
-        require_once 'app/views/pages/message_reserva.php';           
+        $utilities->view('reservas.message', ['lastid' => $lastid]);
     }
     public function imprimir()
     {
