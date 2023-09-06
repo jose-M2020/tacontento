@@ -8,7 +8,7 @@
     require_once 'app/config/config.php';
     include "./app/views/components/hero.php";
 
-    echo $createHero('Detalles de la orden', 'menu.jpg');
+    echo $createHero('Proceso de Compra', 'menu.jpg');
   ?>
 
   <br><br>
@@ -19,7 +19,7 @@
     <!-- Payment button -->
     <button class="btn btn-primary btn-lg stripe-button w-20 text-center" id="payButton">
         <div class="spinner mx-auto d-none" id="spinner"></div>
-        <span id="buttonText">Pay Now</span>
+        <span id="buttonText">REALIZAR PAGO</span>
     </button>
 
     <!-- <form action="<?= BASE_URL ?>/storepedido" method="POST" class="credit-card-div">

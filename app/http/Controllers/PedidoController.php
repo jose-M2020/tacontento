@@ -253,7 +253,7 @@ class PedidoController
                     header('Location: '. BASE_URL .'/carrito');
                 } else {
                     echo '<script>alert("El Producto ya existe!");</script>';
-                    require_once 'app/views/pages/home.php';
+                    require_once 'app/views/pages/.php';
                 }
             } else {
                 $item_array = array(
@@ -395,7 +395,7 @@ class PedidoController
 
     public function payment_success() {
         if(empty($_GET['session_id'])){
-          return header('Location: '. BASE_URL .'/home');
+          return header('Location: '. BASE_URL .'/');
         }
         
         $pedido = new Pedido;

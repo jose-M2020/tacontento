@@ -57,6 +57,11 @@ class ReservaController
     {   
         $utilities = new Utilidades;
         $reservas = $this->obtener2();
+        // echo '<pre>';
+        // print_r($reservas);
+        // echo '</pre>';
+        // $reservas['start'] = $reservas['fecha'];
+        $reservas = json_encode($reservas);
 
         $utilities->view('reservas.index', ['reservas' => $reservas]);
     }

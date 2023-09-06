@@ -20,7 +20,7 @@ class IndexController
     // {
 
     //     require_once('./app/views/components/header.php');
-    //     require_once('./app/views/pages/home.php');
+    //     require_once('./app/views/pages/.php');
     //     require_once('./app/views/components/footer.php');
     // }
 

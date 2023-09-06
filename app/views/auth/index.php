@@ -33,7 +33,7 @@
   <header>
     <div class="container">
       <div class="d-flex align-items-center">
-        <a class="logo d-flex align-items-center gap-1" href="<?= BASE_URL ?>/home">
+        <a class="logo d-flex align-items-center gap-1" href="<?= BASE_URL ?>/">
           <img src="images/taco.png" alt="Logo">
           <h1 class="logo-name">Ta'contento</h1>
         </a>

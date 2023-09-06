@@ -7,7 +7,7 @@ use Core\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/home', 'IndexController@home');
+Route::get('/', 'IndexController@home');
 Route::get('/menu', 'IndexController@menu');
 Route::get('/services', 'IndexController@services');
 Route::get('/about', 'IndexController@about');

@@ -28,10 +28,10 @@ if (!isset($_SESSION)) {
 <body>
     <header>
         <div class="container">
-            <a class="logo" href="<?= BASE_URL ?>/home"><img src="images/taco.png" alt="Logo"></a>
+            <a class="logo" href="<?= BASE_URL ?>/"><img src="images/taco.png" alt="Logo"></a>
             <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
             <ul class="main-menu font-mountainsre" id="main-menu">
-                <li><a href="<?= BASE_URL ?>/home">INICIO</a></li>
+                <li><a href="<?= BASE_URL ?>/">INICIO</a></li>
                 <li><a href="<?= BASE_URL ?>/menu">MENU</a></li>
                 <li><a href="<?= BASE_URL ?>/services">SERVICIOS</a></li>
                 <li><a href="<?= BASE_URL ?>/about">ACERCA DE NOSOTROS</a></li>

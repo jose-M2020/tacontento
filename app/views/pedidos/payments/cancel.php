@@ -10,7 +10,7 @@
       <div class="status">
           <h1 class="font-40">Tu transacción fue cancelada!</h1>
       </div>
-      <a href="<?= BASE_URL ?>/home" class="font-13">Regresar a la página principal</a>
+      <a href="<?= BASE_URL ?>/" class="font-13">Regresar a la página principal</a>
   </div>
 
 <?php $view->endSection(); ?>

@@ -11,7 +11,7 @@ echo createNavbar();
             <h2>Tu compra fue realizada con éxito</h2>
             <h5 class="mt-10 mb-30">Tu pedido será enviada a tu domicilio</h5>
             <a href="<?= BASE_URL ?>/imprimirpedido&id=<?php echo $lastid[0] ?>" class='btn btn-secondary' download="ticket.pdf">Imprimir ticket</a>
-            <a href="<?= BASE_URL ?>/home" class='btn btn-primary'>Volver a menú</a>
+            <a href="<?= BASE_URL ?>/" class='btn btn-primary'>Volver a menú</a>
         </div>
     </div><!-- container -->
 </section>

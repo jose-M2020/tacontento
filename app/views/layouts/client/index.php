@@ -8,7 +8,7 @@
   $navItems = [
     0 => [
       "name" => 'INICIO',
-      "link" => '<?= BASE_URL ?>/home',
+      "link" => '<?= BASE_URL ?>/',
       "checkLogin" => false,
     ],
     1 => [

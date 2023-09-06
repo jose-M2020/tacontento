@@ -47,7 +47,7 @@
         'bgImage' => 'slider1.jpg',
         'button' => [
           'text' => 'RESERVAR MESA',
-          'link' => '#ofertas'
+          'link' => BASE_URL.'/reservas/create'
         ]
       ],
       2 => [
@@ -55,7 +55,7 @@
         'bgImage' => 'slider2.jpg',
         'button' => [
           'text' => 'VER MENÚ Y ORDENAR',
-          'link' => ''
+          'link' => BASE_URL.'/menu'
         ]
       ],
       3 => [
@@ -63,7 +63,7 @@
         'bgImage' => 'slider3.jpg',
         'button' => [
           'text' => 'VER MENÚ Y ORDENAR',
-          'link' => ''
+          'link' => BASE_URL.'/menu'
         ]
       ],
     ];

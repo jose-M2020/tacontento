@@ -41,7 +41,7 @@ class AuthController
                 $cart = new Carrito();
                 $respuesta['cartNum'] = $cart->count($respuesta['id']) ?? 0;
                 $_SESSION['usuario'] = $respuesta;
-                header('Location: '. BASE_URL .'/home');
+                header('Location: '. BASE_URL .'/');
             }else {
                 $utilities->setMessage('error', 'Credenciales incorrectas. Inténtalo de nuevo.');
                 header('Location: '. BASE_URL .'/auth');
@@ -103,6 +103,6 @@ class AuthController
     public function logout()
     {
       session_destroy();
-      header('Location: '. BASE_URL .'/home');
+      header('Location: '. BASE_URL .'/');
     }
 }

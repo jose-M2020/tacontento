@@ -8,7 +8,7 @@
     <header data-scroll-effect="<?php echo $scrollEffect ?>">
         <div class="container d-flex justify-content-between">
             <div class="d-flex align-items-center">
-              <a class="logo d-flex align-items-center" href="<?= BASE_URL ?>/home">
+              <a class="logo d-flex align-items-center" href="<?= BASE_URL ?>/">
                 <img src="<?= $request->getFullRoute('/images/taco.png') ?>" alt="Logo">
                 <h1 class="logo-name">Ta'contento</h1>
               </a>
@@ -19,7 +19,7 @@
             
 
             <ul class="main-menu" id="main-menu">
-              <li><a class="faded-text" href="<?= BASE_URL ?>/home">INICIO</a></li>
+              <li><a class="faded-text" href="<?= BASE_URL ?>/">INICIO</a></li>
               <li><a class="faded-text" href="<?= BASE_URL ?>/menu">MENU</a></li>
               <li><a class="faded-text" href="<?= BASE_URL ?>/services">SERVICIOS</a></li>
               <li><a class="faded-text" href="<?= BASE_URL ?>/about">ACERCA</a></li>
