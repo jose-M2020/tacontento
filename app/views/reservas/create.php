@@ -1,82 +1,70 @@
-<?php
-require_once 'app/views/components/header.php';
-include "./app/views/components/hero.php";
+<?php $view->setLayout('layouts.client'); ?>
 
-echo createNavbar();
-echo createHero('Mis reservas', 'about.jpg');
-?>
-<br>
-<br>
-<section class="story-area left-text center-sm-text">
-    <div class="container">
-        <div class="heading">
-            <br>
-            <h2>Crear Reserva</h2>
-        </div>
-        <br>
-        <form method="POST" action="<?= BASE_URL ?>/storereserva">
-            <div class="row fuente">
-                <div class="col-lg-4 col-md-6">
-                    <label for="personas">N.Personas</label>
-                    <input class="form-control" type="number" min="1" pattern="^[0-9]+" max="12" name="personas" required placeholder="Cantidad de personas">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <label for="fecha">Fecha</label>
-                    <input class="form-control" type="date" required name="fecha" placeholder="Fecha de reserva">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <label for="hora">Hora</label>
-                    <input class="form-control" required type="time" name="hora">
-                </div>
+<?php $view->section('title', 'Crear reserva'); ?>
+
+<?php $view->section('content'); ?>
+
+    <?php
+    include "./app/views/components/hero.php";
+    echo $createHero('Reserva', 'about.jpg');
+    ?>
+    
+    <section class="container story-area left-text center-sm-text">
+      <div class="row g-5">
+        <div class="col-md-12 col-lg-7">
+            <div class="">
+                <h2 class="mb-30">Reserve una mesa en nuestro restaurante</h2>
+                <form method="POST" action="<?= BASE_URL ?>/reservas">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-3 fuente">
+                        <!-- <div class="col form-floating">
+                            <input class="form-control" type="text" name="nombre" required placeholder="Nombre completo">
+                            <label for="nombre">Nombre completo</label>
+                        </div>
+                        <div class="col form-floating">
+                            <input class="form-control" type="email" name="email" required placeholder="user@example.com">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col form-floating">
+                            <input class="form-control" type="number" name="phone" required placeholder="Número telefónico">
+                            <label for="phone">Teléfono</label>
+                        </div> -->
+                        <div class="col form-floating">
+                            <input class="form-control" type="number" min="1" pattern="^[0-9]+" max="12" name="personas" required placeholder="Cantidad de personas">
+                            <label for="personas">No. de Personas</label>
+                        </div>
+                        <div class="col form-floating">
+                            <input class="form-control" type="date" required name="fecha" placeholder="Fecha de reserva">
+                            <label for="fecha">Fecha</label>
+                        </div>
+                        <div class="col form-floating">
+                            <input class="form-control" required type="time" name="hora">
+                            <label for="hora">Hora</label>
+                        </div>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control w-100" placeholder="Leave a comment here" id="request" style="height: 110px"></textarea>
+                        <label label for="request">Solicitud especial</label>
+                    </div>
+                    <br>
+                    <input type="hidden" readonly name="id_cliente" value="<?php echo $_SESSION['usuario']['id'] ?>">
+                    <button name="registrar" value="registrar" class="btn btn-primary btn-lg">Reservar</button>
+                </form>
             </div>
-            <br>
-            <input type="hidden" readonly name="id_cliente" value="<?php echo $_SESSION['cliente']['id'] ?>">
-            <button name="registrar" value="registrar" class="btn btn-primary d-block w-100">Reservar</button>
-        </form>
-    </div>
-</section>
-
-<?php if (!empty($reservas)) ?>
-<section class="story-area left-text center-sm-text">
-    <div class="container">
-        <div class="heading">
-            <br>
-            <h2>Mis Reservas</h2>
         </div>
-        <div class="table-responsive">
-        <table class="table  table-bordered">
-            <thead>
-                <tr>
-                    <th width="10%">ID</th>
-                    <th width="15%">ID cliente</th>
-                    <th width="15%">N. personas</th>
-                    <th width="20%">Fecha_reservas </th>
-                    <th width="20%">Hora</th>
-                    <th width="20%">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($reservas as $u) : ?>
-                    <tr>
-                        <td><?php echo $u['id'] ?></td>
-                        <td><?php echo $u['id_cliente'] ?></td>
-                        <td><?php echo $u['personas'] ?> </td>
-                        <td><?php echo $u['fecha'] ?> </td>
-                        <td><?php echo $u['hora'] ?> </td>
-                        <td>
-                            <a href="<?= BASE_URL ?>/imprimirreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir reserva</a>
-                        </td>
-                    </tr>
-
-                   
-
-                <?php endforeach; ?>
-
-            </tbody>
-        </table>
+        <div class="col-lg-5">
+          <div class="text-center p-30 shadow">
+            <h3 class="font-25 mb-30">Nuestro horario de servicio</h3>
+            <div class="mb-20">
+                <p class="font-18 fw-bold">Lunes - Viernes</p>
+                <span class="font-14">8:00 am - 10:00 pm</span>
+            </div>
+            <div class="">
+                <p class="font-18 fw-bold">Sabado - Domingo</p>
+                <span class="font-14">4:00 pm - 10:00 pm</span>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
-<?php
-require_once 'app/views/components/footer.php';
-?>
+      </div>
+    </section>
+
+<?php $view->endSection(); ?>

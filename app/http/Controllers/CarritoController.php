@@ -15,9 +15,6 @@ class CarritoController
         if(!isset($_SESSION)){ 
             session_start(); 
         }
-        if (!isset($_SESSION['cliente'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
     }
     public function index()
     {
@@ -28,7 +25,7 @@ class CarritoController
 
         $startOfPaging = 0;
         $amountOfThePaging = 12;
-        $idUsuario = $_SESSION['cliente']['id'];
+        $idUsuario = $_SESSION['usuario']['id'];
         
         #asignando el inicio de de los articulos a paginar
         if (isset($_GET['p'])) $startOfPaging = $utilities->pagination($_GET['p'], $amountOfThePaging);
@@ -41,7 +38,10 @@ class CarritoController
           $carrito[$key]['item'] = $infoItem;
         }
 
-        require_once('./app/views/pages/carrito.php');
+        $utilities->view('pages.carrito', [
+          'carrito' =>$carrito,
+          'section' =>$section
+        ]);
     }
 
     public function store($params)
@@ -49,28 +49,24 @@ class CarritoController
         $request = new Request();
         $cartModel = new Carrito();
 
-        $idCliente = $_SESSION['cliente']['id'];
+        $idCliente = $_SESSION['usuario']['id'];
         
         $datos = array(
             'id_usuario' => $idCliente,
-            'id_articulo' => $params['id'],
+            'id_articulo' => $params['itemId'],
             'cantidad' => $request->input('cantidad'),
             'detalles' => $request->input('detalles'),
         );
         
         $cartModel->storeItem($datos);
 
-        $_SESSION['cliente']['cartNum'] += 1;
+        $_SESSION['usuario']['cartNum'] += 1;
 
         header('Location: '. BASE_URL .'/menu');
     }
 
     public function update()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $request = new Request();
         $user = new Usuario;
         $utilities = new Utilidades();
@@ -106,14 +102,14 @@ class CarritoController
         }
     }
 
-    public function destroy()
+    public function destroy($params)
     {
-        $id = $_GET['id'];
+        $id = $params['itemId'];
 
         $cart = new Carrito();
         if ($cart->destroyItem($id)) {
-            $_SESSION['cliente']['cartNum'] -= 1;
-            header('Location: '. BASE_URL .'/carrito&idUsuario='.$_SESSION['cliente']['id']);
+            $_SESSION['usuario']['cartNum'] -= 1;
+            header('Location: '. BASE_URL .'/carrito');
         } else {
             // echo "error";
         }

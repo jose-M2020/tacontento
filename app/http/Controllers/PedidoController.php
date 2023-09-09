@@ -24,9 +24,6 @@ class PedidoController
 
     public function index()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $pedido = new Pedido;
         $utilities = new Utilidades();
@@ -42,14 +39,14 @@ class PedidoController
         $section = $pedido->paginationpedido($search);
         $pedido = $pedido->indexpedido($status, $search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/pedidos/index.php');
+        $utilities->view('admin.pedido.index', [
+          'section' => $section,
+          'pedido' =>$pedido,
+          'search' =>$search,
+        ]);
     }
     public function venta()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $pedido = new Pedido;
         $utilities = new Utilidades();
@@ -65,29 +62,30 @@ class PedidoController
         $section = $pedido->paginationventa($search);
         $pedido = $pedido->indexpedido($status, $search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/pedidos/ventas.php');
+        $utilities->view('admin.venta.index', [
+          'pedido' =>$pedido,
+          'section' => $section,
+          'search' =>$search
+        ]);
     }
 
     public function create()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         require_once('./app/views/articulos/create.php');
     }
-    public function pay()
+    public function checkout()
     {
         $request = new Request();
+        $utilities = new Utilidades();
 
         $datos = array(
             'descripcion' => $request->input('descripcion'),
             'cantidad' => $request->input('cantidad'),
             'total' => $request->input('total'),
-            'id_cliente' => $request->input('id_cliente'),
+            'id_cliente' => $request->input('id_cliente')
         );
 
-        require_once('./app/views/pedidos/pay.php');
+        $utilities->view('pedidos.checkout', ['datos' => $datos]);
     }
 
     public function store($data)
@@ -95,7 +93,7 @@ class PedidoController
         $carritoModel = new Carrito;
         $fecha = new  DateTime('now');
 
-        $idUsuario = $_SESSION['cliente']['id'];
+        $idUsuario = $_SESSION['usuario']['id'];
         $data['fecha'] = $fecha->format('Y-m-d');
         $userCart = $carritoModel->indexCarrito($idUsuario, null, null);
         $pedidoItems = [];
@@ -137,9 +135,6 @@ class PedidoController
 
     public function edit()
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
         $id = $_GET['id'];
         $articulo = new Articulo();
         $articulo = $articulo->editarticulo($id);
@@ -149,10 +144,6 @@ class PedidoController
 
     public function update($params)
     {
-        if (!isset($_SESSION['usuario'])) {
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $datos = [
             'id' => $params['pedido'],
             'status' => 2
@@ -166,7 +157,6 @@ class PedidoController
     }
     public function imprimir_cliente($id)
     {
-
         $pedido = new Pedido();
         $p = $pedido->ticket($id);
 
@@ -210,6 +200,7 @@ class PedidoController
         $idPedido = $params['pedido'];
 
         $pedidoModel = new Pedido();
+        $utilities = new Utilidades();
         $pedido = $pedidoModel->ticket($idPedido);
 
         $res = $pedidoModel->getItems($pedido['id']);
@@ -229,45 +220,26 @@ class PedidoController
         // $cantidad = explode(",", $p['cantidad']);
         // $dd = array_pop($cantidad);
         // $limite = count($array);
-
-        require_once 'app/views/pedidos/show.php';
+        
+        $utilities->view('admin.pedido.show', ['pedido' => $pedido]);
     }
 
 
     public function addcarrito()
     {
-        if (!isset($_SESSION['cliente'])) {
-            header('Location: '. BASE_URL .'/auth');
-        } else {
-            $id = $_GET['id'];
-            $cantidad = $_POST['cant'];
-            $id_cliente = $_SESSION['cliente']['id'];
-            $articulo = new Articulo();
-            $articulo = $articulo->editarticulo($id);
-            $total = $cantidad * $articulo['precio'];
+        $id = $_GET['id'];
+        $cantidad = $_POST['cant'];
+        $id_cliente = $_SESSION['usuario']['id'];
+        $articulo = new Articulo();
+        $articulo = $articulo->editarticulo($id);
+        $total = $cantidad * $articulo['precio'];
 
-            if (isset($_POST['agregar'])) {
-                if (isset($_SESSION['add_carro'])) {
-                    $item_array_id_cart = array_column($_SESSION['add_carro'], 'id');
-                    if (!in_array($_GET['id'], $item_array_id_cart)) {
+        if (isset($_POST['agregar'])) {
+            if (isset($_SESSION['add_carro'])) {
+                $item_array_id_cart = array_column($_SESSION['add_carro'], 'id');
+                if (!in_array($_GET['id'], $item_array_id_cart)) {
 
-                        $count = count($_SESSION['add_carro']);
-                        $item_array = array(
-                            'id'        => $_GET['id'],
-                            'descripcion'    => $articulo['nombre'],
-                            'precio'    => $articulo['precio'],
-                            'cantidad'  =>  $cantidad,
-                            'total'  =>  $total,
-                            'id_cliente'  =>  $id_cliente,
-                        );
-
-                        $_SESSION['add_carro'][$count] = $item_array;
-                        header('Location: '. BASE_URL .'/carrito');
-                    } else {
-                        echo '<script>alert("El Producto ya existe!");</script>';
-                        require_once 'app/views/pages/home.php';
-                    }
-                } else {
+                    $count = count($_SESSION['add_carro']);
                     $item_array = array(
                         'id'        => $_GET['id'],
                         'descripcion'    => $articulo['nombre'],
@@ -277,9 +249,24 @@ class PedidoController
                         'id_cliente'  =>  $id_cliente,
                     );
 
-                    $_SESSION['add_carro'][0] = $item_array;
+                    $_SESSION['add_carro'][$count] = $item_array;
                     header('Location: '. BASE_URL .'/carrito');
+                } else {
+                    echo '<script>alert("El Producto ya existe!");</script>';
+                    require_once 'app/views/pages/.php';
                 }
+            } else {
+                $item_array = array(
+                    'id'        => $_GET['id'],
+                    'descripcion'    => $articulo['nombre'],
+                    'precio'    => $articulo['precio'],
+                    'cantidad'  =>  $cantidad,
+                    'total'  =>  $total,
+                    'id_cliente'  =>  $id_cliente,
+                );
+
+                $_SESSION['add_carro'][0] = $item_array;
+                header('Location: '. BASE_URL .'/carrito');
             }
         }
     }
@@ -300,18 +287,15 @@ class PedidoController
         }
     }
     public function compras(){
-        if (!isset($_SESSION['cliente'])) {
-            header('Location: '. BASE_URL .'/home');
-        }else{
-            $id_cliente = $_SESSION['cliente']['id'];
-            $compras = new Pedido();
-            $compras = $compras->getcompras($id_cliente);
-            require_once 'app/views/pages/compras.php';
-        }
+        $id_cliente = $_SESSION['usuario']['id'];
+        $compras = new Pedido();
+        $utilities = new Utilidades;
+        $compras = $compras->getcompras($id_cliente);
+
+        $utilities->view('pages.compras', ['compras' => $compras]);
     }
 
     public function payment_init() {
-        // Include the Stripe PHP library 
         require_once 'lib/stripe-php/init.php'; 
         
         // Set API key 
@@ -336,7 +320,7 @@ class PedidoController
         } 
         
         if(!empty($request->createCheckoutSession)){
-            $userId = $_SESSION['cliente']['id'];
+            $userId = $_SESSION['usuario']['id'];
             $carritoModel = new Carrito;
             $articuloModel = new Articulo;
             $userCart = $carritoModel->indexCarrito($userId, null, null);
@@ -358,7 +342,7 @@ class PedidoController
                         ]
                     ],
                     'unit_amount' => $stripeAmount, 
-                    'currency' => $currency, 
+                    'currency' => CURRENCY, 
                 ], 
                 'quantity' => $item['cantidad']
               ]);
@@ -411,12 +395,13 @@ class PedidoController
 
     public function payment_success() {
         if(empty($_GET['session_id'])){
-          return header('Location: '. BASE_URL .'/home');
+          return header('Location: '. BASE_URL .'/');
         }
         
         $pedido = new Pedido;
         $carritoModel = new Carrito;
-        $idUsuario = $_SESSION['cliente']['id'];
+        $utilities = new Utilidades();
+        $idUsuario = $_SESSION['usuario']['id'];
         $session_id = $_GET['session_id']; 
 
         $pedidoExist = $pedido->checkByStripeSession($session_id);
@@ -506,7 +491,7 @@ class PedidoController
 
                         // Update Cart
                         $carritoModel->destroyByUser($idUsuario);
-                        $_SESSION['cliente']['cartNum'] = 0;
+                        $_SESSION['usuario']['cartNum'] = 0;
                          
                         $status = 'success'; 
                         $statusMsg = 'Su pago ha sido exitoso!'; 
@@ -518,13 +503,14 @@ class PedidoController
                 } 
             }else{ 
                 $statusMsg = "Transacción inválida! $api_error";  
-            } 
+            }
         }
 
-        require_once 'app/views/pedidos/payments/success.php';
+        $utilities->view('pedidos.payments.success');
     }
     
     public function payment_cancel() {
-      require_once 'app/views/pedidos/payments/cancel.php';
+      $utilities = new Utilidades();
+      $utilities->view('pedidos.payments.cancel');
     }
 }

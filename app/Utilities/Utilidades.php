@@ -1,6 +1,8 @@
 <?php
 namespace App\Utilities;
 
+use Core\Views\View;
+
 class Utilidades {
 
     public function pagination($page,$cant){
@@ -12,7 +14,7 @@ class Utilidades {
         return $inicio;
     } 
     #recurso tomado de https://manuais.iessanclemente.net/index.php/Almacenamiento_de_im%C3%A1genes_en_bases_de_datos_con_PHP
-    function uploadFile($directorio_destino, $nombre_fichero){
+    public function uploadFile($directorio_destino, $nombre_fichero){
         
         $tmp_name = $_FILES[$nombre_fichero]['tmp_name'];
         //si hemos enviado un directorio que existe realmente y hemos subido el archivo  
@@ -35,13 +37,13 @@ class Utilidades {
         return "";
     }
 
-    function handleMessage($querySuccess, $message) {
+    public function handleMessage($querySuccess, $message) {
         if($querySuccess) {
           $this->setMessage('success', $message);
         }
     }
     
-    function setMessage($type, $message){
+    public function setMessage($type, $message){
         if (!isset($_SESSION['messages'])) {
             $_SESSION['messages'] = array();
         }
@@ -50,5 +52,18 @@ class Utilidades {
             'type' => $type, // It can be 'success', 'error' o 'warning'
             'message' => $message
         );
+    }
+
+    public function view($viewPath, $data = []) {
+      $baseDirectory = './app/views/';
+      $filePath = $baseDirectory . str_replace('.', '/', $viewPath) . '.php';
+      
+      if (file_exists($filePath) && is_file($filePath)) {
+        $view = new View();
+        extract($data);
+        require_once($filePath);
+        $view->render();
+      }
+
     }
 }

@@ -1,45 +1,45 @@
-<?php
-require_once 'app/views/components/header.php';
-require_once "./app/views/components/hero.php";
+<?php $view->setLayout('layouts.client'); ?>
 
-echo createNavbar();
-echo createHero('Mis compras', 'menu.jpg');
-?>
+<?php $view->section('title', 'Compras'); ?>
 
-<section class="story-area left-text center-sm-text">
-  <div class="container">
-    <?php if (!empty($compras)) : ?>
-    <div class="table-responsive">
-      <table class="table table-bordered table-responsive">
-        <thead>
-          <tr>
-            <th width="25%">ID</th>
-            <th width="40%">Fecha</th>
-            <th width="25%">Total</th>
-            <th width="10%">Ticket</th>
-          </tr>
-        </thead>
-        <tbody>
+<?php $view->section('content'); ?>
 
-          <?php foreach ($compras as $u) : ?>
+  <?php
+    require_once "./app/views/components/hero.php";
+    echo $createHero('Mis compras', 'menu.jpg');
+  ?>
+
+  <section class="story-area left-text center-sm-text">
+    <div class="container">
+      <?php if (!empty($compras)) : ?>
+      <div class="table-responsive">
+        <table class="table table-bordered table-responsive">
+          <thead>
             <tr>
-              <td><?php echo $u['id'] ?></td>
-              <td> <?php echo $u['fecha'] ?> </td>
-              <td>$ <?php echo $u['total'] ?> </td>
-              <td>
-                <a href="<?= BASE_URL ?>/imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir ticket</a>
-              </td>
+              <th width="25%">ID</th>
+              <th width="40%">Fecha</th>
+              <th width="25%">Total</th>
+              <th width="10%">Ticket</th>
             </tr>
-          <?php endforeach; ?>
+          </thead>
+          <tbody>
 
-        </tbody>
-      </table>
-    </div>
-    <?php endif; ?>
-  </div><!-- container -->
-</section>
+            <?php foreach ($compras as $u) : ?>
+              <tr>
+                <td><?php echo $u['id'] ?></td>
+                <td> <?php echo $u['fecha'] ?> </td>
+                <td>$ <?php echo $u['total'] ?> </td>
+                <td>
+                  <a href="<?= BASE_URL ?>/imprimirpedido&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir ticket</a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
 
+          </tbody>
+        </table>
+      </div>
+      <?php endif; ?>
+    </div><!-- container -->
+  </section>
 
-<?php
-require_once 'app/views/components/footer.php';
-?>
+<?php $view->endSection(); ?>

@@ -12,7 +12,8 @@ class Kernel
      * @var array
      */
     protected $routeMiddleware = [
-      'auth' => \App\Http\Middleware\Authenticate::class
+      'auth' => \App\Http\Middleware\Authenticate::class,
+      'role' => \App\Http\Middleware\Authorize::class
     ];
 
     public function getMiddlewareClass($alias)

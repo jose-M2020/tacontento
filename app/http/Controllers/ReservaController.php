@@ -17,11 +17,6 @@ class ReservaController
     }
     public function index()
     {
-        session_start();
-        if(!isset($_SESSION['usuario'])){
-          
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $reserva = new Reserva;
         $utilities = new Utilidades();
@@ -36,37 +31,45 @@ class ReservaController
         $section = $reserva->paginationreserva($search);
         $reserva = $reserva->indexreserva($search, $startOfPaging, $amountOfThePaging);
 
-
-        require_once('./app/views/reservas/index.php');
+        $utilities->view('admin.reserva.index', [
+          'reserva' =>$reserva,
+          'section' => $section,
+          'search' =>$search,
+        ]);
     }
     public function show($params)
     { 
         $idReserva = $params['reserva'];
 
         $reserva = new Reserva();
+        $utilities = new Utilidades();
         $reserva = $reserva->show($idReserva);
 
-        require_once 'app/views/reservas/show.php';
+        $utilities->view('admin.reserva.show', ['reserva' =>$reserva]);
     }
     public function create()
-    {  session_start();
-        if(!isset($_SESSION['cliente'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-        
+    {   
+        $utilities = new Utilidades;
+        $utilities->view('reservas.create');
+    }
+    
+    public function getAllByClient()
+    {   
+        $utilities = new Utilidades;
         $reservas = $this->obtener2();
+        // echo '<pre>';
+        // print_r($reservas);
+        // echo '</pre>';
+        // $reservas['start'] = $reservas['fecha'];
+        $reservas = json_encode($reservas);
 
-        require_once('./app/views/reservas/create.php');
+        $utilities->view('reservas.index', ['reservas' => $reservas]);
     }
 
     public function store()
-    {  
-        session_start();
-        if(!isset($_SESSION['cliente'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-        
+    {   
         $request = new Request();
+        $utilities = new Utilidades();
         $fecha = new  DateTime($request->input('fecha'));
         $hora = new  DateTime($request->input('hora'));
 
@@ -81,7 +84,7 @@ class ReservaController
         $create->storereserva($datos);
 
         $lastid = $create->obtenerid();
-        require_once 'app/views/pages/message_reserva.php';           
+        $utilities->view('reservas.message', ['lastid' => $lastid]);
     }
     public function imprimir()
     {
@@ -94,10 +97,7 @@ class ReservaController
     }
 
     public function edit()
-    {  session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
+    {
         $id = $_GET['id'];
         $oferta = new Oferta();
         $oferta = $oferta->editoferta($id);
@@ -105,12 +105,7 @@ class ReservaController
     }
 
     public function update()
-    {  
-        session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-
+    {
         $request = new Request();
         $art = new Oferta();
         $file = new Utilidades();
@@ -138,10 +133,7 @@ class ReservaController
     }
 
     public function destroy()
-    {  session_start();
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
+    {
         if (isset($_POST['eliminar'])) {
             $id = $_GET['id'];
 
@@ -156,14 +148,10 @@ class ReservaController
     }
 
   
-    public function obtener2(){
-        if (!isset($_SESSION['cliente'])) {
-            header('Location: '. BASE_URL .'/home');
-        }else{
-            $id_cliente = $_SESSION['cliente']['id'];
-            $compras = new Reserva();
-            return $compras = $compras->getreservas2($id_cliente);
-            
-        }
+    public function obtener2()
+    {
+        $id_cliente = $_SESSION['usuario']['id'];
+        $compras = new Reserva();
+        return $compras = $compras->getreservas2($id_cliente);
     }
 }

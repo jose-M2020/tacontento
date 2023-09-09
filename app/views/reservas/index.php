@@ -1,68 +1,102 @@
-<?php
-require_once 'app/views/admin/header.php';
-?>
+<?php $view->setLayout('layouts.client'); ?>
 
-<div class="container">
-  <h1>Reservas</h1>
-  <div class="row">
-    <div class="col-8">
+<?php $view->section('title', 'Reservas'); ?>
 
+<?php $view->section('content'); ?>
+
+  <?php
+    include "./app/views/components/hero.php";
+    echo $createHero('Mis reservas', 'about.jpg');
+  ?>
+
+  <?php if (!empty($reservas)) ?>
+    <section class="story-area left-text center-sm-text">
+        <div class="container">
+          <div id='calendar'></div>
+            <!-- <div class="table-responsive">
+              <table class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th width="10%">ID</th>
+                        <th width="15%">ID cliente</th>
+                        <th width="15%">N. personas</th>
+                        <th width="20%">Fecha_reservas </th>
+                        <th width="20%">Hora</th>
+                        <th width="20%">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($reservas as $u) : ?>
+                        <tr>
+                            <td><?php echo $u['id'] ?></td>
+                            <td><?php echo $u['id_cliente'] ?></td>
+                            <td><?php echo $u['personas'] ?> </td>
+                            <td><?php echo $u['fecha'] ?> </td>
+                            <td><?php echo $u['hora'] ?> </td>
+                            <td>
+                                <a href="<?= BASE_URL ?>/imprimirreserva&id=<?php echo $u['id'] ?>" class='btn btn-outline-info btn-sm' download="ticket.pdf">Imprimir reserva</a>
+                            </td>
+                    <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div> -->
+        </div>
+    </section>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="reservaModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="ms-auto col-4 ">
-    <form method="GET" action="index.php" autocomplete="off">
-        <label for="search">
-        <label for="dateInicio"><input class="form-control" type="date" name="search" > </label>
-        </label>
-        <button  class="btn btn-secondary" type="submit" name="page" value="reservas" >Buscar </button>
-      
-      </form>
-    </div>
-  </div>
-  <br><br>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th width="10%">ID</th>
-        <th width="15%">ID cliente</th>
-        <th width="15%">N.Personas</th>
-        <th width="20%">Fecha</th>
-        <th width="20%">Hora</th>
-        <th width="20%">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php if (!empty($reserva)) : ?>
-        <?php foreach ($reserva as $u) : ?>
-          <tr>
-            <td><?php echo $u['id'] ?></td>
-            <td><?php echo $u['id_cliente'] ?></td>
-            <td><?php echo $u['personas'] ?> </td>
-            <td><?php echo $u['fecha'] ?> </td>
-            <td><?php echo $u['hora'] ?> </td>
-            <td>
-              <a href="<?= BASE_URL ?>/reservas/<?php echo $u['id'] ?>" class='btn btn-outline-primary btn-sm'>Ver reserva</a>
-            </td>
-          </tr>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </tbody>
-  </table>
-  <!--Pagination -->
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <?php for ($i = 1; $i <= $section; $i++) :  ?>
-        <li class="page-item">
-          <a class="page-link" href="<?= BASE_URL ?>/reserva&search=<?php echo $search ?>&p=<?php echo $i ?>">
-            <?php echo $i ?>
-          </a>
-        </li>
-      <?php endfor;  ?>
-    </ul>
-  </nav>
-</div>
 
+<?php $view->endSection(); ?>
 
+<?php $view->section('scripts'); ?>
+  
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    // const myModal = new bootstrap.Modal('#reservaModal', {
+    //   keyboard: false
+    // })
 
-<?php
-require_once 'app/views/admin/footer.php';
-?>
+    // myModal.open();
+
+    const reservaModal = new bootstrap.Modal('#reservaModal');
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const calendarEl = document.getElementById('calendar');
+      const modal = document.getElementById('reservaModal');
+      const reservas = <?php echo $reservas ?>;
+      console.log(reservas);
+
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: { center: 'dayGridMonth,timeGridWeek' },
+        selectable: true,
+        // events: '<?php $reservas ?>',
+        events: reservas,
+
+        select: async function (start, end, allDay) {
+          // $("#reservaModal").modal('show');
+          reservaModal.show();
+          console.log(start)
+        },
+      });
+      calendar.render();
+    });
+  </script>
+
+<?php $view->endSection(); ?>

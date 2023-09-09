@@ -18,9 +18,6 @@ class ArticuloController
 
     public function index()
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
         #inicializando los valores
         $articulo = new Articulo;
         $utilities = new Utilidades();
@@ -35,26 +32,22 @@ class ArticuloController
         $section = $articulo->paginationarticulo($search);
         $articulo = $articulo->indexarticulo($search, $startOfPaging, $amountOfThePaging);
  
-
-        require_once('./app/views/articulos/index.php');
+        $utilities->view('admin.menu.index', [
+          'articulo' =>$articulo,
+          'section' => $section,
+          'search' =>$search,
+        ]);
     }
     public function show()
     { }
     public function create()
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-        require_once('./app/views/articulos/create.php');
+      $utilities = new Utilidades();
+      $utilities->view('admin.menu.create');
     }
 
     public function store()
     {
-    
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $request = new Request();
         $file = new Utilidades();
 
@@ -76,22 +69,15 @@ class ArticuloController
 
     public function edit($params)
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
         $id = $params['platillo'];
         $articulo = new Articulo();
+        $utilities = new Utilidades();
         $articulo = $articulo->editarticulo($id);
 
-
-        require_once('./app/views/articulos/edit.php');
+        $utilities->view('admin.menu.edit', ['articulo' =>$articulo]);
     }
     public function update($params)
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
-
         $request = new Request();
         $art = new Articulo();
         $file = new Utilidades();
@@ -122,9 +108,6 @@ class ArticuloController
 
     public function destroy($params)
     {
-        if(!isset($_SESSION['usuario'])){
-            header('Location: '. BASE_URL .'/home');
-        }
         if (isset($_POST['eliminar'])) {
             $id = $params['platillo'];
 

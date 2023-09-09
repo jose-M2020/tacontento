@@ -74,11 +74,11 @@ class Reserva extends ModeloBase {
         $sql = "SELECT MAX(id) FROM reservas";
         return $db->show($sql);
     }
-    public function getreservas2($id)
+    public function getreservas2($clientId)
     {
         $db = new ModeloBase();
 
-        $sql = "CALL obtener_reservas( $id );";
+        $sql = "SELECT id, id_cliente, personas, CONCAT('No. de Personas: ', personas) as title, CONCAT(fecha, 'T' ,hora) AS start FROM reservas WHERE reservas.id_cliente = $clientId";
 
         return  $db->index($sql);
     }
