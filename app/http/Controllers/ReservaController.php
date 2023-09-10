@@ -78,6 +78,7 @@ class ReservaController
             'personas' => $request->input('personas'),
             'fecha' => $fecha->format('Y-m-d'),
             'hora' =>$hora->format('H:m:s'),
+            'notas_especiales' =>$request->input('notas_especiales'),
         );
 
         $create = new Reserva();

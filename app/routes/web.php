@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth', 'role:client']], function($router) {
   Route::post('/carrito/:itemId', 'CarritoController@store');
   Route::delete('/carrito/:itemId', 'CarritoController@destroy');
   
-  Route::get('/compras', 'PedidoController@compras');
+  Route::get('/mis-compras', 'PedidoController@compras');
   
-  Route::get('/reservas', 'ReservaController@getAllByClient');
-  Route::get('/reservas/create', 'ReservaController@create');
-  Route::post('/reservas', 'ReservaController@store');
+  Route::get('/mis-reservas', 'ReservaController@getAllByClient');
+  Route::get('/mis-reservas/create', 'ReservaController@create');
+  Route::post('/mis-reservas', 'ReservaController@store');
 
   Route::get('/checkout', 'PedidoController@checkout');
   Route::post('/payment-init', 'PedidoController@payment_init');

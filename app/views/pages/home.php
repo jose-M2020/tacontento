@@ -47,7 +47,7 @@
         'bgImage' => 'slider1.jpg',
         'button' => [
           'text' => 'RESERVAR MESA',
-          'link' => BASE_URL.'/reservas/create'
+          'link' => BASE_URL.'/mis-reservas/create'
         ]
       ],
       2 => [
