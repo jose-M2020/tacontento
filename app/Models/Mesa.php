@@ -10,15 +10,10 @@ class Mesa extends ModeloBase {
         parent::__construct();
     }
    
-    public function indexMesa($search,$startOfPaging,$amountOfThePaging) {
+    public function indexMesa($search, $startOfPaging, $amountOfThePaging) {
         $db = new ModeloBase();
-        if(empty($search)){
-            $sql = "SELECT * FROM mesas ORDER BY FECHA DESC LIMIT $startOfPaging,$amountOfThePaging";
-        }else{
-            $sql = "SELECT * FROM mesas WHERE fecha = $search ORDER BY FECHA DESC LIMIT $startOfPaging,$amountOfThePaging";
-        }
-        return  $db->index($sql);
-     
+        $sql = "SELECT * FROM mesas DESC LIMIT $startOfPaging,$amountOfThePaging";
+        return  $db->index($sql);     
     }
     public function storeMesa($datos){
 
@@ -33,23 +28,20 @@ class Mesa extends ModeloBase {
     public function show($id){
         $db = new ModeloBase();
 
-        $sql = "SELECT mesas.id,mesas.personas,mesas.fecha,mesas.hora, usuarios.nombre,usuarios.apellidos,usuarios.telefono,usuarios.email,usuarios.id as id_cliente
-        FROM mesas
-        left JOIN usuarios
-        ON mesas.id_cliente = usuarios.id  Where mesas.id = $id ";
+        $sql = "SELECT * WHERE id = $id ";
 
         return $db->show($sql);
       
     }
     public function editMesa($id){
         $db = new ModeloBase();
-       return $db->edit('ofertas', $id);
+       return $db->edit('mesas', $id);
       
     }
     public function destroyMesa($id){
       $db = new ModeloBase();
       $utilities = new Utilidades();
-      $deleted = $db->destroy('ofertas', $id);
+      $deleted = $db->destroy('mesas', $id);
 
       $utilities->handleMessage($deleted, 'Mesa eliminado exitosamente!');
       return $deleted;
@@ -58,10 +50,10 @@ class Mesa extends ModeloBase {
     public function paginationMesa($search){
 
         $db = new ModeloBase();
-        $sql = "SELECT COUNT(id) FROM ofertas";
+        $sql = "SELECT COUNT(id) FROM mesas";
         
         if(!empty($search)){
-            $sql = "SELECT COUNT(titulo) FROM ofertas  WHERE titulo LIKE  '$search%' ";
+            $sql = "SELECT COUNT(nombre) FROM mesas  WHERE nombre LIKE  '$search%' ";
         }
         $number_of_rows = $db->pagination($sql);
         $section = ceil($number_of_rows / 8);
@@ -75,15 +67,6 @@ class Mesa extends ModeloBase {
         $sql = "SELECT MAX(id) FROM mesas";
         return $db->show($sql);
     }
-    public function getMesas2($clientId)
-    {
-        $db = new ModeloBase();
-
-        $sql = "SELECT id, id_cliente, personas, CONCAT('No. de Personas: ', personas) as title, CONCAT(fecha, 'T' ,hora) AS start FROM mesas WHERE mesas.id_cliente = $clientId";
-
-        return  $db->index($sql);
-    }
-   
  
 }
 
