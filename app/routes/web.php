@@ -79,6 +79,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function($router) {
   Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
   Route::put('/ofertas/:oferta', 'OfertaController@update');
   Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
+  
+  Route::get('/mesas', 'MesaController@index');
+  Route::get('/mesas/create', 'MesaController@create');
+  Route::post('/mesas', 'MesaController@store');
+  Route::get('/mesas/:mesa/edit', 'MesaController@edit');
+  Route::put('/mesas/:mesa', 'MesaController@update');
+  Route::delete('/mesas/:mesa', 'MesaController@destroy');
 
   Route::get('/reservas', 'ReservaController@index');
   Route::get('/reservas/:reserva', 'ReservaController@show');

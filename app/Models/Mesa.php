@@ -12,9 +12,10 @@ class Mesa extends ModeloBase {
    
     public function indexMesa($search, $startOfPaging, $amountOfThePaging) {
         $db = new ModeloBase();
-        $sql = "SELECT * FROM mesas DESC LIMIT $startOfPaging,$amountOfThePaging";
-        return  $db->index($sql);     
+        $sql = "SELECT * FROM mesas LIMIT $startOfPaging,$amountOfThePaging";
+        return  $db->index($sql);  
     }
+
     public function storeMesa($datos){
 
         $db = new ModeloBase();
@@ -33,11 +34,23 @@ class Mesa extends ModeloBase {
         return $db->show($sql);
       
     }
+
     public function editMesa($id){
         $db = new ModeloBase();
        return $db->edit('mesas', $id);
       
     }
+
+    public function updateMesa($datos){
+        $db = new ModeloBase();
+        $utilities = new Utilidades();
+        $sql = "UPDATE mesas SET nombre=:nombre, capacidad=:capacidad, notas=:notas, status=:status WHERE id=:id;";
+        $updated = $db->update($sql,$datos);
+
+        $utilities->handleMessage($updated, 'Mesa actualizado exitosamente!');
+        return $updated;
+    }
+
     public function destroyMesa($id){
       $db = new ModeloBase();
       $utilities = new Utilidades();

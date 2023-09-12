@@ -3,13 +3,11 @@ namespace App\Http\Controllers;
 
 require_once 'app/config/config.php';
 
-use DateTime;
-
 use App\Models\Mesa;
 use Core\Http\Request;
 use App\Utilities\Utilidades;
 
-class ReservaController
+class MesaController
 {
     function __construct(){
        
@@ -21,7 +19,7 @@ class ReservaController
         $mesaModel = new Mesa;
         $utilities = new Utilidades();
         $startOfPaging = 0;
-        $amountOfThePaging = 8;
+        $amountOfThePaging = 12;
         $search = "";
 
         #asignando el inicio de de los articulos a paginar
@@ -59,68 +57,62 @@ class ReservaController
     public function store()
     {   
         $request = new Request();
-        $utilities = new Utilidades();
 
         $datos = array(
             'nombre' => $request->input('nombre'),
             'capacidad' => $request->input('capacidad'),
+            'notas' => $request->input('notas'),
         );
 
-        $create = new Mesa();
-        $create->storeMesa($datos);
+        $ofertaModel = new Mesa();
+        $ofertaModel->storeMesa($datos);
 
-        $lastid = $create->obtenerid();
-        $utilities->view('admin.mesa.index', ['lastid' => $lastid]);
+        header('Location: '. BASE_URL .'/mesas');
     }
 
     public function edit($params)
     {
-        $id = $_GET['id'];
-        $oferta = new Oferta();
-        $oferta = $oferta->editoferta($id);
-        require_once('./app/views/admin/edit.php');
+        $mesaId = $params['mesa'];
+        $mesaModel = new Mesa();
+        $utilities = new Utilidades;
+        $mesa = $mesaModel->editMesa($mesaId);
+        $utilities->view('admin.mesa.edit', ['mesa' => $mesa]);
     }
 
     public function update($params)
     {
+        $mesaId = $params['mesa'];
+        $mesaModel = new Mesa();
         $request = new Request();
-        $art = new Oferta();
-        $file = new Utilidades();
-        
-        $art = $art->editoferta($request->input('id'));
-        $img = $file->uploadFile('storage','img');
-        if(empty($img)) $img = $art['img'];
-        
+
         $datos = array(
-            'id' => $request->input('id'),
-            'titulo' => $request->input('titulo'),
-            'descripcion' => $request->input('descripcion'),
-            'img' => $img,
+            'id' => $mesaId,
+            'nombre' => $request->input('nombre'),
+            'capacidad' => $request->input('capacidad'),
+            // 'status' => $request->input('status'),
+            'notas' => $request->input('notas'),
         );
 
-        $oferta = new Oferta;
-        $oferta = $oferta-> updateoferta($datos);
+        $mesaUpdated = $mesaModel->updateMesa($datos);
 
-        if ($oferta) {
+        if ($mesaUpdated) {
             unset ($_SESSION['mensaje']);
-            header('Location: '. BASE_URL .'/dashboard');
+            header('Location: '. BASE_URL .'/mesas');
         } else {
-            echo $oferta;
+            echo $mesaUpdated;
         }
     }
 
     public function destroy($params)
     {
-        if (isset($_POST['eliminar'])) {
-            $id = $_GET['id'];
+        $mesaId = $params['mesa'];
+        $mesaModel = new Mesa();
 
-            $oferta = new Oferta();
-            if ($oferta->destroyoferta($id)) {
-                header('Location: '. BASE_URL .'/dashboard');  
-              
-            } else {
-             echo "error";
-            }
+        if ($mesaModel->destroyMesa($mesaId)) {
+          header('Location: '. BASE_URL .'/mesas');
+          return;
         }
+
+        echo 'error';
     }
 }
