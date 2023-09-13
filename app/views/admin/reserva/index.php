@@ -6,7 +6,7 @@
 
   <div class="container">
     <h1>Reservas</h1>
-    <div class="row">
+    <div class="row mb-60">
       <div class="col-8">
 
       </div>
@@ -20,20 +20,20 @@
         </form>
       </div>
     </div>
-    <br><br>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th width="10%">ID</th>
-          <th width="15%">ID cliente</th>
-          <th width="15%">N.Personas</th>
-          <th width="20%">Fecha</th>
-          <th width="20%">Hora</th>
-          <th width="20%">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (!empty($reserva)) : ?>
+
+    <?php if (!empty($reserva)) : ?>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th width="10%">ID</th>
+            <th width="15%">ID cliente</th>
+            <th width="15%">N.Personas</th>
+            <th width="20%">Fecha</th>
+            <th width="20%">Hora</th>
+            <th width="20%">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
           <?php foreach ($reserva as $u) : ?>
             <tr>
               <td><?php echo $u['id'] ?></td>
@@ -46,21 +46,28 @@
               </td>
             </tr>
           <?php endforeach; ?>
-        <?php endif; ?>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    <?php else: ?>
+      <div class="text-center">
+        <h3>No se han realizado reservas</h3>
+      </div>
+    <?php endif; ?>
+    
     <!--Pagination -->
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <?php for ($i = 1; $i <= $section; $i++) :  ?>
-          <li class="page-item">
-            <a class="page-link" href="<?= BASE_URL ?>/reserva&search=<?php echo $search ?>&p=<?php echo $i ?>">
-              <?php echo $i ?>
-            </a>
-          </li>
-        <?php endfor;  ?>
-      </ul>
-    </nav>
+    <?php if($section > 1): ?>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <?php for ($i = 1; $i <= $section; $i++) :  ?>
+            <li class="page-item">
+              <a class="page-link" href="<?= BASE_URL ?>/reserva&search=<?php echo $search ?>&p=<?php echo $i ?>">
+                <?php echo $i ?>
+              </a>
+            </li>
+          <?php endfor;  ?>
+        </ul>
+      </nav>
+    <?php endif;?>
   </div>
 
 <?php $view->endSection(); ?>

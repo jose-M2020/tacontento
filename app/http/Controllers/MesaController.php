@@ -89,7 +89,7 @@ class MesaController
             'id' => $mesaId,
             'nombre' => $request->input('nombre'),
             'capacidad' => $request->input('capacidad'),
-            // 'status' => $request->input('status'),
+            'status' => $request->input('status'),
             'notas' => $request->input('notas'),
         );
 
@@ -99,7 +99,7 @@ class MesaController
             unset ($_SESSION['mensaje']);
             header('Location: '. BASE_URL .'/mesas');
         } else {
-            echo $mesaUpdated;
+            header('Location: '. BASE_URL .'/mesas/'.$mesaId.'/edit');
         }
     }
 

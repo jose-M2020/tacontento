@@ -25,10 +25,10 @@
         <thead>
           <tr>
             <th  width="5%" >ID</th>
-            <th  width="30%">Nombre</th>
-            <th  width="50%" >Capacidad</th>
-            <th  width="50%" >Notas</th>
-            <th  width="50%" >Estado</th>
+            <th  width="20%">No. de mesa / Identificador</th>
+            <th  width="20%" >Capacidad (personas)</th>
+            <th  width="40%" >Notas</th>
+            <th  width="10%" >Estado</th>
             <th  width="10%">Acciones</th>
           </tr>
         </thead>
@@ -71,17 +71,19 @@
     <?php endif; ?>
 
     <!--Pagination -->
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <?php for ($i = 1; $i <= $section; $i++) :  ?>
-          <li class="page-item">
-            <a class="page-link" href="<?= BASE_URL ?>/mesas?search=<?= $search ?>&p=<?= $i ?>">
-              <?= $i ?>
-            </a>
-          </li>
-        <?php endfor;  ?>
-      </ul>
-    </nav>
+    <?php if($section > 1): ?>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <?php for ($i = 1; $i <= $section; $i++) :  ?>
+            <li class="page-item">
+              <a class="page-link" href="<?= BASE_URL ?>/mesas?search=<?= $search ?>&p=<?= $i ?>">
+                <?= $i ?>
+              </a>
+            </li>
+          <?php endfor;  ?>
+        </ul>
+      </nav>
+    <?php endif; ?>
   </div>
 
   <!-- Modal -->
