@@ -59,6 +59,7 @@
         <?php endif; ?>
       </tbody>
     </table>
+    
     <!--Pagination -->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
@@ -72,6 +73,7 @@
       </ul>
     </nav>
   </div>
+
   <!-- Modal -->
   <?php foreach ($articulo as $u) : ?>
     <div class="modal fade" id="modal<?php echo $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -110,7 +110,8 @@ class ModeloBase extends DB {
         $utilities = new Utilidades();
 
         try {
-            return $consulta = $conexion->query($query)->fetchAll();
+            $consulta = $conexion->query($query)->fetchAll();
+            return $consulta ?? [];
             
         } catch (PDOException $e){
             $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
@@ -143,7 +144,7 @@ class ModeloBase extends DB {
             }
             
         } catch (PDOException $e) {
-            $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
+            $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.'.$e);
         } catch (Exception $e) {
             
         }

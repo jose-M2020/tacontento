@@ -14,7 +14,7 @@
         <div class="col-md-12 col-lg-7">
             <div class="">
                 <h2 class="mb-30">Reserve una mesa en nuestro restaurante</h2>
-                <form method="POST" action="<?= BASE_URL ?>/reservas">
+                <form method="POST" action="<?= BASE_URL ?>/mis-reservas">
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-3 fuente">
                         <!-- <div class="col form-floating">
                             <input class="form-control" type="text" name="nombre" required placeholder="Nombre completo">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="form-floating">
-                        <textarea class="form-control w-100" placeholder="Leave a comment here" id="request" style="height: 110px"></textarea>
+                        <textarea class="form-control w-100" name="notas_especiales" placeholder="Leave a comment here" id="request" style="height: 110px"></textarea>
                         <label label for="request">Solicitud especial</label>
                     </div>
                     <br>

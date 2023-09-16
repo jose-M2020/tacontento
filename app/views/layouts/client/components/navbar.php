@@ -38,8 +38,8 @@
                       Cuenta
                   </a>
                   <div class="dropdown-menu account dropdown-menu-end m-0">
-                      <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/reservas"><i class="me-3 fa-solid fa-table-list"></i>RESERVAS</a>
-                      <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/compras"><i class="me-3 fa-solid fa-utensils"></i>COMPRAS</a>
+                      <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/mis-reservas"><i class="me-3 fa-solid fa-table-list"></i>RESERVAS</a>
+                      <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/mis-compras"><i class="me-3 fa-solid fa-utensils"></i>COMPRAS</a>
                       <hr class="dropdown-divider">
                       <a class="dropdown-item faded-text" href="<?= BASE_URL ?>/logout"><i class="me-3 fa-solid fa-right-from-bracket"></i>Cerrar sesión</a>
                   </div>

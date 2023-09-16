@@ -32,6 +32,11 @@
           'name' => 'Clientes',
           'icon' => 'fas fa-address-card',
           'page' => 'usuarios',
+      ],
+      6 => [
+          'name' => 'Mesas',
+          'icon' => 'fas fa-table',
+          'page' => 'mesas',
       ]
   ];
 ?>

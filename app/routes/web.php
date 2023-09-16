@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth', 'role:client']], function($router) {
   Route::post('/carrito/:itemId', 'CarritoController@store');
   Route::delete('/carrito/:itemId', 'CarritoController@destroy');
   
-  Route::get('/compras', 'PedidoController@compras');
+  Route::get('/mis-compras', 'PedidoController@compras');
   
-  Route::get('/reservas', 'ReservaController@getAllByClient');
-  Route::get('/reservas/create', 'ReservaController@create');
-  Route::post('/reservas', 'ReservaController@store');
+  Route::get('/mis-reservas', 'ReservaController@getAllByClient');
+  Route::get('/mis-reservas/create', 'ReservaController@create');
+  Route::post('/mis-reservas', 'ReservaController@store');
 
   Route::get('/checkout', 'PedidoController@checkout');
   Route::post('/payment-init', 'PedidoController@payment_init');
@@ -79,6 +79,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function($router) {
   Route::get('/ofertas/:oferta/edit', 'OfertaController@edit');
   Route::put('/ofertas/:oferta', 'OfertaController@update');
   Route::delete('/ofertas/:oferta', 'OfertaController@destroy');
+  
+  Route::get('/mesas', 'MesaController@index');
+  Route::get('/mesas/create', 'MesaController@create');
+  Route::post('/mesas', 'MesaController@store');
+  Route::get('/mesas/:mesa/edit', 'MesaController@edit');
+  Route::put('/mesas/:mesa', 'MesaController@update');
+  Route::delete('/mesas/:mesa', 'MesaController@destroy');
 
   Route::get('/reservas', 'ReservaController@index');
   Route::get('/reservas/:reserva', 'ReservaController@show');
