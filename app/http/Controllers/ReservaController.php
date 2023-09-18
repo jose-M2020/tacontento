@@ -71,21 +71,24 @@ class ReservaController
         $request = new Request();
         $utilities = new Utilidades();
         $fecha = new  DateTime($request->input('fecha'));
-        $hora = new  DateTime($request->input('hora'));
+        // $hora = new  DateTime($request->input('hora'));
 
         $datos = array(
             'id_cliente' => $request->input('id_cliente'),
             'personas' => $request->input('personas'),
             'fecha' => $fecha->format('Y-m-d'),
-            'hora' =>$hora->format('H:m:s'),
+            // 'hora' =>$hora->format('H:m:s'),
+            'hora_inicio' => '18:00:00',
+            'hora_fin' => '18:30:00',
             'notas_especiales' =>$request->input('notas_especiales'),
         );
+        print_r($request->input('duracion'));
 
-        $create = new Reserva();
-        $create->storereserva($datos);
+        // $create = new Reserva();
+        // $create->storereserva($datos);
 
-        $lastid = $create->obtenerid();
-        $utilities->view('reservas.message', ['lastid' => $lastid]);
+        // $lastid = $create->obtenerid();
+        // $utilities->view('reservas.message', ['lastid' => $lastid]);
     }
     public function imprimir()
     {

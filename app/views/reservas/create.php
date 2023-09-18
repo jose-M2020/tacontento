@@ -37,10 +37,22 @@
                             <label for="fecha">Fecha</label>
                         </div>
                         <div class="col form-floating">
+                            <select class="form-select" id="durationSelect" name='duracion'>
+                                <option value="00:30:00">30 minutos</option>
+                                <option value="01:00:00">1 hora</option>
+                                <option value="01:30:00">1 hora y media</option>
+                                <option value="02:00:00">2 horas</option>
+                            </select>
+                            <label for="durationSelect">Duración</label>
+                        </div>
+                    </div>
+                    <!-- <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-3 fuente">
+                        <div class="col form-floating">
                             <input class="form-control" required type="time" name="hora">
                             <label for="hora">Hora</label>
                         </div>
-                    </div>
+                        
+                    </div> -->
                     <div class="form-floating">
                         <textarea class="form-control w-100" name="notas_especiales" placeholder="Leave a comment here" id="request" style="height: 110px"></textarea>
                         <label label for="request">Solicitud especial</label>

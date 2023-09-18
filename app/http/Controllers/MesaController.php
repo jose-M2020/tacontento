@@ -21,7 +21,7 @@ class MesaController
         $startOfPaging = 0;
         $amountOfThePaging = 12;
         $search = "";
-
+        
         #asignando el inicio de de los articulos a paginar
         if (isset($_GET['p'])) $startOfPaging = $utilities->pagination($_GET['p'], $amountOfThePaging);
         #asignando la busqueda si existe

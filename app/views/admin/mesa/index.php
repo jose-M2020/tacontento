@@ -25,10 +25,10 @@
         <thead>
           <tr>
             <th  width="5%" >ID</th>
-            <th  width="20%">No. de mesa / Identificador</th>
-            <th  width="20%" >Capacidad (personas)</th>
+            <th  width="15%">No. de mesa / Identificador</th>
+            <th  width="15%" >Capacidad (personas)</th>
             <th  width="40%" >Notas</th>
-            <th  width="10%" >Estado</th>
+            <th  width="20%" >Estado</th>
             <th  width="10%">Acciones</th>
           </tr>
         </thead>
@@ -39,7 +39,11 @@
               <td><?= $mesa['nombre'] ?></td>
               <td><?= $mesa['capacidad'] ?></td>
               <td><?= $mesa['notas'] ?></td>
-              <td><?= $mesa['status'] ?></td>
+              <td>
+                <span class="rounded p-5" style="background: <?= RESERVATION_STATUS[$mesa['status']]['color'] ?>">
+                  <?= $mesa['status'] ?>
+                </span>
+              </td>
               <td class="d-flex gap-2 align-items-center">
                 <a 
                   href="<?= BASE_URL ?>/mesas/<?= $mesa['id'] ?>/edit"

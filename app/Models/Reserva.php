@@ -18,8 +18,8 @@ class Reserva extends ModeloBase {
             $sql = "SELECT * FROM reservas WHERE fecha = $search ORDER BY FECHA DESC LIMIT $startOfPaging,$amountOfThePaging";
         }
         return  $db->index($sql);
-     
     }
+
     public function storereserva($datos){
 
         $db = new ModeloBase();
@@ -29,6 +29,7 @@ class Reserva extends ModeloBase {
         $utilities->handleMessage($insert, 'Reserva realizado con exito!');
         return $insert;
     }
+
     public function show($id){
         $db = new ModeloBase();
 
@@ -40,11 +41,13 @@ class Reserva extends ModeloBase {
         return $db->show($sql);
       
     }
+
     public function editreserva($id){
         $db = new ModeloBase();
        return $db->edit('ofertas', $id);
       
     }
+
     public function destroyreserva($id){
       $db = new ModeloBase();
       $utilities = new Utilidades();
@@ -68,12 +71,14 @@ class Reserva extends ModeloBase {
         return $section;
          
     }
+
     public function obtenerid()
     {
         $db = new ModeloBase();
         $sql = "SELECT MAX(id) FROM reservas";
         return $db->show($sql);
     }
+
     public function getreservas2($clientId)
     {
         $db = new ModeloBase();
@@ -83,7 +88,41 @@ class Reserva extends ModeloBase {
         return  $db->index($sql);
     }
    
- 
+    public function getAvailableTimes() {
+        $db = new ModeloBase();
+        
+        $sql = `
+        SELECT DISTINCT m.id AS mesa_id, m.capacidad, r.hora_inicio, r.hora_fin
+        FROM mesas m
+        LEFT JOIN (
+            SELECT id_mesa, hora_inicio, hora_fin
+            FROM reservas
+            WHERE fecha = '2023-09-18'
+        ) r ON m.id = r.id_mesa
+        WHERE m.capacidad >= 4
+            AND m.status = 'Disponible'
+            AND (
+                (
+                    r.hora_inicio IS NULL 
+                    OR (
+                        r.hora_inicio <= '09:00:00' 
+                        AND r.hora_fin <= '09:00:00'
+                    )
+                )
+                OR (
+                    r.hora_inicio >= '18:00:00' 
+                    OR (
+                        r.hora_inicio <= '09:00:00' 
+                        AND r.hora_fin >= '18:00:00'
+                    )
+                )
+            )
+            AND TIMESTAMPDIFF(SECOND, r.hora_fin, r.hora_inicio) >= TIME_TO_SEC('01:00:00')
+        ORDER BY m.id, r.hora_inicio;
+        `;
+        
+        return  $db->index($sql);
+    }
 }
 
 ?>
