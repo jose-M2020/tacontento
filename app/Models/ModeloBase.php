@@ -117,6 +117,20 @@ class ModeloBase extends DB {
             $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
         }
     }
+
+    public function query($query) {
+        $conexion = parent::conexion();
+        $utilities = new Utilidades();
+
+        try {
+            $consulta = $conexion->query($query)->fetch();
+            return $consulta ?? null;
+            
+        } catch (PDOException $e){
+            $utilities->setMessage('error', 'Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo más tarde.');
+        }
+    }
+
     public function destroy($table, $id, $field = 'id'){
         $conexion = parent::conexion();
         $utilities = new Utilidades();

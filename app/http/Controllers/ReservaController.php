@@ -82,12 +82,14 @@ class ReservaController
             'hora_fin' => '18:30:00',
             'notas_especiales' =>$request->input('notas_especiales'),
         );
-        print_r($request->input('duracion'));
+        // print_r($request->input('duracion'));
+        
+        $modelReserva = new Reserva();
+        // $modelReserva->storereserva($datos);
 
-        // $create = new Reserva();
-        // $create->storereserva($datos);
+        $modelReserva->getAvailableTimes();
 
-        // $lastid = $create->obtenerid();
+        // $lastid = $modelReserva->obtenerid();
         // $utilities->view('reservas.message', ['lastid' => $lastid]);
     }
     public function imprimir()

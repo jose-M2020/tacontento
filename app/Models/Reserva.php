@@ -91,37 +91,70 @@ class Reserva extends ModeloBase {
     public function getAvailableTimes() {
         $db = new ModeloBase();
         
-        $sql = `
-        SELECT DISTINCT m.id AS mesa_id, m.capacidad, r.hora_inicio, r.hora_fin
-        FROM mesas m
-        LEFT JOIN (
-            SELECT id_mesa, hora_inicio, hora_fin
-            FROM reservas
-            WHERE fecha = '2023-09-18'
-        ) r ON m.id = r.id_mesa
-        WHERE m.capacidad >= 4
-            AND m.status = 'Disponible'
-            AND (
-                (
-                    r.hora_inicio IS NULL 
-                    OR (
-                        r.hora_inicio <= '09:00:00' 
-                        AND r.hora_fin <= '09:00:00'
-                    )
-                )
-                OR (
-                    r.hora_inicio >= '18:00:00' 
-                    OR (
-                        r.hora_inicio <= '09:00:00' 
-                        AND r.hora_fin >= '18:00:00'
-                    )
-                )
-            )
-            AND TIMESTAMPDIFF(SECOND, r.hora_fin, r.hora_inicio) >= TIME_TO_SEC('01:00:00')
-        ORDER BY m.id, r.hora_inicio;
-        `;
+        $date = '2023-09-18';
+        $num_person = 4;
+        $duration = '00:30:00';
+
+        // Schedule
+        $start_time = strtotime('09:00:00');
+        $end_time = strtotime('20:00:00');
         
-        return  $db->index($sql);
+        $available_time_slots = [];
+
+        // Calculate the step (half-hour intervals) in seconds
+        $step = strtotime('00:30:00') - strtotime('00:00:00');
+
+        // Generate a range of time slots
+        $current_time = $start_time;
+        while ($current_time <= $end_time) {
+            $formatted_time = date('H:i:s', $current_time);
+
+            // Check if this time slot is available (not already reserved)
+            $is_available = true;
+
+            // Query the database to check for existing reservations
+            $sql = "SELECT COUNT(*) AS count
+                    FROM reservas
+                    WHERE fecha = '$date'
+                    AND TIME(hora_inicio) <= '$formatted_time'
+                    AND ADDTIME(TIME(hora_inicio), '$duration') > '$formatted_time'";
+
+            $result = $db->query($sql);
+            
+            if (!empty($result) && $result['count'] > 0) {
+                $availableTable = $this->checkTable(5);
+
+                $is_available = $availableTable ? true : false;
+            }
+
+            if ($is_available) {
+                $available_time_slots[] = $formatted_time;
+            }
+
+            // Move to the next half-hour interval
+            $current_time += $step;
+        }
+
+        // Output the available time slots
+        echo '<pre>';
+        print_r($available_time_slots);
+        echo '</pre>';
+
+
+
+        // return  $db->index($sql);
+    }
+
+    private function checkTable($num_person)
+    {
+        $db = new ModeloBase();
+
+        $sql = "SELECT id, nombre, capacidad
+        FROM mesas
+        WHERE capacidad >= $num_person
+        AND status = 'Disponible'";
+        
+        return $db->query($sql);
     }
 }
 
